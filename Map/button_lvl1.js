@@ -1,7 +1,7 @@
 export class level1Button{
     constructor(game){
         this.button =  new Image();
-        this.button.src = document.getElementById("lvl1btn").src;
+        this.button.src = document.getElementById("buttonUp").src;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
         this.height=this.button.naturalHeight;
@@ -19,6 +19,19 @@ export class level1Button{
         this.height=this.button.naturalHeight*map.ratio;
         this.width=this.button.naturalWidth*map.ratio;
         
+    }
+
+    toggleButton(mouseX,mouseY){
+        if(mouseX>=this.position.x && 
+            mouseX <= this.position.x+this.width &&
+            mouseY >= this.position.y &&
+            mouseY <= this.position.y+this.height)
+            { 
+               console.log("hello");
+                this.button.src=document.getElementById("buttonDown").src;
+            }else{
+                this.button.src = document.getElementById("buttonUp").src;
+            }
     }
 
     draw(ctx){

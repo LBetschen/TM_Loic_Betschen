@@ -10,11 +10,17 @@ export class MapInput{
                 game.toggleLevels(mouseX,mouseY);
         });
 
-        document.addEventListener("mouseover",(event)=>{
-
+        document.addEventListener("mousemove",(event)=>{
+            let mouseX=event.clientX;
+            let mouseY=event.clientY;
+            game.toggleButtons(mouseX,mouseY);
+            
+            
         });
         
         document.addEventListener("mouseout",(event)=>{
+            let mouseX=event.clientX;
+            let mouseY=event.clientY;
 
         });
         

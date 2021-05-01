@@ -69,7 +69,17 @@ export class MapGame{
             this.gameState=GAMESTATE.PAUSED;
         }
     }
-    
+
+    toggleButtons(mouseX,mouseY){
+            this.level1Button.toggleButton(mouseX,mouseY);
+            this.level2Button.toggleButton(mouseX,mouseY);
+            this.level3Button.toggleButton(mouseX,mouseY);
+            this.level4Button.toggleButton(mouseX,mouseY);
+            this.level5Button.toggleButton(mouseX,mouseY);
+            this.level6Button.toggleButton(mouseX,mouseY);
+        
+    }
+
     toggleLevels(mouseX,mouseY){
         
         if(mouseX>=this.level1Button.position.x && 
