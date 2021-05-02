@@ -7,7 +7,7 @@ export class MapInput{
         document.addEventListener("click",(event)=>{
                 let mouseX=event.clientX;
                 let mouseY=event.clientY;
-                game.toggleLevels(mouseX,mouseY);
+                game.toggleClick(mouseX,mouseY);
         });
 
         document.addEventListener("mousemove",(event)=>{
@@ -16,11 +16,13 @@ export class MapInput{
             game.toggleButtons(mouseX,mouseY);
             
             
+            
         });
         
         document.addEventListener("mouseout",(event)=>{
             let mouseX=event.clientX;
             let mouseY=event.clientY;
+            
 
         });
         

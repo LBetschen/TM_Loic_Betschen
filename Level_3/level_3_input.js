@@ -9,11 +9,15 @@ export class Level3Input{
         });
 
         document.addEventListener("click",(event)=>{
-                
+            let mouseX=event.clientX;
+            let mouseY=event.clientY;
+            game.toggleReturn(mouseX,mouseY);
         });
 
-        document.addEventListener("mouseover",(event)=>{
-
+        document.addEventListener("mousemove",(event)=>{
+            let mouseX=event.clientX;
+            let mouseY=event.clientY;
+            game.toggleReturnButton(mouseX,mouseY);
         });
         
         document.addEventListener("mouseout",(event)=>{

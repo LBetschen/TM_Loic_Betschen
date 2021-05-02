@@ -7,7 +7,7 @@ import {level3Button} from "./button_lvl3.js";
 import {level4Button} from "./button_lvl4.js";
 import {level5Button} from "./button_lvl5.js";
 import {level6Button} from "./button_lvl6.js";
-
+import {ReturnToMenu} from "./map_return.js";
 
     
 
@@ -30,6 +30,7 @@ export class MapGame{
         this.level4Button = new level4Button(this);
         this.level5Button = new level5Button(this);
         this.level6Button = new level6Button(this);
+        this.returnToMenu = new ReturnToMenu(this);
 
         new MapInput(this);
 
@@ -39,7 +40,8 @@ export class MapGame{
             this.level3Button,
             this.level4Button,
             this.level5Button,
-            this.level6Button
+            this.level6Button,
+            this.returnToMenu
 
         ];
           
@@ -71,18 +73,20 @@ export class MapGame{
     }
 
     toggleButtons(mouseX,mouseY){
-            this.level1Button.toggleButton(mouseX,mouseY);
-            this.level2Button.toggleButton(mouseX,mouseY);
-            this.level3Button.toggleButton(mouseX,mouseY);
-            this.level4Button.toggleButton(mouseX,mouseY);
-            this.level5Button.toggleButton(mouseX,mouseY);
-            this.level6Button.toggleButton(mouseX,mouseY);
+        this.gameObjects.forEach((object)=> object.toggleButton(mouseX,mouseY));
         
     }
 
-    toggleLevels(mouseX,mouseY){
-        
-        if(mouseX>=this.level1Button.position.x && 
+    toggleClick(mouseX,mouseY){
+        this.returnToMenu.toggleReturn(mouseX,mouseY);
+        this.level1Button.toggleLevel1(mouseX,mouseY);
+        this.level2Button.toggleLevel2(mouseX,mouseY);
+        this.level3Button.toggleLevel3(mouseX,mouseY);
+        this.level4Button.toggleLevel4(mouseX,mouseY);
+        this.level5Button.toggleLevel5(mouseX,mouseY);
+        this.level6Button.toggleLevel6(mouseX,mouseY);
+
+        /*if(mouseX>=this.level1Button.position.x && 
             mouseX <= this.level1Button.position.x+this.level1Button.width &&
             mouseY >= this.level1Button.position.y &&
             mouseY <= this.level1Button.position.y+this.level1Button.height)
@@ -128,6 +132,7 @@ export class MapGame{
             mouseY <= this.level6Button.position.y+this.level6Button.height)
             { 
                window.location="../Level_6/level_6.html";
-            }   
+            }*/
+           
     }
 }

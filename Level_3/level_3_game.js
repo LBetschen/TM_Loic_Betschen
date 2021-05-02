@@ -1,5 +1,6 @@
 import {PauseScreen} from "../Assets/PauseScreen.js";
 import {Level3Input} from "./level_3_input.js";
+import {ReturnButton} from "./level_3_return.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -16,6 +17,7 @@ export class level3Game{
     start(){
   
         this.PauseScreen= new PauseScreen(this);
+        this.returnButton= new ReturnButton(this);
         this.gameState=GAMESTATE.RUNNING;
 
         new Level3Input(this);
@@ -26,6 +28,7 @@ export class level3Game{
         this.gameWidth=GameWidth;
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.update(deltaTime,GameWidth,GameHeight);
+            this.returnButton.update(deltaTime,GameWidth,GameHeight);
         }
     }
 
@@ -33,6 +36,7 @@ export class level3Game{
         
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.draw(ctx);
+            this.returnButton.draw(ctx);
         }
     }
 
@@ -42,5 +46,16 @@ export class level3Game{
         }else if(this.gameState==GAMESTATE.RUNNING){
             this.gameState=GAMESTATE.PAUSED;
         } 
+    }
+    toggleReturn(mouseX,mouseY){
+        if(this.gameState==GAMESTATE.PAUSED){
+            this.returnButton.toggleReturn(mouseX,mouseY);
+        }
+    }
+    
+    toggleReturnButton(mouseX,mouseY){
+        if(this.gameState==GAMESTATE.PAUSED){
+            this.returnButton.toggleButton(mouseX,mouseY);
+        }
     }
 }
