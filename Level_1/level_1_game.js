@@ -2,6 +2,7 @@ import {PauseScreen} from "../Assets/PauseScreen.js";
 import {Level1Input} from "./level_1_input.js";
 import {ReturnButton} from "./level_1_return.js";
 import {Player} from "./level_1_player.js";
+import {Coins} from "./level_1_coins.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -19,16 +20,22 @@ export class level1Game{
   
         this.PauseScreen= new PauseScreen(this);
         this.player= new Player(this);
+        this.coins = new Coins(this);
         this.gameState=GAMESTATE.RUNNING;
         this.returnButton = new ReturnButton(this);
-
+        this.coins.coinAnimation();
         new Level1Input(this);
     }
 
     update(deltaTime,GameWidth,GameHeight){
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
-
+        
+        this.middleOfPlayer={
+            x:this.player.position.x+(this.player.width/2),
+            y:this.player.position.y+(this.player.height/2),
+        }
+        this.coins.update(deltaTime,GameWidth,GameHeight,this.middleOfPlayer);
         this.player.update(deltaTime,GameWidth,GameHeight);
         this.returnButton.update(deltaTime,GameWidth,GameHeight);
 
@@ -40,6 +47,7 @@ export class level1Game{
 
     draw(ctx){
         
+        this.coins.draw(ctx);
         this.player.draw(ctx);
         
         if(this.gameState==GAMESTATE.PAUSED){
@@ -67,4 +75,6 @@ export class level1Game{
             this.returnButton.toggleButton(mouseX,mouseY);
         }
     }
+
+    
 }

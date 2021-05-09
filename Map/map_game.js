@@ -86,53 +86,6 @@ export class MapGame{
         this.level5Button.toggleLevel5(mouseX,mouseY);
         this.level6Button.toggleLevel6(mouseX,mouseY);
 
-        /*if(mouseX>=this.level1Button.position.x && 
-            mouseX <= this.level1Button.position.x+this.level1Button.width &&
-            mouseY >= this.level1Button.position.y &&
-            mouseY <= this.level1Button.position.y+this.level1Button.height)
-            { 
-               window.location="../Level_1/level_1.html";
-            }
-
-        if(mouseX>=this.level2Button.position.x && 
-            mouseX <= this.level2Button.position.x+this.level2Button.width &&
-            mouseY >= this.level2Button.position.y &&
-            mouseY <= this.level2Button.position.y+this.level2Button.height)
-            { 
-               window.location="../Level_2/level_2.html";
-            }
-
-        if(mouseX>=this.level3Button.position.x && 
-            mouseX <= this.level3Button.position.x+this.level3Button.width &&
-            mouseY >= this.level3Button.position.y &&
-            mouseY <= this.level3Button.position.y+this.level3Button.height)
-            { 
-               window.location="../Level_3/level_3.html";
-            }
-
-        if(mouseX>=this.level4Button.position.x && 
-            mouseX <= this.level4Button.position.x+this.level4Button.width &&
-            mouseY >= this.level4Button.position.y &&
-            mouseY <= this.level4Button.position.y+this.level4Button.height)
-            { 
-               window.location="../Level_4/level_4.html";
-            }
-
-        if(mouseX>=this.level5Button.position.x && 
-            mouseX <= this.level5Button.position.x+this.level5Button.width &&
-            mouseY >= this.level5Button.position.y &&
-            mouseY <= this.level5Button.position.y+this.level5Button.height)
-            { 
-               window.location="../Level_5/level_5.html";
-            }     
-
-        if(mouseX>=this.level6Button.position.x && 
-            mouseX <= this.level6Button.position.x+this.level6Button.width &&
-            mouseY >= this.level6Button.position.y &&
-            mouseY <= this.level6Button.position.y+this.level6Button.height)
-            { 
-               window.location="../Level_6/level_6.html";
-            }*/
            
     }
 }

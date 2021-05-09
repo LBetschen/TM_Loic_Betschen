@@ -10,7 +10,7 @@ export class Player{
         this.width=50;
 
         this.position={
-            x: this.gameWidth/2-this.width/2,
+            x:0,// this.gameWidth/2-this.width/2,
             y: this.gameHeight-this.height
         }
         
