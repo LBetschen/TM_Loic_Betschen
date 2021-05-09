@@ -1,5 +1,6 @@
 export class Level1Input{
     constructor(game){  
+
         document.addEventListener("keydown",(event)=>{
             switch (event.keyCode){
                 case 27:
@@ -21,11 +22,11 @@ export class Level1Input{
             
             switch (event.keyCode){
                 case 65:
-                    game.player.stop();
+                    game.player.stopLeft();
                     break;
 
                 case 68:                   
-                    game.player.stop();
+                    game.player.stopRight();
                     break;                                     
             }
         });      

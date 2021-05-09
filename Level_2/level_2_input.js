@@ -21,12 +21,13 @@ export class Level2Input{
             
             switch (event.keyCode){
                 case 65:
-                    game.player.stop();
+                    game.player.stopLeft();
                     break;
 
                 case 68:                   
-                    game.player.stop();
-                    break;                                     
+                    game.player.stopRight();
+                    break; 
+                                                    
             }
         });      
 
