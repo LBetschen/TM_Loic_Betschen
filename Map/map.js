@@ -20,7 +20,6 @@ export class Map{
     update(deltaTime,GameWidth,GameHeight){  
         this.width = GameWidth;
         this.height=this.width*this.aspect;
-        this.ratio=this.width/this.map.naturalWidth;
         this.position.y= GameHeight/10;
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;

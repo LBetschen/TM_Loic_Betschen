@@ -6,6 +6,7 @@ export class level6Button{
         this.gameHeight=game.gameHeight;
         this.height=this.button.naturalHeight;
         this.width=this.button.naturalWidth;
+        this.ratio=this.gameWidth/game.width;
         
         this.position={
             x:this.gameWidth/1.15,
@@ -14,10 +15,14 @@ export class level6Button{
     }
 
     update(deltaTime,GameWidth,GameHeight,map){
+        
+
+        this.ratio=this.gameWidth/map.width;
         this.position.x=map.width/1.15;
-        this.position.y=map.height/1.2;
-        this.height=this.button.naturalHeight*map.ratio;
-        this.width=this.button.naturalWidth*map.ratio;
+        this.position.y=map.height/1.45+GameHeight/10;
+        this.height=this.button.naturalHeight/5/this.ratio;
+        this.width=this.button.naturalWidth/5/this.ratio;
+             
         
     }
 

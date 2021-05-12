@@ -49,6 +49,7 @@ export class MapGame{
 
     update(deltaTime,gameWidth,gameHeight){
 
+        
         this.map.update(deltaTime,gameWidth,gameHeight);
 
         this.gameObjects.forEach((object)=> object.update(deltaTime,gameWidth,gameHeight,this.map));

@@ -6,18 +6,22 @@ export class ReturnToMenu{
         this.gameHeight=game.gameHeight;
         this.height=this.button.naturalHeight/2;
         this.width=this.button.naturalWidth/2;
-        
+        this.ratio=this.gameWidth/game.width;
+
         this.position={
             x:this.gameWidth/25,
             y:this.gameHeight/20
         }
     }
 
-    update(deltaTime,GameWidth,GameHeight){
-        this.position.x=this.gameWidth/25;
-        this.position.y=this.gameHeight/20;
-        this.height=this.button.naturalHeight/2;
-        this.width=this.button.naturalWidth/2;
+    update(deltaTime,GameWidth,GameHeight,map){
+        
+
+        this.ratio=this.gameWidth/map.width;
+        this.position.x=map.width/25;
+        this.position.y=GameHeight/20  ;
+        this.height=this.button.naturalHeight/3/this.ratio;
+        this.width=this.button.naturalWidth/3/this.ratio;
         
     }
 
@@ -45,6 +49,7 @@ export class ReturnToMenu{
             { 
                
                 window.location="../index.html";
+                
             }
 
     }

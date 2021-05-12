@@ -4,9 +4,9 @@ export class level1Button{
         this.button.src = document.getElementById("buttonUp").src;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
-        this.height=this.button.naturalHeight;
-        this.width=this.button.naturalWidth;
-        
+        this.height=this.button.naturalHeight/5;
+        this.width=this.button.naturalWidth/5;
+        this.ratio=this.gameWidth/game.width;
         this.position={
             x:this.gameWidth/6,
             y:this.gameHeight/2.7
@@ -14,11 +14,12 @@ export class level1Button{
     }
 
     update(deltaTime,GameWidth,GameHeight,map){
+        this.ratio=this.gameWidth/map.width;
         this.position.x=map.width/6;
-        this.position.y=map.height/2.7;
-        this.height=this.button.naturalHeight*map.ratio;
-        this.width=this.button.naturalWidth*map.ratio;
-        
+        this.position.y=map.height/4+GameHeight/10;
+        this.height=this.button.naturalHeight/5/this.ratio;
+        this.width=this.button.naturalWidth/5/this.ratio;
+             
     }
     
     draw(ctx){
