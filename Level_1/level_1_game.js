@@ -25,6 +25,8 @@ export class level1Game{
         this.returnButton = new ReturnButton(this);
         this.coins.coinAnimation();
         new Level1Input(this);
+        console.log(this.gameWidth,this.gameHeight);
+       
     }
 
     update(deltaTime,GameWidth,GameHeight){

@@ -13,7 +13,7 @@ export class Level1Input{
                     game.player.moveRight();
                     break;
                 case 32:
-                    game.player.jump();
+                    game.player.jump(game.GameHeight);
                     break;
             }
         });

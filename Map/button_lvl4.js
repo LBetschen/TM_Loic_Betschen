@@ -4,9 +4,9 @@ export class level4Button{
         this.button.src = document.getElementById("buttonUp").src;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
-        this.height=this.button.naturalHeight;
-        this.width=this.button.naturalWidth;
-        this.ratio=this.gameWidth/game.width;
+        this.height=this.gameWidth/20;
+        this.width=this.gameWidth/20;
+        this.ratio=this.gameWidth/game.gameWidth;
         
         this.position={
             x:this.gameWidth/4,
@@ -19,8 +19,8 @@ export class level4Button{
         this.ratio=this.gameWidth/map.width;
         this.position.x=map.width/4;
         this.position.y=map.height/1.75+GameHeight/10;
-        this.height=this.button.naturalHeight/5/this.ratio;
-        this.width=this.button.naturalWidth/5/this.ratio;
+        this.height=this.gameWidth/20/this.ratio;
+        this.width=this.gameWidth/20/this.ratio;
              
         
     }

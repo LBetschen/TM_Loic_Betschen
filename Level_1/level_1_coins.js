@@ -17,7 +17,10 @@ export class Coins{
     }
 
     update(deltaTime,GameWidth,GameHeight,player){
+
+        this.height=this.coin.natural
         this.coin.src=document.getElementById("coin"+i).src;
+
         if(this.hit==false &&
             player.x>this.position.x &&
             player.x<this.position.x+this.width &&
