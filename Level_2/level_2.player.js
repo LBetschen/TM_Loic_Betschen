@@ -19,7 +19,7 @@ export class Player{
             left:false
         }
 
-        this.x_maxSpeed=10;
+        this.x_maxSpeed=1;
         this.x_speed = 0;
         this.y_maxspeed = 10;
         this.y_speed =0;

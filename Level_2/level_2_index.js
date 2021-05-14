@@ -25,14 +25,15 @@ function gameLoop(timestamp){
     let GameWidth=window.innerWidth;
     let GameHeight=window.innerHeight-5;
 
+    
+    level2game.update(deltaTime,GameWidth,GameHeight);
+    level2game.draw(ctx);
+    
     ctx.font="30px Arial";
     ctx.fillStyle="black";
     ctx.textAlign="center";
     ctx.fillText("Level 2",GameWidth/2,GameHeight/6);
     
-    level2game.update(deltaTime,GameWidth,GameHeight);
-    level2game.draw(ctx);
-
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);

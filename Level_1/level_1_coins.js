@@ -1,5 +1,5 @@
 
-let i =1;
+var i =1;
 export class Coins{
     constructor(game){
         this.coin=new Image();
@@ -18,7 +18,7 @@ export class Coins{
 
     update(deltaTime,GameWidth,GameHeight,player){
 
-        this.height=this.coin.natural
+        this.height=this.coin.naturalHeight/5;
         this.coin.src=document.getElementById("coin"+i).src;
 
         if(this.hit==false &&
@@ -36,6 +36,7 @@ export class Coins{
     draw(ctx){
         if(this.hit==false){
             ctx.drawImage(this.coin,this.position.x,this.position.y,this.width,this.height);
+            
 
         }else{
             ctx.font="50px";

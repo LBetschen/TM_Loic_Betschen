@@ -8,7 +8,7 @@ export class PauseScreen{
     update(deltaTime,GameWidth,GameHeight){
         this.gameWidth=GameWidth;
         this.gameHeight=GameHeight;
-        console.log("hello");
+        
     }
     draw(ctx){
         ctx.fillStyle="rgba(0,0,0,0.5)";
