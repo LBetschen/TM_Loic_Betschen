@@ -27,7 +27,7 @@ function gameLoop(timestamp){
 
     
     level2game.update(deltaTime,GameWidth,GameHeight);
-    level2game.draw(ctx);
+    level2game.draw(ctx,GameWidth,GameHeight);
     
     ctx.font="30px Arial";
     ctx.fillStyle="black";

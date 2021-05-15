@@ -38,13 +38,14 @@ export class Level2Input{
         document.addEventListener("click",(event)=>{
             let mouseX=event.clientX;
             let mouseY=event.clientY;
-            game.toggleReturn(mouseX,mouseY);
+            game.toggleClick(mouseX,mouseY);
         });
 
         document.addEventListener("mousemove",(event)=>{
             let mouseX=event.clientX;
             let mouseY=event.clientY;
-            game.toggleReturnButton(mouseX,mouseY);
+            game.toggleButtons(mouseX,mouseY);
+            
         });
         
         document.addEventListener("mouseout",(event)=>{

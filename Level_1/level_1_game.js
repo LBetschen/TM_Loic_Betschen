@@ -3,6 +3,7 @@ import {Level1Input} from "./level_1_input.js";
 import {ReturnButton} from "./level_1_return.js";
 import {Player} from "./level_1_player.js";
 import {Coins} from "./level_1_coins.js";
+import {RedoButton} from "./level_1_redo.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -23,6 +24,7 @@ export class level1Game{
         this.coins = new Coins(this);
         this.gameState=GAMESTATE.RUNNING;
         this.returnButton = new ReturnButton(this);
+        this.redoButton = new RedoButton(this);
         this.coins.coinAnimation();
         new Level1Input(this);
         
@@ -39,10 +41,12 @@ export class level1Game{
         }
         this.coins.update(deltaTime,GameWidth,GameHeight,this.middleOfPlayer);
         this.player.update(deltaTime,GameWidth,GameHeight);
-        this.returnButton.update(deltaTime,GameWidth,GameHeight);
+        
 
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.update(deltaTime,GameWidth,GameHeight);
+            this.returnButton.update(deltaTime,GameWidth,GameHeight);
+            this.redoButton.update(deltaTime,GameWidth,GameHeight);
         }
         
     }
@@ -55,6 +59,7 @@ export class level1Game{
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.draw(ctx);
             this.returnButton.draw(ctx);
+            this.redoButton.draw(ctx);
         }
     }
 
@@ -66,15 +71,17 @@ export class level1Game{
         } 
     }
 
-    toggleReturn(mouseX,mouseY){
+    toggleClick(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
             this.returnButton.toggleReturn(mouseX,mouseY);
+            this.redoButton.toggleRedo(mouseX,mouseY);
         }
     }
     
-    toggleReturnButton(mouseX,mouseY){
+    toggleButtons(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
             this.returnButton.toggleButton(mouseX,mouseY);
+            this.redoButton.toggleButton(mouseX,mouseY);
         }
     }
 
