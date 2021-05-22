@@ -1,6 +1,9 @@
 import {PauseScreen} from "../Assets/PauseScreen.js";
 import {Level3Input} from "./level_3_input.js";
 import {ReturnButton} from "./level_3_return.js";
+import {Level3Map} from "./level_3_map.js";
+import {Player} from "./level_3_player.js";
+import {ReloadButton} from "./level_3_reload.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -18,6 +21,9 @@ export class level3Game{
   
         this.PauseScreen= new PauseScreen(this);
         this.returnButton= new ReturnButton(this);
+        this.level3Map = new Level3Map(this);
+        this.player = new Player(this);
+        this.reloadButton = new ReloadButton(this);
         this.gameState=GAMESTATE.RUNNING;
 
         new Level3Input(this);
@@ -26,17 +32,22 @@ export class level3Game{
     update(deltaTime,GameWidth,GameHeight){
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
+        this.player.update(deltaTime,GameWidth,GameHeight);
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.update(deltaTime,GameWidth,GameHeight);
             this.returnButton.update(deltaTime,GameWidth,GameHeight);
+            this.reloadButton.update(deltaTime,GameWidth,GameHeight);
         }
     }
 
     draw(ctx){
-        
+        this.level3Map.draw(ctx);
+        this.player.draw(ctx);
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.draw(ctx);
             this.returnButton.draw(ctx);
+            this.reloadButton.draw(ctx);
+            
         }
     }
 
@@ -50,12 +61,15 @@ export class level3Game{
     toggleReturn(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
             this.returnButton.toggleReturn(mouseX,mouseY);
+            this.reloadButton.toggleReload(mouseX,mouseY);
+
         }
     }
     
-    toggleReturnButton(mouseX,mouseY){
+    toggleButtons(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
             this.returnButton.toggleButton(mouseX,mouseY);
+            this.reloadButton.toggleButton(mouseX,mouseY);
         }
     }
 }

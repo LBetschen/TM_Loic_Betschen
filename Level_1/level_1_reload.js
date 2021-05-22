@@ -1,7 +1,7 @@
-export class RedoButton{
+export class ReloadButton{
     constructor(game){
         this.button =  new Image();
-        this.button.src = document.getElementById("redoButton").src;
+        this.button.src = document.getElementById("reloadButton").src;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
         this.height=this.button.naturalHeight/2;
@@ -21,6 +21,10 @@ export class RedoButton{
         
     }
 
+    draw(ctx){
+            ctx.drawImage(this.button,this.position.x,this.position.y,this.width,this.height);
+    }
+
     toggleButton(mouseX,mouseY){
         if(mouseX>=this.position.x && 
             mouseX <= this.position.x+this.width &&
@@ -28,16 +32,14 @@ export class RedoButton{
             mouseY <= this.position.y+this.height)
             { 
                
-                this.button.src=document.getElementById("redoButtonDown").src;
+                this.button.src=document.getElementById("reloadButtonDown").src;
             }else{
-                this.button.src = document.getElementById("redoButton").src;
+                this.button.src = document.getElementById("reloadButton").src;
             }
     }
 
-    draw(ctx){
-        ctx.drawImage(this.button,this.position.x,this.position.y,this.width,this.height);
-    }
-    toggleRedo(mouseX,mouseY){
+    
+    toggleReload(mouseX,mouseY){
         if(mouseX>=this.position.x && 
             mouseX <= this.position.x+this.width &&
             mouseY >= this.position.y &&
