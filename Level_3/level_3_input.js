@@ -1,7 +1,7 @@
 export class Level3Input{
     constructor(game){  
         document.addEventListener("keydown",(event)=>{
-            console.log(event.keyCode);
+            
             switch (event.keyCode){
                 case 27:
                     game.togglePause();

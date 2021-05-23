@@ -17,8 +17,11 @@ export class Player{
 
         this.position={
             x: this.gameWidth/2-this.width/2,
-            y: this.gameHeight-this.height
+            y: this.gameHeight/2+this.height/2
         }
+
+        this.offsetX=0;
+        this.offsetY=0;
         
         this.controller={
             right:false,
@@ -41,9 +44,9 @@ export class Player{
     }
     
     
-    draw(ctx){
-        
+    draw(ctx,offsetX,offsetY){
         ctx.drawImage(this.hero,this.position.x,this.position.y,this.width,this.height);
+        
     }
     
     update(deltaTime,GameWidth,GameHeight){
@@ -59,42 +62,52 @@ export class Player{
         this.x_maxSpeed=GameWidth/400;
         this.y_maxSpeed=GameWidth/500;
         
-        this.position.x+=this.x_speed;
-        this.position.y+=this.y_speed;
+        
+        
+        
        
+        
+       
+        if(this.offsetX>0){
+            this.offsetX=0;
+            this.position.x-=this.x_speed;
+        }else if(this.position.x>this.gameWidth/2+this.width/2){
+            this.offsetX+=this.x_speed;
+        }else{
+            this.position.x-=this.x_speed;
+        }
+        
+        if(this.offsetY>0){
+            this.offsetY=0;
+            this.position.y-=this.y_speed;
+        }else if(this.position.y>this.gameHeight/2+this.height/2){
+            this.offsetY+=this.y_speed;
+        }else{
+            this.position.y-=this.y_speed;
+        }
+
         this.x_speed*=this.x_friction;
         this.y_speed*=this.y_friction;
-       
-        if(this.position.y + this.height>GameHeight){
-            this.position.y=GameHeight-this.height;
-            
-        }
-
-        if(this.position.x+this.width>GameWidth){
-            this.position.x = GameWidth-this.width;
-        }
-
+        
         if(this.position.y<0){
             this.position.y=0;
         }
-        
-        if(this.position.x<0 ){
+        if(this.position.x<0){
             this.position.x=0;
         }
-        
     }
 
     moveLeft(){
         this.controller.left=true;
         this.x_friction=1;
-        this.x_speed=-this.x_maxSpeed;
+        this.x_speed=this.x_maxSpeed;
         this.hero.src=document.getElementById("playerLeft").src;
     }
 
     moveRight(){
         this.controller.right=true;
         this.x_friction=1;
-        this.x_speed=this.x_maxSpeed;
+        this.x_speed=-this.x_maxSpeed;
         this.hero.src=document.getElementById("playerRight").src;
         
     }
@@ -102,14 +115,14 @@ export class Player{
     moveForward(){
         this.controller.forward=true;
         this.y_friction=1;
-        this.y_speed=-this.y_maxSpeed;
+        this.y_speed=this.y_maxSpeed;
         
     }
 
     moveBack(){
         this.controller.back=true;
         this.y_friction=1;
-        this.y_speed=this.y_maxSpeed;
+        this.y_speed=-this.y_maxSpeed;
     }
 
     stopRight(){

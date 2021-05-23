@@ -14,6 +14,8 @@ game.start();
 
 let lastTime=0;
 
+
+
 function gameLoop(timestamp){
     let deltaTime= timestamp-lastTime;
     lastTime=timestamp;
@@ -26,9 +28,13 @@ function gameLoop(timestamp){
     let GameWidth=window.innerWidth;
     let GameHeight=window.innerHeight-5;
     
+
     game.update(deltaTime,GameWidth,GameHeight);
     game.draw(ctx);
     
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
+
+
+

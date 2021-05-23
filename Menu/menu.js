@@ -20,17 +20,17 @@ export class Menu{
     }
 
     draw(ctx){
-        ctx.fillStyle="rgba(0,0,0,1)";
-        ctx.fillRect(0,0,this.gameWidth,this.gameHeight);
-
+        ctx.beginPath();
+        ctx.rect(this.position.x,this.position.y,this.width,this.height);
+        ctx.stroke();
         ctx.font="30px Arial";
-        ctx.fillStyle="white";
-        ctx.textAlign="center";
-        ctx.fillText("The Climate Savers",this.gameWidth/2,this.gameHeight/6);
         
-        ctx.fillRect(this.position.x,this.position.y,this.width,this.height);
+        ctx.textAlign="center";
+        ctx.fillText("The Climate Killers",this.gameWidth/2,this.gameHeight/6);
+        
+        
         ctx.fillStyle="black";
-        ctx.fillText("Play",this.gameWidth/2,this.gameHeight/2);
+        ctx.fillText("Go do your Homework!",this.gameWidth/2,this.gameHeight/2);
     }
    
 }

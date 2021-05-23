@@ -1,5 +1,6 @@
 import {Input} from "./menu_input.js";
 import {Menu} from "./menu.js";
+import {Background} from "./menu_background.js";
 
 export class Game{
     constructor(gameWidth,gameHeight){
@@ -10,8 +11,9 @@ export class Game{
     start(){
         
         this.menu= new Menu(this);
-
+        this.background = new Background(this);
         new Input(this); 
+        
     }
 
     update(deltaTime,gameWidth,gameHeight){

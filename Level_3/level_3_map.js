@@ -1,9 +1,12 @@
 export class Level3Map{
-    constructor(game){
+    constructor(game,player){
         this.ground=new Image();
         this.ground.src=document.getElementById("map").src;
         this.buildings=new Image();
         this.buildings.src=document.getElementById("building").src;
+
+        this.offsetX=player.offsetX;
+        this.offsetY=player.offsetY;
         
         this.ground.sheet={
             columns:16,
@@ -19,8 +22,8 @@ export class Level3Map{
         }
 
         this.columns=16;
-        this.tileWidth=64;
-        this.tileHeight=64;
+        this.tileWidth=80;
+        this.tileHeight=80;
         this.map=[  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -54,27 +57,40 @@ export class Level3Map{
        
     }
 
-    update(){
+    update(deltaTime,GameWidth,GameHeight,player){
 
+        if(player.offsetX>0){
+            this.offsetX=0;
+        }else{
+           this.offsetX=player.offsetX; 
+        }
+
+        if(player.offsetY>0){
+            this.offsetY=0;
+        }else{
+           this.offsetY=player.offsetY; 
+        }
+        
+        
     }
 
-    draw(ctx){
-        for(let i = 0;i<this.map.length;i++){
+    draw(ctx,offsetX,offsetY){
+        for(var i = 0;i<this.map.length;i++){
             var value=this.map[i];
             var source_x=(value%this.ground.sheet.columns)*this.ground.sheet.width;
             var source_y=Math.floor(value/this.ground.sheet.lignes)*this.ground.sheet.height;
-            var x=(i%this.columns)*this.tileWidth;
-            var y=Math.floor(i/this.columns)*this.tileWidth;
+            var x=(i%this.columns)*this.tileWidth + this.offsetX;
+            var y=Math.floor(i/this.columns)*this.tileWidth + this.offsetY;
             ctx.drawImage(this.ground,source_x,source_y,this.ground.sheet.width,this.ground.sheet.height,x,y,this.tileWidth,this.tileWidth);
             
         }
 
-        for(let i = 0;i<this.structures.length;i++){
+        for(var i = 0;i<this.structures.length;i++){
             var value=this.structures[i];
             var source_x=(value%this.buildings.sheet.columns)*this.buildings.sheet.width;
             var source_y=Math.floor(value/this.buildings.sheet.lignes)*this.buildings.sheet.height;
-            var x=(i%this.columns)*this.tileWidth;
-            var y=Math.floor(i/this.columns)*this.tileWidth;
+            var x=(i%this.columns)*this.tileWidth + this.offsetX;
+            var y=Math.floor(i/this.columns)*this.tileWidth + this.offsetY;
             ctx.drawImage(this.buildings,source_x,source_y,this.buildings.sheet.width,this.buildings.sheet.height,x,y,this.tileWidth,this.tileWidth);
             
         }

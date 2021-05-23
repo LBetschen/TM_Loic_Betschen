@@ -10,19 +10,22 @@ const GAMESTATE={
     PAUSED:1
 }
 
+
 export class level3Game{
     constructor(GameWidth,GameHeight){
         this.gameWidth=GameWidth;
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
+
+        
     }
 
     start(){
   
+        this.player = new Player(this);
         this.PauseScreen= new PauseScreen(this);
         this.returnButton= new ReturnButton(this);
-        this.level3Map = new Level3Map(this);
-        this.player = new Player(this);
+        this.level3Map = new Level3Map(this,this.player);
         this.reloadButton = new ReloadButton(this);
         this.gameState=GAMESTATE.RUNNING;
 
@@ -33,16 +36,21 @@ export class level3Game{
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
         this.player.update(deltaTime,GameWidth,GameHeight);
+        this.level3Map.update(deltaTime,GameWidth,GameHeight,this.player);
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.update(deltaTime,GameWidth,GameHeight);
             this.returnButton.update(deltaTime,GameWidth,GameHeight);
             this.reloadButton.update(deltaTime,GameWidth,GameHeight);
         }
+        
     }
 
     draw(ctx){
+
+        
         this.level3Map.draw(ctx);
         this.player.draw(ctx);
+
         if(this.gameState==GAMESTATE.PAUSED){
             this.PauseScreen.draw(ctx);
             this.returnButton.draw(ctx);
