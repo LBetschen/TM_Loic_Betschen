@@ -26,11 +26,11 @@ export class Menu{
         ctx.font="30px Arial";
         
         ctx.textAlign="center";
-        ctx.fillText("The Climate Killers",this.gameWidth/2,this.gameHeight/6);
+        ctx.fillText("The Climate Savers",this.gameWidth/2,this.gameHeight/6);
         
         
         ctx.fillStyle="black";
-        ctx.fillText("Go do your Homework!",this.gameWidth/2,this.gameHeight/2);
+        ctx.fillText("Play",this.gameWidth/2,this.gameHeight/2);
     }
    
 }

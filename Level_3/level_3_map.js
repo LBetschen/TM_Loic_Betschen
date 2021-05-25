@@ -1,20 +1,20 @@
 export class Level3Map{
     constructor(game,player){
-        this.ground=new Image();
-        this.ground.src=document.getElementById("map").src;
-        this.buildings=new Image();
-        this.buildings.src=document.getElementById("building").src;
+        this.groundSheet=new Image();
+        this.groundSheet.src=document.getElementById("map").src;
+        this.buildingSheet=new Image();
+        this.buildingSheet.src=document.getElementById("building").src;
 
         this.offsetX=player.offsetX;
         this.offsetY=player.offsetY;
         
-        this.ground.sheet={
+        this.groundSheet.size={
             columns:16,
             lignes:12,
             width:32,
             height:32
         }
-        this.buildings.sheet={
+        this.buildingSheet.size={
             columns:16,
             lignes:16,
             width:32,
@@ -24,6 +24,23 @@ export class Level3Map{
         this.columns=16;
         this.tileWidth=80;
         this.tileHeight=80;
+
+
+        this.groundArraytxt=document.getElementById("groundArray").innerText;
+        /*this.groundArraytxt.addEventListener("change",()=>{
+            let files =this.groundArraytxt.files;
+            let reader = new FileReader();
+            reader.onload=(e)=>{
+                var text= reader.result;
+                this.groundArraytxt.innerText=text;
+                console.log(reader.result.substring(0,200));
+            } 
+            reader.readAsText(this.groundArraytxt);
+
+        });*/
+        console.log(this.groundArraytxt);
+
+
         this.map=[  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -36,6 +53,7 @@ export class Level3Map{
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,];
+        
 
         this.structures=[   9,10,11,12,13,14,9,10,11,12,13,14,9,10,11,12,
                             25,26,27,28,29,30,25,26,27,28,29,30,25,26,27,28,
@@ -77,21 +95,21 @@ export class Level3Map{
     draw(ctx,offsetX,offsetY){
         for(var i = 0;i<this.map.length;i++){
             var value=this.map[i];
-            var source_x=(value%this.ground.sheet.columns)*this.ground.sheet.width;
-            var source_y=Math.floor(value/this.ground.sheet.lignes)*this.ground.sheet.height;
+            var source_x=(value%this.groundSheet.size.columns)*this.groundSheet.size.width;
+            var source_y=Math.floor(value/this.groundSheet.size.lignes)*this.groundSheet.size.height;
             var x=(i%this.columns)*this.tileWidth + this.offsetX;
             var y=Math.floor(i/this.columns)*this.tileWidth + this.offsetY;
-            ctx.drawImage(this.ground,source_x,source_y,this.ground.sheet.width,this.ground.sheet.height,x,y,this.tileWidth,this.tileWidth);
+            ctx.drawImage(this.groundSheet,source_x,source_y,this.groundSheet.size.width,this.groundSheet.size.height,x,y,this.tileWidth,this.tileWidth);
             
         }
 
         for(var i = 0;i<this.structures.length;i++){
             var value=this.structures[i];
-            var source_x=(value%this.buildings.sheet.columns)*this.buildings.sheet.width;
-            var source_y=Math.floor(value/this.buildings.sheet.lignes)*this.buildings.sheet.height;
+            var source_x=(value%this.buildingSheet.size.columns)*this.buildingSheet.size.width;
+            var source_y=Math.floor(value/this.buildingSheet.size.lignes)*this.buildingSheet.size.height;
             var x=(i%this.columns)*this.tileWidth + this.offsetX;
             var y=Math.floor(i/this.columns)*this.tileWidth + this.offsetY;
-            ctx.drawImage(this.buildings,source_x,source_y,this.buildings.sheet.width,this.buildings.sheet.height,x,y,this.tileWidth,this.tileWidth);
+            ctx.drawImage(this.buildingSheet,source_x,source_y,this.buildingSheet.size.width,this.buildingSheet.size.height,x,y,this.tileWidth,this.tileWidth);
             
         }
         
