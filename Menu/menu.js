@@ -31,6 +31,9 @@ export class Menu{
         
         ctx.fillStyle="black";
         ctx.fillText("Play",this.gameWidth/2,this.gameHeight/2);
+        
+
+       
     }
    
 }

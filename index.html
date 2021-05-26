@@ -9,8 +9,18 @@
 
         body{    
             margin: 0px;
+            
         }
-        
+        canvas{
+            position: absolute;
+            
+        }
+        video{
+            
+            z-index: 0;
+            opacity: 0.5;
+            
+        }
 
     </style>
 </head>
@@ -18,8 +28,8 @@
     
     
     
-    
     <canvas id ="gameScreen" height="auto" width="auto" ></canvas>
+    <video id="backgroundAnimation" src="Assets/Background/BackgroundAnimation.mp4" autoplay loop muted ></video>
     <script type="module" src="./Menu/menu_index.js"></script>
     
 </body>
