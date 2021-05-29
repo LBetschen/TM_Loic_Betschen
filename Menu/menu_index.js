@@ -3,16 +3,18 @@ import {Game} from "./menu_game.js";
 let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
 
-
 canvas.height=window.innerHeight-5;
 canvas.width=window.innerWidth;
+
+
+
+let video = document.getElementById("backgroundAnimation");
+video.height=window.innerHeight;
+video.width=window.innerWidth;
 
 let GAME_HEIGHT = canvas.height;
 let GAME_WIDTH = canvas.width;
 
-let video=document.getElementById("backgroundAnimation");
-video.height=GAME_HEIGHT;
-video.width=GAME_WIDTH;
 
 let game = new Game(GAME_WIDTH,GAME_HEIGHT);
 game.start();
@@ -29,6 +31,8 @@ function gameLoop(timestamp){
     
     canvas.height=window.innerHeight-5;
     canvas.width=window.innerWidth;
+    video.height=window.innerHeight;
+    video.width=window.innerWidth;
 
     let GameWidth=window.innerWidth;
     let GameHeight=window.innerHeight-5;

@@ -12,21 +12,40 @@
             
         }
         canvas{
-            position: absolute;
+            position: fixed;
+            z-index: 2;
+            top:0px;
             
         }
         video{
-            
-            z-index: 0;
+            position: fixed;
+            z-index: 1;
             opacity: 0.5;
-            
+            top: 0px;
+        }
+        img{
+            display: none;
+        }
+        audio{
+            display: none;
         }
 
     </style>
 </head>
 <body >
     
-    
+    <img id="aboutButton" src="./Assets/GUI/About.png">
+    <img id="aboutButtonDown" src="./Assets/GUI/AboutDown.png">
+    <img id="settingsButton" src="./Assets/GUI/SettingsButton.png">
+    <img id="settingsButtonDown" src="./Assets/GUI/SettingsButtonDown.png">
+    <img id="volumeButton" src="./Assets/GUI/VolumeButton.png">
+    <img id="volumeButtonDown" src="./Assets/GUI/VolumeButtonDown.png">
+    <img id="mutedButton" src="./Assets/GUI/MutedButton.png">
+    <img id="mutedButtonDown" src="./Assets/GUI/MutedButtonDown.png">
+
+    <audio id="backgroundSound1" src="./Assets/Audio/Marimba Boy.wav" autoplay loop controls></audio>
+    <audio id="backgroundSound2" src="./Assets/Audio/Motivated.mp3"></audio>
+    <audio id="backgroundSound3" src="./Assets/Audio/Star Commander1.wav"></audio>
     
     <canvas id ="gameScreen" height="auto" width="auto" ></canvas>
     <video id="backgroundAnimation" src="Assets/Background/BackgroundAnimation.mp4" autoplay loop muted ></video>
