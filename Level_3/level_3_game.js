@@ -17,7 +17,7 @@ export class level3Game{
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
         this.map=[];
-        this.mapObjects=2
+        this.mapObjects=2;
 
         
     }

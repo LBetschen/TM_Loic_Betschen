@@ -17,7 +17,7 @@ export class level1Game{
         this.gameState=GAMESTATE;
     }
 
-    start(){
+    start(ctx){
   
         this.PauseScreen= new PauseScreen(this);
         this.player= new Player(this);
@@ -25,8 +25,9 @@ export class level1Game{
         this.gameState=GAMESTATE.RUNNING;
         this.returnButton = new ReturnButton(this);
         this.reloadButton = new ReloadButton(this);
-        this.coins.coinAnimation();
+        //this.coins.coinAnimation();
         new Level1Input(this);
+        this.coins.start(ctx);
         
        
     }

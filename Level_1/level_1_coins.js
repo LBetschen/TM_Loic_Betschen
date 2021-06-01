@@ -4,45 +4,61 @@ export class Coins{
     constructor(game){
         this.coin=new Image();
         this.coin.src=document.getElementById("coin1").src;
+        this.coinMap=[];
+        this.columns=32;
         
-        this.width=this.coin.naturalWidth/5;
-
-        this.height=this.coin.naturalHeight/5;
-        this.position={
-            x:200,
-            y:400
-        }
-        this.hit=false;
+        
+        this.width=this.coin.naturalWidth/8;
+        this.height=this.coin.naturalHeight/8;
+       
+        
         this.score=0;
+        
+    }
+
+    start(ctx){
+        this.coinAnimation(ctx);
+        this.readFiles();
+    
+        
     }
 
     update(deltaTime,GameWidth,GameHeight,player){
-
-        this.height=this.coin.naturalHeight/5;
+        
         this.coin.src=document.getElementById("coin"+i).src;
 
-        if(this.hit==false &&
-            player.x>this.position.x &&
-            player.x<this.position.x+this.width &&
-            player.y>this.position.y &&
-            player.y<this.position.y +this.height
-            ){
-                
-                this.hit=true;
-                this.score++;
+        for(var k = 0;k<this.coinMap.length;k++){
+            var value=this.coinMap[k];
+            if(value==1){
+                var x=(k%this.columns)*this.width;
+                var y=Math.floor(k/this.columns)*this.height;              
+                if( player.x>x &&
+                    player.x<x+this.width &&
+                    player.y>y &&
+                    player.y<y +this.height
+                    ){
+                        this.coinMap[k]=0;
+                        this.score++;
+                }
+            }
         }
         
     }
     draw(ctx){
-        if(this.hit==false){
-            ctx.drawImage(this.coin,this.position.x,this.position.y,this.width,this.height);
-            
+        
+            for(var i = 0;i<this.coinMap.length;i++){
+                var value=this.coinMap[i];
+                if(value==1){
+                    var x=(i%this.columns)*this.width;
+                    var y=Math.floor(i/this.columns)*this.width;
+                    ctx.drawImage(this.coin,x,y,this.width,this.height);                    
+                }
+            }
 
-        }else{
             ctx.font="50px";
             ctx.fillStyle="black";
             ctx.fillText("Score : " + this.score,75,50);
-        }
+    
     }
     
     coinAnimation(ctx){
@@ -56,6 +72,28 @@ export class Coins{
             }
             
         },100);
+    }
+
+    readFiles(){
+
+        
+            var res;
+            var f = new XMLHttpRequest();
+        
+            f.open("GET", "./coins.txt", false);
+            f.onreadystatechange = function (){
+                if(f.readyState === 4 && f.status === 200 )
+                {
+                    res = f.responseText;
+                    res=res.split(",");
+                    for(var i=0;i<res.length;i++){
+                        res[i]=parseInt(res[i]);
+                    }
+                    
+                }
+            }
+            f.send(null);
+            this.coinMap=res;
         
     }
 }
