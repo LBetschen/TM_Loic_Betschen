@@ -97,11 +97,11 @@ export class Game{
             mouseY >= this.menu.volumeButton.position.y &&
             mouseY<= this.menu.volumeButton.position.y+this.menu.volumeButton.height){
                 if(!this.audioMuted){
-                    this.menu.volumeButton.src=document.getElementById("mutedButtonDown").src;
+                    
                     this.audioMuted=true;
                     this.audio.muted=true;
                 }else{
-                     this.menu.volumeButton.src=document.getElementById("volumeButtonDown").src;
+                    
                     this.audioMuted=false;
                     this.audio.muted=false;
                 }
