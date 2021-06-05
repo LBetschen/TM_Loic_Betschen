@@ -13,6 +13,7 @@ export class Input{
             let mouseY=event.clientY;
             
             game.toggleButtons(mouseX,mouseY);
+            
         });
         
     }

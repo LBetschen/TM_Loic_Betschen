@@ -2,6 +2,10 @@ export class level1Button{
     constructor(game){
         this.button =  new Image();
         this.button.src = document.getElementById("buttonUp").src;
+
+        this.buttonAudio=new Audio;
+        this.buttonAudio.src=document.getElementById("buttonAudio").src;
+        this.audio=false;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
         this.height=this.gameWidth/20;
@@ -33,8 +37,14 @@ export class level1Button{
             mouseY <= this.position.y+this.height)
             {    
                 this.button.src=document.getElementById("buttonDown").src;
+                if(!this.audio){
+                    this.buttonAudio.play();
+                    this.audio=true;
+                }
+                
             }else{
                 this.button.src = document.getElementById("buttonUp").src;
+                this.audio=false;
             }
     }
 

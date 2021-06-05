@@ -84,7 +84,7 @@ export class Menu{
             ctx.font="30px Arial";
             
             ctx.textAlign="center";
-            ctx.fillText("The Climate Savers",this.gameWidth/2,this.gameHeight/6);
+            ctx.fillText("The Climate Savers",this.gameWidth/2,this.gameHeight/14);
             
             
             ctx.fillStyle="black";

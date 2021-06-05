@@ -3,7 +3,14 @@ export class Player{
         this.hero = new Image();
         this.hero.src=document.getElementById("playerRight").src;
         
+        this.jumpAudio=new Audio();
+        this.jumpAudio.src=document.getElementById("jumpAudio").src;
+    
+
+        this.doubleJumpAudio=new Audio();
+        this.doubleJumpAudio.src=document.getElementById("jumpAudio").src;
         
+
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
         this.constGameHeight=game.gameHeight;
@@ -51,7 +58,7 @@ export class Player{
         this.height=this.constGameHeight/15/this.ratio;
         this.width=this.constGameHeight/15/this.ratio;
 
-        this.x_maxSpeed=GameWidth/140;
+        this.x_maxSpeed=GameWidth/200;
 
         this.y_speed+=GameHeight/1000;
         
@@ -100,11 +107,18 @@ export class Player{
         if(this.jumping==false){
             this.y_speed-=this.gameHeight/50; 
             this.jumping=true;
+            
+                this.jumpAudio.play();
+             
+            
         }else if(this.jumping==true && this.doubleJump==false){
             this.y_speed-=this.gameHeight/50; 
             this.doubleJump=true;
+            
+                this.doubleJumpAudio.play();
+             
         }
-
+        
            
     }
     

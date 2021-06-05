@@ -7,7 +7,9 @@ export class Coins{
         this.coinMap=[];
         this.columns=32;
         
-        
+        this.coinAudio=new Audio();
+        this.coinAudio.src=document.getElementById("coinAudio").src;
+
         this.width=this.coin.naturalWidth/8;
         this.height=this.coin.naturalHeight/8;
        
@@ -31,15 +33,19 @@ export class Coins{
             var value=this.coinMap[k];
             if(value==1){
                 var x=(k%this.columns)*this.width;
-                var y=Math.floor(k/this.columns)*this.height;              
-                if( player.x>x &&
-                    player.x<x+this.width &&
-                    player.y>y &&
-                    player.y<y +this.height
+                var y=Math.floor(k/this.columns)*this.height;
+                
+                    if( player.position.x+player.width/2>x &&
+                    player.position.x+player.width/2<x+this.width &&
+                    player.position.y+player.height/2>y &&
+                    player.position.y+player.height/2<y +this.height 
                     ){
                         this.coinMap[k]=0;
                         this.score++;
-                }
+                        this.coinAudio.play();
+                    }
+                           
+                
             }
         }
         

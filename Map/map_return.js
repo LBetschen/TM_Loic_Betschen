@@ -2,6 +2,12 @@ export class ReturnToMenu{
     constructor(game){
         this.button =  new Image();
         this.button.src = document.getElementById("returnButton").src;
+
+        this.buttonAudio=new Audio;
+        this.buttonAudio.src=document.getElementById("buttonAudio").src;
+        this.audio=false;
+
+
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
         this.height=this.button.naturalHeight/2;
@@ -33,8 +39,13 @@ export class ReturnToMenu{
             { 
                
                 this.button.src=document.getElementById("returnButtonDown").src;
+                if(!this.audio){
+                    this.buttonAudio.play();
+                    this.audio=true;
+                }
             }else{
                 this.button.src = document.getElementById("returnButton").src;
+                this.audio=false;
             }
     }
 

@@ -12,7 +12,8 @@ export class Game{
         this.gameWidth=gameWidth;
         this.gameHeight=gameHeight;
         this.gameState=GAMESTATE;
-        this.audio=document.getElementById("backgroundSound1");
+        this.audio= new Audio();
+        this.audio.src=document.getElementById("backgroundSound1").src;
         this.audioMuted=false;
     }
 

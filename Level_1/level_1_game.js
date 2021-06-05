@@ -40,7 +40,7 @@ export class level1Game{
             x:this.player.position.x+(this.player.width/2),
             y:this.player.position.y+(this.player.height/2),
         }
-        this.coins.update(deltaTime,GameWidth,GameHeight,this.middleOfPlayer);
+        this.coins.update(deltaTime,GameWidth,GameHeight,this.player);
         this.player.update(deltaTime,GameWidth,GameHeight);
         
 
