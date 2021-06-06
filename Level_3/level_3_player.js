@@ -2,6 +2,13 @@ export class Player{
     constructor(game){
         this.hero = new Image();
         this.hero.src=document.getElementById("playerRight").src;
+
+        this.map=game.map;
+        this.columns=game.columns;
+        this.tileWidth=game.tileWidth;
+        this.tileHeight=game.tileHeight;
+        this.collisionPosition=0;
+        
         
         
         this.gameWidth=game.gameWidth;
@@ -17,7 +24,7 @@ export class Player{
 
         this.position={
             x: this.gameWidth/2-this.width/2,
-            y: this.gameHeight/2+this.height/2
+            y: 400
         }
 
         this.offsetX=0;
@@ -56,18 +63,45 @@ export class Player{
         this.gameWidth=GameWidth;
         this.ratio=this.constGameHeight/GameHeight;
 
-        this.height=this.constGameHeight/15/this.ratio;
-        this.width=this.constGameHeight/15/this.ratio;
-
+        this.height=80;
+        this.width=80;
+        
         this.x_maxSpeed=GameWidth/400;
         this.y_maxSpeed=GameWidth/500;
         
         
+        for(var i=0;i<this.map[2].length;i++){
+            if(this.map[2][i]==1){
+                
+                var x=(i%this.columns)*this.tileWidth + this.offsetX;
+                var y=Math.floor(i/this.columns)*this.tileWidth + this.offsetY;
+                
+                if(x+this.tileWidth>this.position.x &&
+                    x<this.position.x+this.width && 
+                    y<this.position.y+this.height &&
+                    y+this.tileHeight>this.position.y){
+
+                        if(this.position.y+this.height -5<y&&
+                            this.position.x+this.width>x &&
+                            this.position.x<x+this.tileWidth){
+                                this.position.y=y-this.height;
+
+                        }else if(this.position.y-this.height+5>y&&
+                            this.position.x+this.width>x+5 &&
+                            this.position.x<x+this.tileWidth-5 ){                          
+                                this.position.y=y+this.tileHeight;
+
+                        }else if(this.position.x>x){
+                                this.position.x = x+this.tileWidth;
+
+                        }else if(this.position.x<x){
+                                this.position.x=x-this.width;
+                        }
+
+                }
+            }       
+        }
         
-        
-       
-        
-       
         if(this.offsetX>0){
             this.offsetX=0;
             this.position.x-=this.x_speed;

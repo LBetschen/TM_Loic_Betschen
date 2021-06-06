@@ -42,7 +42,8 @@ export class Level3Map{
            this.offsetY=player.offsetY; 
         }
         
-        
+       
+
     }
 
     draw(ctx,offsetX,offsetY){
@@ -75,9 +76,7 @@ export class Level3Map{
         
     }
 
-    collision(){
-
-    }
+   
    
     
 }

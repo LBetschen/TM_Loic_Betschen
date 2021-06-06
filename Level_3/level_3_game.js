@@ -17,7 +17,10 @@ export class level3Game{
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
         this.map=[];
-        this.mapObjects=2;
+        this.mapObjects=3;
+        this.columns=16;
+        this.tileWidth=80;
+        this.tileHeight=80;
 
         
     }
@@ -89,11 +92,18 @@ export class level3Game{
         for(var index=0;index<this.mapObjects;index++){
             var res;
             var f = new XMLHttpRequest();
-            if(index==0){
-                f.open("GET", "./TileMap/level_3_groundArray.txt", false);
-            }else if(index==1){
-                f.open("GET", "./TileMap/level_3_structures.txt", false);
+            switch (index){
+                case 0:
+                    f.open("GET", "./TileMap/level_3_groundArray.txt", false);
+                    break;
+                case 1:
+                    f.open("GET", "./TileMap/level_3_structures.txt", false);
+                    break;
+                case 2:
+                    f.open("GET", "./TileMap/level_3_collision.txt", false);
+                    break;
             }
+            
             
             f.onreadystatechange = function (){
                 if(f.readyState === 4 && f.status === 200 )
