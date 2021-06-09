@@ -3,15 +3,9 @@ export class Menu{
         this.gameWidth=game.gameWidth;
         this.gameHeight= game.gameHeight;
         this.gameState=game.gamestate;
+        this.constGamewidth=game.gameWidth;
 
         this.ratio=this.gameWidth/game.gameWidth;
-        
-        this.height=50;
-        this.width=250;
-        this.position={
-            x:this.gameWidth/2-this.width/2,
-            y:this.gameHeight/2-this.height/1.5
-        }
 
         this.aboutButton= new Image();
         this.aboutButton.down="aboutButtonDown";
@@ -22,6 +16,18 @@ export class Menu{
         this.aboutButton.position={
             x:this.gameWidth/50,
             y:this.gameHeight/50
+        }
+
+        this.playButton= new Image();
+        this.playButton.down="playButtonDown";
+        this.playButton.up="playButton";
+        this.playButton.src=document.getElementById(this.playButton.up).src;
+        this.playButton.aspect=this.playButton.naturalHeight/this.playButton.naturalWidth;
+        this.playButton.width=this.playButton.naturalWidth/3/this.ratio;
+        this.playButton.height=this.playButton.width*this.playButton.aspect;
+        this.playButton.position={
+            x:this.gameWidth/2-this.playButton.width/2,
+            y:this.gameHeight/2-this.playButton.height
         }
 
         this.settingsButton= new Image();
@@ -47,15 +53,33 @@ export class Menu{
             x:this.gameWidth/1.15,
             y:this.gameHeight/50
         }
+
+        this.gameButtons=[
+            this.volumeButton,
+            this.playButton,
+            this.settingsButton,
+            this.aboutButton
+
+        ]
+
+        this.input=document.getElementById("nameInput");
+        this.input.style.height=this.gameHeight/25 + "px";
+        this.input.style.width=this.gameWidth/5 + "px";
+        this.input.style.left=this.gameWidth/2 -this.input.offsetWidth/2 + "px";
+        this.input.style.top=this.playButton.position.y + this.playButton.height*1.25 + "px";
+
+
+
+        this.playersName=document.getElementById("playerNames");
+        
         
        
     }
     update(deltaTime,GameWidth,GameHeight,gameState){ 
             this.gameHeight=GameHeight;
             this.gameWidth=GameWidth;
-            //this.ratio=this.gameWidth/map.width;
-            this.position.x = this.gameWidth/2-this.width/2;
-            this.position.y = this.gameHeight/2-this.height/1.5;
+            this.ratio=this.constGamewidth/this.gameWidth;
+            
             this.settingsButton.position={
                 x:this.gameWidth/1.07,
                 y:this.gameHeight/50
@@ -64,36 +88,42 @@ export class Menu{
                 x:this.gameWidth/50,
                 y:this.gameHeight/50
             }
+            this.playButton.position={
+                x:this.gameWidth/2-this.playButton.width/2,
+                y:this.gameHeight/2-this.playButton.height
+            }
+            this.volumeButton.position={
+                x:this.settingsButton.position.x-this.volumeButton.width-10,
+                y:this.gameHeight/50
+            } 
             this.aboutButton.height=this.aboutButton.naturalHeight/3/this.ratio;
             this.aboutButton.width=this.aboutButton.naturalWidth/3/this.ratio;
             this.settingsButton.height=this.settingsButton.naturalHeight/3/this.ratio;
             this.settingsButton.width=this.settingsButton.naturalWidth/3/this.ratio;
             this.volumeButton.height=this.volumeButton.naturalHeight/3/this.ratio;
             this.volumeButton.width=this.volumeButton.naturalWidth/3/this.ratio;
-            this.volumeButton.position={
-                x:this.gameWidth/1.15,
-                y:this.gameHeight/50
-            } 
+            this.playButton.width=this.playButton.naturalWidth/3/this.ratio;
+            this.playButton.height=this.playButton.width*this.playButton.aspect;
+
+            this.input.style.height=this.gameHeight/25 + "px";
+            this.input.style.width=this.gameWidth/5 + "px";
+            this.input.style.left=this.gameWidth/2 -this.input.offsetWidth/2 + "px";
+            this.input.style.top=this.playButton.position.y + this.playButton.height*1.25 + "px";
     }
 
     draw(ctx,gameState){
         
-            ctx.beginPath();
-            ctx.rect(this.position.x,this.position.y,this.width,this.height);
-            ctx.stroke();
+            
             ctx.font="30px Arial";
             
             ctx.textAlign="center";
             ctx.fillText("The Climate Savers",this.gameWidth/2,this.gameHeight/14);
             
-            
-            ctx.fillStyle="black";
-            ctx.fillText("Play",this.gameWidth/2,this.gameHeight/2);
-            
-            ctx.drawImage(this.aboutButton,this.aboutButton.position.x,this.aboutButton.position.y,this.aboutButton.width,this.aboutButton.width);
-            ctx.drawImage(this.settingsButton,this.settingsButton.position.x,this.settingsButton.position.y,this.settingsButton.width,this.settingsButton.width);
-            ctx.drawImage(this.volumeButton,this.volumeButton.position.x,this.volumeButton.position.y,this.volumeButton.width,this.volumeButton.width);
+            this.gameButtons.forEach((object)=>{
+                ctx.drawImage(object,object.position.x,object.position.y,object.width,object.height);
 
+            })
+       
         if(gameState==1){
             ctx.fillRect(400,100,100,100);
         }else if(gameState==2){
@@ -130,6 +160,5 @@ export class Menu{
                 }
             }
     }
-
-    
+   
 }

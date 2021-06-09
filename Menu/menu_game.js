@@ -23,6 +23,8 @@ export class Game{
        
         new Input(this);
         this.buttons=[this.menu.aboutButton,this.menu.settingsButton]; 
+        this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.playButton]; 
+
         this.gameState=GAMESTATE.RUNNING;
         
         this.audio.play(); 
@@ -42,16 +44,10 @@ export class Game{
     }
 
     toggleMenu(mouseX,mouseY){
-        if(mouseX>=this.menu.position.x && 
-            mouseX <= this.menu.position.x+this.menu.width &&
-            mouseY >= this.menu.position.y &&
-            mouseY<= this.menu.position.y+this.menu.height)
-            { 
-               window.location="./Map/map.html";
-            }
     }
+    
     toggleButtons(mouseX,mouseY){
-        this.buttons.forEach((object)=>{
+        this.buttonsDown.forEach((object)=>{
             if(mouseX>=object.position.x && 
                 mouseX <= object.position.x+object.width &&
                 mouseY >= object.position.y &&
@@ -61,14 +57,23 @@ export class Game{
                 }else{
                     object.src=document.getElementById(object.up).src;
                 }
-        });
-        this.menu.toggleVolumeButton(this.audioMuted,mouseX,mouseY);
-
-    }
-    toggleClick(mouseX,mouseY){
-
-        for(var i =0;i<this.buttons.length;i++){
-            if(mouseX>=this.buttons[i].position.x && 
+            });
+            this.menu.toggleVolumeButton(this.audioMuted,mouseX,mouseY);
+            
+        }
+        toggleClick(mouseX,mouseY){
+            
+            if(mouseX>=this.menu.playButton.position.x && 
+                mouseX <= this.menu.playButton.position.x+this.menu.playButton.width &&
+                mouseY >= this.menu.playButton.position.y &&
+                mouseY<= this.menu.playButton.position.y+this.menu.playButton.height)
+                { 
+                   window.location="./Map/map.html";
+                   
+                }
+                
+            for(var i =0;i<this.buttons.length;i++){
+                if(mouseX>=this.buttons[i].position.x && 
                 mouseX <= this.buttons[i].position.x+this.buttons[i].width &&
                 mouseY >= this.buttons[i].position.y &&
                 mouseY<= this.buttons[i].position.y+this.buttons[i].height)
