@@ -25,7 +25,7 @@ export class Coins{
         
     }
 
-    update(deltaTime,GameWidth,GameHeight,player){
+    update(deltaTime,GameWidth,GameHeight,player,game){
         
         this.coin.src=document.getElementById("coin"+i).src;
 
@@ -42,6 +42,8 @@ export class Coins{
                     ){
                         this.coinMap[k]=0;
                         this.score++;
+                        game.playerInfo.updateCookies("level1score",game.info,game.savedPlayer,this.score);
+                        
                         this.coinAudio.play();
                     }
                            
@@ -63,6 +65,7 @@ export class Coins{
 
             ctx.font="50px";
             ctx.fillStyle="black";
+            
             ctx.fillText("Score : " + this.score,75,50);
     
     }

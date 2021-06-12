@@ -4,6 +4,7 @@ import {ReturnButton} from "./level_1_return.js";
 import {Player} from "./level_1_player.js";
 import {Coins} from "./level_1_coins.js";
 import {ReloadButton} from "./level_1_reload.js";
+import {PlayerInfo} from "../Assets/playerInfo.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -15,12 +16,15 @@ export class level1Game{
         this.gameWidth=GameWidth;
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
+        this.savedPlayer=[];//values of the saved player
+        this.info=[];//variable of the saved player
     }
 
     start(ctx){
   
         this.PauseScreen= new PauseScreen(this);
         this.player= new Player(this);
+        this.playerInfo=new PlayerInfo(this);
         this.coins = new Coins(this);
         this.gameState=GAMESTATE.RUNNING;
         this.returnButton = new ReturnButton(this);
@@ -40,7 +44,7 @@ export class level1Game{
             x:this.player.position.x+(this.player.width/2),
             y:this.player.position.y+(this.player.height/2),
         }
-        this.coins.update(deltaTime,GameWidth,GameHeight,this.player);
+        this.coins.update(deltaTime,GameWidth,GameHeight,this.player,this);
         this.player.update(deltaTime,GameWidth,GameHeight);
         
 

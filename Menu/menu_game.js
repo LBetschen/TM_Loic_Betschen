@@ -1,5 +1,6 @@
 import {Input} from "./menu_input.js";
 import {Menu} from "./menu.js";
+import {PlayerInfo} from "../Assets/playerInfo.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -15,19 +16,25 @@ export class Game{
         this.audio= new Audio();
         this.audio.src=document.getElementById("backgroundSound1").src;
         this.audioMuted=false;
+        this.savedPlayer=[];//values of the saved player
+        this.info=[];//variable of the saved player
+        
     }
 
     start(){
         
         this.menu= new Menu(this);
+        this.playerInfo= new PlayerInfo(this);
        
         new Input(this);
         this.buttons=[this.menu.aboutButton,this.menu.settingsButton]; 
-        this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.playButton]; 
+        this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.newGame,this.menu.resumeGame]; 
 
         this.gameState=GAMESTATE.RUNNING;
         
         this.audio.play(); 
+
+        this.playerInfo.getSavedPlayer(this.info,this.savedPlayer);//checks if there is a saved player and if not creates base cookies for the new saved player based off playerInfo.txt
         
         
         
@@ -37,6 +44,7 @@ export class Game{
     update(deltaTime,gameWidth,gameHeight){
        this.menu.update(deltaTime,gameWidth,gameHeight,this.gameState);
        this.audio.play();
+       
     }
 
     draw(ctx){
@@ -63,13 +71,27 @@ export class Game{
         }
         toggleClick(mouseX,mouseY){
             
-            if(mouseX>=this.menu.playButton.position.x && 
-                mouseX <= this.menu.playButton.position.x+this.menu.playButton.width &&
-                mouseY >= this.menu.playButton.position.y &&
-                mouseY<= this.menu.playButton.position.y+this.menu.playButton.height)
+            if(mouseX>=this.menu.newGame.position.x && 
+                mouseX <= this.menu.newGame.position.x+this.menu.newGame.width &&
+                mouseY >= this.menu.newGame.position.y &&
+                mouseY<= this.menu.newGame.position.y+this.menu.newGame.height)
                 { 
                    window.location="./Map/map.html";
+                   this.menu.newPlayer(this.playerInfo,this.info,this.savedPlayer);
+                   this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
                    
+                   
+                }
+
+            if(mouseX>=this.menu.resumeGame.position.x && 
+                mouseX <= this.menu.resumeGame.position.x+this.menu.resumeGame.width &&
+                mouseY >= this.menu.resumeGame.position.y &&
+                mouseY<= this.menu.resumeGame.position.y+this.menu.resumeGame.height)
+                { 
+                    window.location="./Map/map.html";
+                    this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+
+                       
                 }
                 
             for(var i =0;i<this.buttons.length;i++){
