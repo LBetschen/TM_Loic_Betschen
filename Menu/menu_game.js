@@ -35,7 +35,7 @@ export class Game{
         this.audio.play(); 
 
         this.playerInfo.getSavedPlayer(this.info,this.savedPlayer);//checks if there is a saved player and if not creates base cookies for the new saved player based off playerInfo.txt
-        
+        console.log(document.cookie);
         
         
         

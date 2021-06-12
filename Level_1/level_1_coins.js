@@ -13,9 +13,10 @@ export class Coins{
         this.width=this.coin.naturalWidth/8;
         this.height=this.coin.naturalHeight/8;
        
-        
-        this.score=0;
-        
+        this.cScore=game.playerInfo.getCookie("level1score",game.info);
+        this.score=this.cScore[2];
+        console.log(game.info);
+        console.log(this.cScore[0]);
     }
 
     start(ctx){

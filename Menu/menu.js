@@ -188,9 +188,9 @@ export class Menu {
         var name="name";
         playerInfo.updateCookieInfo(info);
         
-        var i=playerInfo.getCookie(name,info);//gets the index of name in array info
+        var c=playerInfo.getCookie(name,info);//gets the index of name in array info
         
-        document.cookie=info[i]+"="+this.input.value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/"
+        document.cookie=info[c[0]]+"="+this.input.value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/"
         playerInfo.updateCookieInfo(info);
         console.log(document.cookie);
 

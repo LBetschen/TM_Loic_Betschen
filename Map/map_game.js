@@ -44,7 +44,7 @@ export class MapGame{
             this.returnToMenu
 
         ];
-        
+        console.log(document.cookie);
           
     }
 

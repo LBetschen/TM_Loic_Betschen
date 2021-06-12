@@ -23,23 +23,26 @@ export class PlayerInfo{
                 }
             }
             f.send(null);
-            info=res;//saves the variables of the player in this.info
+            info=res;//saves the variables of the player in info
             
 
-        for(var i=0;i<this.info.length;i++){
-                document.cookie = this.info[i] +"="+ 0 + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
-        }
+            console.log(info);
 
-        var cookieText= document.cookie;
-        var pairVariables = cookieText.split("; ");
-        
-        for(var i=0;i<pairVariables.length;i++){
-            var variable = pairVariables[i].split("=");
+            for(var i=0;i<info.length;i++){
+                    document.cookie = info[i] +"="+ 0 + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+            }
+
             
-            savedPlayer.push(variable[1]);//saves the value of the variables of the player in this.savedPlayer
+            var pairVariables = document.cookie.split("; ");
+            
+            for(var i=0;i<pairVariables.length;i++){
+                var variable = pairVariables[i].split("=");
+                
+                savedPlayer.push(variable[1]);//saves the value of the variables of the player in savedPlayer
 
-        }
+            }
         }else {
+        
             this.updateCookieInfo(info);
         }
        
@@ -50,32 +53,40 @@ export class PlayerInfo{
         var cookies=document.cookie.split("; ");
         
         for(var i=0;i<cookies.length;i++){
-            var variable = cookies[i].split("=");
-            info[i]=variable[0];//updates info so that variables in info are at the same index as the variables in the cookies
+            var variables = cookies[i].split("=");
+            info[i]=variables[0];//updates info so that variables in info are at the same index as the variables in the cookies
             
         }
-        console.log(info);
+        
        
         
         
     }
     getCookie(cookieName,info){
         var name=cookieName;
-        var index;
+        var c=[];
 
         for(var i=0;i<info.length;i++){
             if(info[i]==name){
-                index=parseInt(i);
-                return index;//returns the index of the variable name in info
+                c[0]=parseInt(i);
+                console.log(c);
             }
         }
-        console.log(index);
+        var cookies=document.cookie.split("; ");
+        console.log(cookies);
+        var variables=cookies[c[0]].split("=");
+        c[1]=variables[0];
+        c[2]=variables[1];          
+        
+        return c;//returns the index of the variable name in info
+        
         
     }
+
     updateCookies(cookieName,info,savedPlayer,value){
         var name=cookieName;
-        var index=this.getCookie(name,info);
-        document.cookie=info[index]+"="+value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+        var c=this.getCookie(name,info);
+        document.cookie=info[c[0]]+"="+value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
     
 }
 }

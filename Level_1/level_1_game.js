@@ -22,9 +22,12 @@ export class level1Game{
 
     start(ctx){
   
+        
+        
+        this.playerInfo=new PlayerInfo(this);
+        this.playerInfo.getSavedPlayer(this.info,this.savedPlayer);
         this.PauseScreen= new PauseScreen(this);
         this.player= new Player(this);
-        this.playerInfo=new PlayerInfo(this);
         this.coins = new Coins(this);
         this.gameState=GAMESTATE.RUNNING;
         this.returnButton = new ReturnButton(this);
