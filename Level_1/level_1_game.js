@@ -34,7 +34,7 @@ export class level1Game{
         this.reloadButton = new ReloadButton(this);
         //this.coins.coinAnimation();
         new Level1Input(this);
-        this.coins.start(ctx);
+        this.coins.start(ctx,this);
         
        
     }
@@ -61,7 +61,7 @@ export class level1Game{
 
     draw(ctx){
         
-        this.coins.draw(ctx);
+        this.coins.draw(ctx,this);
         this.player.draw(ctx);
         
         if(this.gameState==GAMESTATE.PAUSED){

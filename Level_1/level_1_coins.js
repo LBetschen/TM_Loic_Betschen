@@ -15,52 +15,62 @@ export class Coins{
        
         this.cScore=game.playerInfo.getCookie("level1score",game.info);
         this.score=this.cScore[2];
-        console.log(game.info);
-        console.log(this.cScore[0]);
+        
     }
 
-    start(ctx){
+    start(ctx,game){
         this.coinAnimation(ctx);
         this.readFiles();
-    
+        
+        var c= game.playerInfo.getCookie("level1coins",game.info);
+        this.coins=c[2].split(",");
         
     }
 
     update(deltaTime,GameWidth,GameHeight,player,game){
         
         this.coin.src=document.getElementById("coin"+i).src;
-
+        var index=0;
         for(var k = 0;k<this.coinMap.length;k++){
             var value=this.coinMap[k];
             if(value==1){
-                var x=(k%this.columns)*this.width;
-                var y=Math.floor(k/this.columns)*this.height;
-                
-                    if( player.position.x+player.width/2>x &&
-                    player.position.x+player.width/2<x+this.width &&
-                    player.position.y+player.height/2>y &&
-                    player.position.y+player.height/2<y +this.height 
-                    ){
-                        this.coinMap[k]=0;
-                        this.score++;
-                        game.playerInfo.updateCookies("level1score",game.info,game.savedPlayer,this.score);
-                        
-                        this.coinAudio.play();
-                    }
-                           
+                if(this.coins[index]==1){
+
+                    var x=(k%this.columns)*this.width;
+                    var y=Math.floor(k/this.columns)*this.height;
+                    
+                        if( player.position.x+player.width/2>x &&
+                        player.position.x+player.width/2<x+this.width &&
+                        player.position.y+player.height/2>y &&
+                        player.position.y+player.height/2<y +this.height 
+                        ){
+                            this.score++;
+                            this.coins[index]=0;
+                            game.playerInfo.updateCookies("level1score",game.info,this.score);
+                            game.playerInfo.updateCookies("level1coins",game.info,this.coins);
+                            
+                            this.coinAudio.play();
+                        }
+                }
+                index++;   
                 
             }
         }
         
     }
-    draw(ctx){
-        
+    draw(ctx,game){
+            var index=0;
             for(var i = 0;i<this.coinMap.length;i++){
                 var value=this.coinMap[i];
                 if(value==1){
-                    var x=(i%this.columns)*this.width;
-                    var y=Math.floor(i/this.columns)*this.width;
-                    ctx.drawImage(this.coin,x,y,this.width,this.height);                    
+                    
+                    if(this.coins[index]==1){
+
+                        var x=(i%this.columns)*this.width;
+                        var y=Math.floor(i/this.columns)*this.width;
+                        ctx.drawImage(this.coin,x,y,this.width,this.height);                    
+                    }
+                    index++;
                 }
             }
 

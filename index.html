@@ -1,75 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Game</title>
     <style>
-
-        body{    
-            margin: 0px;
-            
-        }
-        canvas{
-            position: fixed;
-            z-index: 2;
-            top:0px;
-            
-        }
-        video{
-            position: fixed;
-            z-index: 1;
-            opacity: 0.5;
-            top: 0px;
-        }
-        input{
-            position: relative;
-            z-index: 3;
-            font: inherit;
-            padding: 0.2em 0.5em;
-            left: 0px;
-            top: 0px;
-            
-        }
-        img{
-            display: none;
-        }
-        audio{
-            display: none;
-        }
-
+      body {
+        margin: 0px;
+      }
+      canvas {
+        position: fixed;
+        z-index: 2;
+        top: 0px;
+      }
+      video {
+        position: fixed;
+        z-index: 1;
+        opacity: 0.5;
+        top: 0px;
+      }
+      input {
+        position: relative;
+        z-index: 3;
+        font: inherit;
+        padding: 0.2em 0.5em;
+        left: 0px;
+        top: 0px;
+      }
+      img {
+        display: none;
+      }
+      audio {
+        display: none;
+      }
     </style>
-</head>
-<body >
-    
-    <img id="aboutButton" src="./Assets/GUI/About.png">
-    <img id="aboutButtonDown" src="./Assets/GUI/AboutDown.png">
-    <img id="settingsButton" src="./Assets/GUI/SettingsButton.png">
-    <img id="settingsButtonDown" src="./Assets/GUI/SettingsButtonDown.png">
-    <img id="volumeButton" src="./Assets/GUI/VolumeButton.png">
-    <img id="volumeButtonDown" src="./Assets/GUI/VolumeButtonDown.png">
-    <img id="mutedButton" src="./Assets/GUI/MutedButton.png">
-    <img id="mutedButtonDown" src="./Assets/GUI/MutedButtonDown.png">
-    <img id="playButton" src="./Assets/GUI/Play.png">
-    <img id="playButtonDown" src="./Assets/GUI/PlayDown.png">
-    <img id="newGame" src="./Assets/GUI/NewGame.png">
-    <img id="newGameDown" src="./Assets/GUI/NewGameDown.png">
-    <img id="resumeGame" src="./Assets/GUI/ResumeGame.png">
-    <img id="resumeGameDown" src="./Assets/GUI/ResumeGameDown.png">
+  </head>
+  <body>
+    <img id="aboutButton" src="./Assets/GUI/About.png" />
+    <img id="aboutButtonDown" src="./Assets/GUI/AboutDown.png" />
+    <img id="settingsButton" src="./Assets/GUI/SettingsButton.png" />
+    <img id="settingsButtonDown" src="./Assets/GUI/SettingsButtonDown.png" />
+    <img id="volumeButton" src="./Assets/GUI/VolumeButton.png" />
+    <img id="volumeButtonDown" src="./Assets/GUI/VolumeButtonDown.png" />
+    <img id="mutedButton" src="./Assets/GUI/MutedButton.png" />
+    <img id="mutedButtonDown" src="./Assets/GUI/MutedButtonDown.png" />
+    <img id="playButton" src="./Assets/GUI/Play.png" />
+    <img id="playButtonDown" src="./Assets/GUI/PlayDown.png" />
+    <img id="newGame" src="./Assets/GUI/NewGame.png" />
+    <img id="newGameDown" src="./Assets/GUI/NewGameDown.png" />
+    <img id="resumeGame" src="./Assets/GUI/ResumeGame.png" />
+    <img id="resumeGameDown" src="./Assets/GUI/ResumeGameDown.png" />
 
     <audio id="backgroundSound1" src="./Assets/Audio/Marimba Boy.wav"></audio>
     <audio id="backgroundSound2" src="./Assets/Audio/Motivated.mp3"></audio>
-    <audio id="backgroundSound3" src="./Assets/Audio/Star Commander1.wav"></audio>
-    
-    <canvas id ="gameScreen" height="auto" width="auto" ></canvas>
-    <video id="backgroundAnimation" src="Assets/Background/BackgroundAnimation.mp4" autoplay loop muted></video>
-    <input id="nameInput" name="playerNames" list="playerNames" autocomplete="off">
+    <audio
+      id="backgroundSound3"
+      src="./Assets/Audio/Star Commander1.wav"
+    ></audio>
 
-    <datalist id="playerNames" >
-        
-    </datalist>
+    <canvas id="gameScreen" height="auto" width="auto"></canvas>
+    <video
+      id="backgroundAnimation"
+      src="Assets/Background/BackgroundAnimation.mp4"
+      autoplay
+      loop
+      muted
+    ></video>
+    <input
+      id="nameInput"
+      name="playerNames"
+      list="playerNames"
+      autocomplete="off"
+    />
+
+    <datalist id="playerNames"> </datalist>
     <script type="module" src="./Menu/menu_index.js"></script>
-    
-</body>
+  </body>
 </html>
