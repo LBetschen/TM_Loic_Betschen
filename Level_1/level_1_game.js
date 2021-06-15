@@ -17,7 +17,7 @@ export class level1Game{
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
         this.savedPlayer=[];//values of the saved player
-        this.info=[];//variable of the saved player
+        this.info=[];//variables of the saved player
     }
 
     start(ctx){

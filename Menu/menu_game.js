@@ -12,21 +12,30 @@ export class Game{
     constructor(gameWidth,gameHeight){
         this.gameWidth=gameWidth;
         this.gameHeight=gameHeight;
+
         this.gameState=GAMESTATE;
-        this.audio= new Audio();
+
+        this.audio= new Audio();//audio for the menu
         this.audio.src=document.getElementById("backgroundSound1").src;
         this.audioMuted=false;
+
         this.savedPlayer=[];//values of the saved player
         this.info=[];//variable of the saved player
+        this.savedGame=false;//true if there is already a player saved
         
     }
 
     start(){
         
+        if(document.cookie.length!=0){
+            this.savedGame=true;
+        }
+
         this.menu= new Menu(this);
         this.playerInfo= new PlayerInfo(this);
        
         new Input(this);
+
         this.buttons=[this.menu.aboutButton,this.menu.settingsButton]; 
         this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.newGame,this.menu.resumeGame]; 
 
@@ -34,21 +43,19 @@ export class Game{
         
         this.audio.play(); 
 
-        this.playerInfo.getSavedPlayer(this.info,this.savedPlayer);//checks if there is a saved player and if not creates base cookies for the new saved player based off playerInfo.txt
-        console.log(document.cookie);
-        
-        
-        
-    }
-
-    update(deltaTime,gameWidth,gameHeight){
-       this.menu.update(deltaTime,gameWidth,gameHeight,this.gameState);
-       this.audio.play();
+        this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
+        console.log(this.savedGame);
        
     }
 
+    update(deltaTime,gameWidth,gameHeight){
+       this.menu.update(deltaTime,gameWidth,gameHeight,this.gameState,this.savedGame);
+       this.audio.play();
+      
+    }
+
     draw(ctx){
-            this.menu.draw(ctx,this.gameState);
+            this.menu.draw(ctx,this.gameState,this.savedGame);
     }
 
     toggleMenu(mouseX,mouseY){
@@ -69,7 +76,7 @@ export class Game{
             this.menu.toggleVolumeButton(this.audioMuted,mouseX,mouseY);
             
         }
-        toggleClick(mouseX,mouseY){
+    toggleClick(mouseX,mouseY){
             
             if(mouseX>=this.menu.newGame.position.x && 
                 mouseX <= this.menu.newGame.position.x+this.menu.newGame.width &&
@@ -88,8 +95,11 @@ export class Game{
                 mouseY >= this.menu.resumeGame.position.y &&
                 mouseY<= this.menu.resumeGame.position.y+this.menu.resumeGame.height)
                 { 
-                    window.location="./Map/map.html";
-                    this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+                    if(this.savedGame==true){
+                        window.location="./Map/map.html";
+                        this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+                    }
+                    
 
                        
                 }

@@ -6,7 +6,7 @@ export class Menu {
         this.gameHeight = game.gameHeight;
         this.gameState = game.gamestate;
         this.constGamewidth = game.gameWidth;
-        this.savedPlayer = false;
+        
 
         this.ratio = this.gameWidth / game.gameWidth;
 
@@ -72,8 +72,8 @@ export class Menu {
             this.volumeButton,
             this.newGame,
             this.settingsButton,
-            this.aboutButton,
-            this.resumeGame
+            this.aboutButton
+            
 
         ]
 
@@ -92,7 +92,7 @@ export class Menu {
 
 
     }
-    update(deltaTime, GameWidth, GameHeight, gameState) {
+    update(deltaTime, GameWidth, GameHeight, gameState, savedGame) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
         this.ratio = this.constGamewidth / this.gameWidth;
@@ -128,15 +128,20 @@ export class Menu {
         this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
         this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
 
+        if(savedGame==true){
+            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+            this.input.style.top = this.resumeGame.position.y + this.newGame.height * 1.5 + "px";
+        }else{
+            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+            this.input.style.top = this.newGame.position.y + this.newGame.height * 1.5 + "px";
+        }
         this.input.style.height = this.gameHeight / 25 + "px";
         this.input.style.width = this.gameWidth / 5 + "px";
-        this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-        this.input.style.top = this.resumeGame.position.y + this.newGame.height * 1.5 + "px";
     }
 
-    draw(ctx, gameState) {
+    draw(ctx, gameState,savedGame) {
 
-
+        
         ctx.font = "30px Arial";
 
         ctx.textAlign = "center";
@@ -146,6 +151,10 @@ export class Menu {
             ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
 
         })
+        if(savedGame==true){
+            ctx.drawImage(this.resumeGame, this.resumeGame.position.x,this.resumeGame.position.y,this.resumeGame.width,this.resumeGame.height);
+        }
+
 
         if (gameState == 1) {
             ctx.fillRect(400, 100, 100, 100);
@@ -186,30 +195,20 @@ export class Menu {
 
     savePlayer(playerInfo,info,savedPlayer){
         var name="name";
-       
-        
-        var c=playerInfo.getCookie(name,info);//gets the index of name in array info
-
-        playerInfo.updateCookies(info[c[0]],info,this.input.value);
-        
-       
-        console.log(document.cookie);
-
+       if(this.input.value.length!=0){
+            var c=playerInfo.getCookie(name,info);//gets the index of name in array info
+            playerInfo.updateCookies(info[c[0]],info,this.input.value);
+       }
     }
 
     newPlayer(playerInfo,info,savedPlayer){
-
-
-        
 
         for(var i=0;i<info.length;i++){
            
             document.cookie=info[i]+"="+0+" ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
         }
         playerInfo.getSavedPlayer(info,savedPlayer);
-        
-       
-
+  
     }
     
 
