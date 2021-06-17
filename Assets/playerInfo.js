@@ -1,7 +1,6 @@
 export class PlayerInfo{
     constructor(game){
-        this.info=game.info;
-        this.savedPlayer=game.savedPlayer;
+     
         
     }
 
