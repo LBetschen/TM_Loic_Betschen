@@ -12,10 +12,10 @@ export class PlayerInfo{
                 var f = new XMLHttpRequest();
                 switch (i){
                     case 0:
-                        f.open("GET", "../Assets/cookieVariables.txt", false);
+                        f.open("GET", "./cookieVariables.txt", false);
                         break;
                     case 1:
-                        f.open("GET","../Assets/cookieData.txt",false);
+                        f.open("GET","./cookieVariables.txt",false);
                         break;
                 }
                 
