@@ -5,11 +5,11 @@ export class PlayerInfo{
     }
 
     getSavedPlayer(info,savedPlayer,savedGame){
-       
+        var f = new XMLHttpRequest();
+        var res;
         if(document.cookie.length==0){
             for(var i=0;i<2;i++){
-                var res;
-                var f = new XMLHttpRequest();
+                
                 switch (i){
                     case 0:
                         f.open("GET", "./cookieVariables.txt", false);
@@ -43,18 +43,9 @@ export class PlayerInfo{
             for(var i=0;i<info.length;i++){
                     document.cookie = info[i] +"="+ savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
             }
-
-            
-            console.log(false);
-
         }else{
-            
             this.updateCookieInfo(info,savedGame);
-            
-            
         }
-       
-       
     }
     
 
@@ -62,7 +53,8 @@ export class PlayerInfo{
         var cookies=document.cookie.split("; ");
         for(var i=0;i<cookies.length;i++){
             var variables = cookies[i].split("=");
-            info[i]=variables[0];//updates info so that variables in info are at the same index as the variables in the cookies  
+            info[i]=variables[0];//updates info so that variables in info are at the same index as the variables in the cookies 
+             
         }   
         
     }
@@ -84,7 +76,7 @@ export class PlayerInfo{
         return c;//returns the index and the value of the variable name in info
     }
 
-    updateCookies(cookieName,info,value){
+    changeCookie(cookieName,info,value){
         var name=cookieName;
         var c=this.getCookie(name,info);
         document.cookie=info[c[0]]+"="+value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";

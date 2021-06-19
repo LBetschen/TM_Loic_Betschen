@@ -197,7 +197,7 @@ export class Menu {
         var name="name";
        if(this.input.value.length!=0){
             var c=playerInfo.getCookie(name,info);//gets the index of name in array info
-            playerInfo.updateCookies(info[c[0]],info,this.input.value);
+            playerInfo.changeCookies(info[c[0]],info,this.input.value);
        }
     }
 

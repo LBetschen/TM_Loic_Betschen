@@ -81,8 +81,8 @@ export class level1Game{
 
     toggleClick(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
-            this.returnButton.toggleReturn(mouseX,mouseY);
-            this.reloadButton.toggleReload(mouseX,mouseY);
+            this.returnButton.toggleReturn(mouseX,mouseY,this);
+            this.reloadButton.toggleReload(mouseX,mouseY,this);
         }
     }
     

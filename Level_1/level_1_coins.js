@@ -46,8 +46,8 @@ export class Coins{
                         ){
                             this.score++;
                             this.coins[index]=0;
-                            game.playerInfo.updateCookies("level1score",game.info,this.score);
-                            game.playerInfo.updateCookies("level1coins",game.info,this.coins);
+                            game.playerInfo.changeCookies("level1score",game.info,this.score);
+                            game.playerInfo.changeCookies("level1coins",game.info,this.coins);
                             
                             this.coinAudio.play();
                         }
