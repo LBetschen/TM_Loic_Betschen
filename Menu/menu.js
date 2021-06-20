@@ -194,21 +194,21 @@ export class Menu {
     }
 
     savePlayer(playerInfo,info,savedPlayer){
-        var name="name";
+        /*var name="name";
        if(this.input.value.length!=0){
             var c=playerInfo.getCookie(name,info);//gets the index of name in array info
             playerInfo.changeCookies(info[c[0]],info,this.input.value);
-       }
+       }*/
     }
 
     newPlayer(playerInfo,info,savedPlayer){
 
-        for(var i=0;i<info.length;i++){
+        /*for(var i=0;i<info.length;i++){
            
             document.cookie=info[i]+"="+0+" ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
         }
         playerInfo.getSavedPlayer(info,savedPlayer);
-  
+  */
     }
     
 

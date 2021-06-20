@@ -1,4 +1,3 @@
-import { PlayerInfo } from "../Assets/playerInfo.js";
 export class ReloadButton{
     constructor(game){
         this.button =  new Image();
@@ -26,7 +25,7 @@ export class ReloadButton{
             ctx.drawImage(this.button,this.position.x,this.position.y,this.width,this.height);
     }
 
-    toggleButton(mouseX,mouseY,game){
+    toggleButton(mouseX,mouseY){
         if(mouseX>=this.position.x && 
             mouseX <= this.position.x+this.width &&
             mouseY >= this.position.y &&
@@ -40,7 +39,7 @@ export class ReloadButton{
     }
 
     
-    toggleReload(mouseX,mouseY,game){
+    toggleReload(mouseX,mouseY){
         if(mouseX>=this.position.x && 
             mouseX <= this.position.x+this.width &&
             mouseY >= this.position.y &&
@@ -48,9 +47,6 @@ export class ReloadButton{
             { 
                
                 location.reload();
-                var c=game.playerInfo.getCookie("level1score",game.info);
-                game.playerInfo.changeCookie("level1score",game.info,c[]),
-                
             }
 
     }

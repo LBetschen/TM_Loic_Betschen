@@ -43,8 +43,8 @@ export class Game{
         
         this.audio.play(); 
 
-        this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
-        console.log(this.savedGame);
+        //this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
+        //console.log(this.savedGame);
        
     }
 

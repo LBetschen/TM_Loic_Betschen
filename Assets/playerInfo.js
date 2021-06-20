@@ -6,8 +6,8 @@ export class PlayerInfo{
 
     getSavedPlayer(info,savedPlayer,savedGame){
         var f = new XMLHttpRequest();
-        var res;
         if(document.cookie.length==0){
+            var res;
             for(var i=0;i<2;i++){
                 
                 switch (i){

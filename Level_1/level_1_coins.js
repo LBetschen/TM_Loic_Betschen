@@ -13,70 +13,56 @@ export class Coins{
         this.width=this.coin.naturalWidth/8;
         this.height=this.coin.naturalHeight/8;
        
-        this.cScore=game.playerInfo.getCookie("level1score",game.info);
-        this.score=this.cScore[2];
+        
+        this.score=0;
         
     }
 
-    start(ctx,game){
+    start(ctx){
         this.coinAnimation(ctx);
         this.readFiles();
-        
-        var c= game.playerInfo.getCookie("level1coins",game.info);
-        this.coins=c[2].split(",");
+    
         
     }
 
-    update(deltaTime,GameWidth,GameHeight,player,game){
+    update(deltaTime,GameWidth,GameHeight,player){
         
         this.coin.src=document.getElementById("coin"+i).src;
-        var index=0;
+
         for(var k = 0;k<this.coinMap.length;k++){
             var value=this.coinMap[k];
             if(value==1){
-                if(this.coins[index]==1){
-
-                    var x=(k%this.columns)*this.width;
-                    var y=Math.floor(k/this.columns)*this.height;
-                    
-                        if( player.position.x+player.width/2>x &&
-                        player.position.x+player.width/2<x+this.width &&
-                        player.position.y+player.height/2>y &&
-                        player.position.y+player.height/2<y +this.height 
-                        ){
-                            this.score++;
-                            this.coins[index]=0;
-                            game.playerInfo.changeCookies("level1score",game.info,this.score);
-                            game.playerInfo.changeCookies("level1coins",game.info,this.coins);
-                            
-                            this.coinAudio.play();
-                        }
-                }
-                index++;   
+                var x=(k%this.columns)*this.width;
+                var y=Math.floor(k/this.columns)*this.height;
+                
+                    if( player.position.x+player.width/2>x &&
+                    player.position.x+player.width/2<x+this.width &&
+                    player.position.y+player.height/2>y &&
+                    player.position.y+player.height/2<y +this.height 
+                    ){
+                        this.coinMap[k]=0;
+                        this.score++;
+                        this.coinAudio.play();
+                    }
+                           
                 
             }
         }
         
     }
-    draw(ctx,game){
-            var index=0;
+    draw(ctx){
+        
             for(var i = 0;i<this.coinMap.length;i++){
                 var value=this.coinMap[i];
                 if(value==1){
-                    
-                    if(this.coins[index]==1){
-
-                        var x=(i%this.columns)*this.width;
-                        var y=Math.floor(i/this.columns)*this.width;
-                        ctx.drawImage(this.coin,x,y,this.width,this.height);                    
-                    }
-                    index++;
+                    var x=(i%this.columns)*this.width;
+                    var y=Math.floor(i/this.columns)*this.width;
+                    ctx.drawImage(this.coin,x,y,this.width,this.height);                    
                 }
             }
 
             ctx.font="50px";
             ctx.fillStyle="black";
-            
             ctx.fillText("Score : " + this.score,75,50);
     
     }
@@ -96,7 +82,7 @@ export class Coins{
 
     readFiles(){
 
-        
+        /*
             var res;
             var f = new XMLHttpRequest();
         
@@ -114,6 +100,24 @@ export class Coins{
             }
             f.send(null);
             this.coinMap=res;
+        */
+        var res;
+        fetch("./coins.txt").then(Response => Response.text()).then((data) => {
+           
+            console.log(data);
+            res=data.split(",");
+            
+            for(var i=0;i<res.length;i++){
+                res[i]=parseInt(res[i]);
+                
+            }
+            console.log(res);
+           this.coinMap=res;
+        });
         
+          
+       
+       
+
     }
 }
