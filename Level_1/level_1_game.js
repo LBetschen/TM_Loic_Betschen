@@ -4,6 +4,7 @@ import {ReturnButton} from "./level_1_return.js";
 import {Player} from "./level_1_player.js";
 import {Coins} from "./level_1_coins.js";
 import {ReloadButton} from "./level_1_reload.js";
+import {PlayerInfo} from "../Assets/playerInfo.js";
 
 const GAMESTATE={
     RUNNING:0,
@@ -15,10 +16,17 @@ export class level1Game{
         this.gameWidth=GameWidth;
         this.gameHeight=GameHeight;
         this.gameState=GAMESTATE;
+        this.savedPlayer=[];//values of the saved player
+        this.info=[];//variables of the saved player
     }
 
     start(ctx){
   
+        
+        
+        this.playerInfo=new PlayerInfo(this);
+        this.playerInfo.getSavedPlayer(this.info,this.savedPlayer);
+        
         this.PauseScreen= new PauseScreen(this);
         this.player= new Player(this);
         this.coins = new Coins(this);
@@ -27,7 +35,7 @@ export class level1Game{
         this.reloadButton = new ReloadButton(this);
         //this.coins.coinAnimation();
         new Level1Input(this);
-        this.coins.start(ctx);
+        this.coins.start(ctx,this);
         
        
     }
@@ -40,7 +48,7 @@ export class level1Game{
             x:this.player.position.x+(this.player.width/2),
             y:this.player.position.y+(this.player.height/2),
         }
-        this.coins.update(deltaTime,GameWidth,GameHeight,this.player);
+        this.coins.update(deltaTime,GameWidth,GameHeight,this.player,this);
         this.player.update(deltaTime,GameWidth,GameHeight);
         
 
@@ -54,7 +62,7 @@ export class level1Game{
 
     draw(ctx){
         
-        this.coins.draw(ctx);
+        this.coins.draw(ctx,this);
         this.player.draw(ctx);
         
         if(this.gameState==GAMESTATE.PAUSED){
@@ -74,8 +82,8 @@ export class level1Game{
 
     toggleClick(mouseX,mouseY){
         if(this.gameState==GAMESTATE.PAUSED){
-            this.returnButton.toggleReturn(mouseX,mouseY);
-            this.reloadButton.toggleReload(mouseX,mouseY);
+            this.returnButton.toggleReturn(mouseX,mouseY,this);
+            this.reloadButton.toggleReload(mouseX,mouseY,this);
         }
     }
     

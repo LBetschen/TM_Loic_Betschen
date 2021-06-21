@@ -4,7 +4,7 @@ export class Input{
         document.addEventListener("click",(event)=>{
             let mouseX=event.clientX;
             let mouseY=event.clientY;
-            game.toggleMenu(mouseX,mouseY);
+            
             game.toggleClick(mouseX,mouseY);
         });
 

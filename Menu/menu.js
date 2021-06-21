@@ -1,5 +1,3 @@
-
-
 export class Menu {
     constructor(game) {
         this.gameWidth = game.gameWidth;
@@ -7,7 +5,6 @@ export class Menu {
         this.gameState = game.gamestate;
         this.constGamewidth = game.gameWidth;
         
-
         this.ratio = this.gameWidth / game.gameWidth;
 
         this.aboutButton = new Image();
@@ -21,16 +18,16 @@ export class Menu {
             y: this.gameHeight / 50
         }
 
-        this.newGame = new Image();
-        this.newGame.down = "newGameDown";
-        this.newGame.up = "newGame";
-        this.newGame.src = document.getElementById(this.newGame.up).src;
-        this.newGame.aspect = this.newGame.naturalHeight / this.newGame.naturalWidth;
-        this.newGame.width = this.newGame.naturalWidth / 3 / this.ratio;
-        this.newGame.height = this.newGame.naturalHeight /3/ this.ratio;
-        this.newGame.position = {
-            x: this.gameWidth / 2 - this.newGame.width / 2,
-            y: this.gameHeight / 2 - this.newGame.height
+        this.newGameButton = new Image();
+        this.newGameButton.down = "newGameDown";
+        this.newGameButton.up = "newGameButton";
+        this.newGameButton.src = document.getElementById(this.newGameButton.up).src;
+        this.newGameButton.aspect = this.newGameButton.naturalHeight / this.newGameButton.naturalWidth;
+        this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
+        this.newGameButton.height = this.newGameButton.naturalHeight /3/ this.ratio;
+        this.newGameButton.position = {
+            x: this.gameWidth / 2 - this.newGameButton.width / 2,
+            y: this.gameHeight / 2 - this.newGameButton.height
         }
 
         this.settingsButton = new Image();
@@ -70,28 +67,20 @@ export class Menu {
 
         this.gameButtons = [
             this.volumeButton,
-            this.newGame,
+            this.newGameButton,
             this.settingsButton,
             this.aboutButton
-            
-
         ]
 
         this.input = document.getElementById("nameInput");
         this.input.style.height = this.gameHeight / 25 + "px";
         this.input.style.width = this.gameWidth / 5 + "px";
         this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-        this.input.style.top = this.newGame.position.y + this.newGame.height * 1.25 + "px";
-
-
+        this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.25 + "px";
 
         this.playersName = document.getElementById("playerNames");
-
-        
-
-
-
     }
+
     update(deltaTime, GameWidth, GameHeight, gameState, savedGame) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
@@ -105,9 +94,9 @@ export class Menu {
             x: this.gameWidth / 50,
             y: this.gameHeight / 50
         }
-        this.newGame.position = {
-            x: this.gameWidth / 2 - this.newGame.width / 2,
-            y: this.gameHeight / 2 - this.newGame.height * 1.5
+        this.newGameButton.position = {
+            x: this.gameWidth / 2 - this.newGameButton.width / 2,
+            y: this.gameHeight / 2 - this.newGameButton.height * 1.5
         }
         this.volumeButton.position = {
             x: this.settingsButton.position.x - this.volumeButton.width - 10,
@@ -123,17 +112,17 @@ export class Menu {
         this.settingsButton.width = this.settingsButton.naturalWidth / 3 / this.ratio;
         this.volumeButton.height = this.volumeButton.naturalHeight / 3 / this.ratio;
         this.volumeButton.width = this.volumeButton.naturalWidth / 3 / this.ratio;
-        this.newGame.width = this.newGame.naturalWidth / 3 / this.ratio;
-        this.newGame.height = this.newGame.naturalHeight /3/ this.ratio;
+        this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
+        this.newGameButton.height = this.newGameButton.naturalHeight /3/ this.ratio;
         this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
         this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
 
         if(savedGame==true){
             this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-            this.input.style.top = this.resumeGame.position.y + this.newGame.height * 1.5 + "px";
+            this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
         }else{
             this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-            this.input.style.top = this.newGame.position.y + this.newGame.height * 1.5 + "px";
+            this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
         }
         this.input.style.height = this.gameHeight / 25 + "px";
         this.input.style.width = this.gameWidth / 5 + "px";
@@ -141,20 +130,16 @@ export class Menu {
 
     draw(ctx, gameState,savedGame) {
 
-        
         ctx.font = "30px Arial";
-
         ctx.textAlign = "center";
         ctx.fillText("The Climate Savers", this.gameWidth / 2, this.gameHeight / 14);
 
         this.gameButtons.forEach((object) => {
             ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
-
         })
         if(savedGame==true){
             ctx.drawImage(this.resumeGame, this.resumeGame.position.x,this.resumeGame.position.y,this.resumeGame.width,this.resumeGame.height);
         }
-
 
         if (gameState == 1) {
             ctx.fillRect(400, 100, 100, 100);
@@ -168,9 +153,7 @@ export class Menu {
             ctx.fillText("demonstrate certain solutions that could", this.aboutButton.position.x + this.aboutButton.width + 20, this.aboutButton.position.y + this.aboutButton.height + 60, this.gameWidth / 2);
             ctx.fillText("help the environment.", this.aboutButton.position.x + this.aboutButton.width + 20, this.aboutButton.position.y + this.aboutButton.height + 90, this.gameWidth / 2);
             ctx.fillText("Loïc Betschen", this.aboutButton.position.x + this.aboutButton.width + 20, this.aboutButton.position.y + this.aboutButton.height + 180, this.gameWidth / 2);
-
         }
-
     }
 
     toggleVolumeButton(audioMuted, mouseX, mouseY) {
@@ -183,7 +166,6 @@ export class Menu {
             } else {
                 this.volumeButton.src = document.getElementById(this.volumeButton.mutedDown).src;
             }
-
         } else {
             if (audioMuted == false) {
                 this.volumeButton.src = document.getElementById(this.volumeButton.up).src;
@@ -194,25 +176,22 @@ export class Menu {
     }
 
     savePlayer(playerInfo,info,savedPlayer){
-        /*var name="name";
-       if(this.input.value.length!=0){
+        var name="name";
+        console.log(this.input.value);
+        if(this.input.value.length!=0){
             var c=playerInfo.getCookie(name,info);//gets the index of name in array info
-            playerInfo.changeCookies(info[c[0]],info,this.input.value);
-       }*/
-    }
-
-    newPlayer(playerInfo,info,savedPlayer){
-
-        /*for(var i=0;i<info.length;i++){
-           
-            document.cookie=info[i]+"="+0+" ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
+            playerInfo.changeCookie(info[c[0]],info,this.input.value);
         }
-        playerInfo.getSavedPlayer(info,savedPlayer);
-  */
     }
-    
 
-    
-   
-
+    newGame(playerInfo,info,savedPlayer,savedGame){
+        savedGame=false;
+        /*for(var i=0;i<info.length;i++){
+            console.log(info[i]);
+            document.cookie=info[i]+"="+0+" ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
+        }//here is the problem*/
+        
+        playerInfo.getSavedPlayer(info,savedPlayer,savedGame);
+        
+    }
 }

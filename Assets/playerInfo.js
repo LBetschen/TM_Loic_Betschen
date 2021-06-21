@@ -1,86 +1,91 @@
 export class PlayerInfo{
     constructor(game){
-     
+        this.info;
+        this.savedPlayer;
         
     }
 
     getSavedPlayer(info,savedPlayer,savedGame){
-        var f = new XMLHttpRequest();
-        if(document.cookie.length==0){
-            var res;
-            for(var i=0;i<2;i++){
-                
-                switch (i){
-                    case 0:
-                        f.open("GET", "./cookieVariables.txt", false);
-                        break;
-                    case 1:
-                        f.open("GET","./cookieVariables.txt",false);
-                        break;
-                }
-                
-                f.onreadystatechange = function (){
-                    if(f.readyState === 4 && f.status === 200 )
-                    {
-                        res = f.responseText;
-                        res=res.replace(/(\r\n|\n|\r)/gm,"");
-                        res=res.split(";");
-                        for(var i=0;i<res.length;i++){
-                            res[i]=res[i];
-                        }
-                    }
-                }
-                f.send(null);
-                switch (i){
-                    case 0:
-                        info=res;//saves the variables of the player in info¨
-                        break;
-                    case 1:
-                        savedPlayer=res;//saves the data of the player in savedPlayer
-                        break;
-                }
-            }
-            for(var i=0;i<info.length;i++){
-                    document.cookie = info[i] +"="+ savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
-            }
+        
+       
+        if(document.cookie.length==0 || savedGame==false){
+            savedGame=false;
+            
+            
+
+                        
+                        fetch("../Assets/cookieVariables.txt").then(Response => Response.text()).then((variables) => {
+                            fetch("../Assets/cookieData.txt").then(Response => Response.text()).then((data) => {
+                                
+                                var dataRes=[];
+                                var variableRes=[];
+                                
+                                dataRes=data.split(";");
+                                variableRes=variables.split(";");
+                                
+                                for(var i=0;i<variableRes.length;i++){
+                                    dataRes[i]=dataRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                                    savedPlayer[i]=dataRes[i];
+                                    variableRes[i]=variableRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                                    info[i]=variableRes[i];
+                                    document.cookie = info[i] +"="+ savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+                                } 
+                                
+                                this.updateCookieInfo(info,savedPlayer);
+                            });
+                            
+                           
+                        });
+                        
+                    
+                     
+                        
+                    
         }else{
-            this.updateCookieInfo(info,savedGame);
-        }
+            savedGame=true;
+            this.updateCookieInfo(info,savedPlayer);
+            console.log(document.cookie);
+        }   
+       
     }
     
 
-    updateCookieInfo(info,savedGame){
+    updateCookieInfo(info,savedPlayer,savedGame){
         var cookies=document.cookie.split("; ");
         for(var i=0;i<cookies.length;i++){
             var variables = cookies[i].split("=");
-            info[i]=variables[0];//updates info so that variables in info are at the same index as the variables in the cookies 
+            info[i]=variables[0];//updates info so that variables in info are at the same index as the variables in the cookies
+            savedPlayer[i]=variables[1]; 
              
         }   
+        console.log(info);
         
     }
 
     getCookie(cookieName,info){
         var name=cookieName;
-        var c=[];
+        var index=[];
 
         for(var i=0;i<info.length;i++){
             if(info[i]==name){
-                c[0]=parseInt(i);
+                index[0]=parseInt(i);
             }
         }
+        console.log(document.cookie);
         var cookies=document.cookie.split("; ");//splits the cookie in pair variables placed in the array cookies
-        var variables=cookies[c[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
-        c[1]=variables[0];
-        c[2]=variables[1];          
+        console.log(cookies);
+        var variables=cookies[index[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
+        index[1]=variables[0];
+        index[2]=variables[1];          
         
-        return c;//returns the index and the value of the variable name in info
+        return index;//returns the index and the value of the variable name in info
     }
 
     changeCookie(cookieName,info,value){
         var name=cookieName;
         var c=this.getCookie(name,info);
         document.cookie=info[c[0]]+"="+value+" ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
-
+        console.log(document.cookie);
         var cookies=document.cookie.split("; ");
         
         for(var i=0;i<cookies.length;i++){

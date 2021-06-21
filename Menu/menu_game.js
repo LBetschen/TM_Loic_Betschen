@@ -37,14 +37,17 @@ export class Game{
         new Input(this);
 
         this.buttons=[this.menu.aboutButton,this.menu.settingsButton]; 
-        this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.newGame,this.menu.resumeGame]; 
+        this.buttonsDown=[this.menu.aboutButton,this.menu.settingsButton,this.menu.newGameButton,this.menu.resumeGame]; 
 
         this.gameState=GAMESTATE.RUNNING;
         
         this.audio.play(); 
 
-        //this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
-        //console.log(this.savedGame);
+        this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
+        console.log(document.cookie);
+        
+        
+        console.log(this.savedPlayer);
        
     }
 
@@ -55,11 +58,10 @@ export class Game{
     }
 
     draw(ctx){
-            this.menu.draw(ctx,this.gameState,this.savedGame);
+        this.menu.draw(ctx,this.gameState,this.savedGame);
     }
 
-    toggleMenu(mouseX,mouseY){
-    }
+
     
     toggleButtons(mouseX,mouseY){
         this.buttonsDown.forEach((object)=>{
@@ -78,14 +80,20 @@ export class Game{
         }
     toggleClick(mouseX,mouseY){
             
-            if(mouseX>=this.menu.newGame.position.x && 
-                mouseX <= this.menu.newGame.position.x+this.menu.newGame.width &&
-                mouseY >= this.menu.newGame.position.y &&
-                mouseY<= this.menu.newGame.position.y+this.menu.newGame.height)
+            if(mouseX>=this.menu.newGameButton.position.x && 
+                mouseX <= this.menu.newGameButton.position.x+this.menu.newGameButton.width &&
+                mouseY >= this.menu.newGameButton.position.y &&
+                mouseY<= this.menu.newGameButton.position.y+this.menu.newGameButton.height)
                 { 
-                   window.location="./Map/map.html";
-                   this.menu.newPlayer(this.playerInfo,this.info,this.savedPlayer);
-                   this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+          
+                    
+                    this.menu.newGame(this.playerInfo,this.info,this.savedPlayer,this.savedGame);
+               
+                    this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+                   
+                    
+                    window.location="./Map/map.html";
+                   
                    
                    
                 }
@@ -96,8 +104,11 @@ export class Game{
                 mouseY<= this.menu.resumeGame.position.y+this.menu.resumeGame.height)
                 { 
                     if(this.savedGame==true){
-                        window.location="./Map/map.html";
+                        
                         this.menu.savePlayer(this.playerInfo,this.info,this.savedPlayer);
+                       
+                        window.location="./Map/map.html";
+                        
                     }
                     
 
