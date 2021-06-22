@@ -4,7 +4,7 @@ export class Menu {
         this.gameHeight = game.gameHeight;
         this.gameState = game.gamestate;
         this.constGamewidth = game.gameWidth;
-        
+
         this.ratio = this.gameWidth / game.gameWidth;
 
         this.aboutButton = new Image();
@@ -24,7 +24,7 @@ export class Menu {
         this.newGameButton.src = document.getElementById(this.newGameButton.up).src;
         this.newGameButton.aspect = this.newGameButton.naturalHeight / this.newGameButton.naturalWidth;
         this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
-        this.newGameButton.height = this.newGameButton.naturalHeight /3/ this.ratio;
+        this.newGameButton.height = this.newGameButton.naturalHeight / 3 / this.ratio;
         this.newGameButton.position = {
             x: this.gameWidth / 2 - this.newGameButton.width / 2,
             y: this.gameHeight / 2 - this.newGameButton.height
@@ -113,14 +113,14 @@ export class Menu {
         this.volumeButton.height = this.volumeButton.naturalHeight / 3 / this.ratio;
         this.volumeButton.width = this.volumeButton.naturalWidth / 3 / this.ratio;
         this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
-        this.newGameButton.height = this.newGameButton.naturalHeight /3/ this.ratio;
+        this.newGameButton.height = this.newGameButton.naturalHeight / 3 / this.ratio;
         this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
         this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
 
-        if(savedGame==true){
+        if (savedGame == true) {
             this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
             this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
-        }else{
+        } else {
             this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
             this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
         }
@@ -128,7 +128,7 @@ export class Menu {
         this.input.style.width = this.gameWidth / 5 + "px";
     }
 
-    draw(ctx, gameState,savedGame) {
+    draw(ctx, gameState, savedGame) {
 
         ctx.font = "30px Arial";
         ctx.textAlign = "center";
@@ -137,8 +137,8 @@ export class Menu {
         this.gameButtons.forEach((object) => {
             ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
         })
-        if(savedGame==true){
-            ctx.drawImage(this.resumeGame, this.resumeGame.position.x,this.resumeGame.position.y,this.resumeGame.width,this.resumeGame.height);
+        if (savedGame == true) {
+            ctx.drawImage(this.resumeGame, this.resumeGame.position.x, this.resumeGame.position.y, this.resumeGame.width, this.resumeGame.height);
         }
 
         if (gameState == 1) {
@@ -175,23 +175,31 @@ export class Menu {
         }
     }
 
-    savePlayer(playerInfo,info,savedPlayer){
-        var name="name";
+    savePlayer(playerInfo, info, savedPlayer) {
+        var name = "name";
         console.log(this.input.value);
-        if(this.input.value.length!=0){
-            var c=playerInfo.getCookie(name,info);//gets the index of name in array info
-            playerInfo.changeCookie(info[c[0]],info,this.input.value);
+        if (this.input.value.length != 0) {
+            var c = playerInfo.getCookie(name, info);//gets the index of name in array info
+            playerInfo.changeCookie(info[c[0]], info, this.input.value);
         }
     }
 
-    newGame(playerInfo,info,savedPlayer,savedGame){
-        savedGame=false;
-        /*for(var i=0;i<info.length;i++){
-            console.log(info[i]);
-            document.cookie=info[i]+"="+0+" ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
-        }//here is the problem*/
-        
-        playerInfo.getSavedPlayer(info,savedPlayer,savedGame);
-        
+    newGame(playerInfo, info, savedPlayer, savedGame) {
+        savedGame = false;
+
+        console.log(document.cookie);
+        playerInfo.getSavedPlayer(info, savedPlayer, savedGame);
+        console.log(document.cookie);
+    }
+
+    inputValue(info, playerInfo) {
+        var name = "name";
+        var c = playerInfo.getCookie(name, info);//gets the index of name in array info
+        if (c[2] == 0 || this.input.value == "") {
+            this.input.value = "PLAYER NAME";
+        } else {
+
+            this.input.value = c[2];
+        }
     }
 }
