@@ -19,20 +19,69 @@ export class Game {
         this.audio.src = document.getElementById("backgroundSound1").src;
         this.audioMuted = false;
 
-        this.savedPlayer = [];//values of the saved player
-        this.info = [];//variable of the saved player
+        this.savedPlayer=new Array;//values of the saved player
+        this.info=new Array;//variable of the saved player
         this.savedGame = false;//true if there is already a player saved
 
     }
 
     start() {
+       
 
-        if (document.cookie.length != 0) {
-            this.savedGame = true;
-        }
-
+    
         this.menu = new Menu(this);
         this.playerInfo = new PlayerInfo(this);
+        //this.playerInfo.getSavedPlayer(this);//retrieves the progress of the player or creates cookies to save the players progress
+        if (document.cookie.length == 0 || this.savedGame == false) {
+            this.savedGame = false;
+            
+
+
+            
+           fetch("../Assets/cookieVariables.txt").then(Response => Response.text()).then((variables) => {
+               var variableRes = [];
+                variableRes = variables.split(";");
+                console.log(variables);
+                console.log(variableRes);
+                for (var i = 0; i < variableRes.length; i++) { 
+                    variableRes[i] = variableRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                    this.info[i] = variableRes[i];
+                }
+                console.log(this.info);
+                
+            });
+            
+            console.log(this.info);
+            
+            fetch("../Assets/cookieData.txt").then(Response => Response.text()).then((data) => {  
+                var dataRes = []; 
+                dataRes = data.split(";");
+                for (var i = 0; i < dataRes.length; i++) {
+                    dataRes[i] = dataRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                    this.savedPlayer[i] = dataRes[i];
+                }
+            });
+            console.log(this.savedPlayer);
+            
+            for (var i = 0; i < this.info.length; i++) { 
+                document.cookie = this.info[i] + "=" + this.savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+            }
+            console.log(this.info);
+            this.menu.inputValue(this); //there is still a problem with .split()
+
+
+
+
+        } else {
+            this.savedGame = true;
+            this.playerInfo.updateCookieInfo(this.info, this.savedPlayer);
+            this.menu.inputValue(this); //there is still a problem with .split()
+
+
+        }
+        console.log(this.info);
+        console.log(this.savedGame);
+
 
         new Input(this);
 
@@ -42,25 +91,26 @@ export class Game {
         this.gameState = GAMESTATE.RUNNING;
 
         this.audio.play();
-
-        this.playerInfo.getSavedPlayer(this.info, this.savedPlayer, this.savedGame);//retrieves the progress of the player or creates cookies to save the players progress
-        console.log(document.cookie);
-
-        this.menu.inputValue(this.info, this.playerInfo);
-
-        console.log(this.savedPlayer);
+       
+        
+     
 
     }
 
     update(deltaTime, gameWidth, gameHeight) {
+       
         this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
+        
         this.audio.play();
+        
 
 
     }
 
     draw(ctx) {
+       
         this.menu.draw(ctx, this.gameState, this.savedGame);
+      
     }
 
 
@@ -87,10 +137,10 @@ export class Game {
             mouseY <= this.menu.newGameButton.position.y + this.menu.newGameButton.height) {
 
 
-            this.menu.newGame(this.playerInfo, this.info, this.savedPlayer, this.savedGame);
+            //this.menu.newGame(this);
 
             console.log(document.cookie);
-            this.menu.savePlayer(this.playerInfo, this.info, this.savedPlayer);
+            //this.menu.savePlayer(this);
 
 
             window.location = "./Map/map.html";
@@ -105,7 +155,7 @@ export class Game {
             mouseY <= this.menu.resumeGame.position.y + this.menu.resumeGame.height) {
             if (this.savedGame == true) {
 
-                this.menu.savePlayer(this.playerInfo, this.info, this.savedPlayer);
+                //this.menu.savePlayer(this);
 
                 window.location = "./Map/map.html";
 

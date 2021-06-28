@@ -1,96 +1,100 @@
 export class PlayerInfo {
     constructor(game) {
-        this.info;
-        this.savedPlayer;
+        
 
     }
 
-    getSavedPlayer(info, savedPlayer, savedGame) {
+    getSavedPlayer(game) {
 
 
-        if (document.cookie.length == 0 || savedGame == false) {
-            savedGame = false;
-            console.log(savedGame);
+        if (document.cookie.length == 0 || game.savedGame == false) {
+            game.savedGame = false;
+            
 
 
+            var variableRes = [];
 
-            fetch("../Assets/cookieVariables.txt").then(Response => Response.text()).then((variables) => {
-                fetch("../Assets/cookieData.txt").then(Response => Response.text()).then((data) => {
-
-                    var dataRes = [];
-                    var variableRes = [];
-                    console.log("it works");
-                    dataRes = data.split(";");
-                    variableRes = variables.split(";");
-
-                    for (var i = 0; i < variableRes.length; i++) {
-                        dataRes[i] = dataRes[i].replace(/(\r\n|\n|\r)/gm, "");
-                        savedPlayer[i] = dataRes[i];
-                        variableRes[i] = variableRes[i].replace(/(\r\n|\n|\r)/gm, "");
-                        info[i] = variableRes[i];
-                        document.cookie = info[i] + "=" + savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
-                    }
-
-                    this.updateCookieInfo(info, savedPlayer);
-                });
-
-
+           fetch("../Assets/cookieVariables.txt").then(Response => Response.text()).then((variables) => {
+                variableRes = variables.split(";");
+                
+            });
+            
+            for (var i = 0; i < variableRes.length; i++) { 
+                variableRes[i] = variableRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                game.info[i] = variableRes[i];
+            }
+            console.log(game.info);
+            
+            fetch("../Assets/cookieData.txt").then(Response => Response.text()).then((data) => {  
+                var dataRes = []; 
+                dataRes = data.split(";");
+                for (var i = 0; i < dataRes.length; i++) {
+                    dataRes[i] = dataRes[i].replace(/(\r\n|\n|\r)/gm, "");
+                    game.savedPlayer[i] = dataRes[i];
+                 }
             });
 
+            for (var i = 0; i < game.info.length; i++) { 
+                    document.cookie = game.info[i] + "=" + game.savedPlayer[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+            }
+            console.log(game.info);
 
 
 
 
         } else {
-            savedGame = true;
-            this.updateCookieInfo(info, savedPlayer);
+            game.savedGame = true;
+            this.updateCookieInfo(game.info, game.savedPlayer);
 
         }
 
     }
 
 
-    updateCookieInfo(info, savedPlayer, savedGame) {
+    updateCookieInfo(game) {
         var cookies = document.cookie.split("; ");
         for (var i = 0; i < cookies.length; i++) {
             var variables = cookies[i].split("=");
-            info[i] = variables[0];//updates info so that variables in info are at the same index as the variables in the cookies
-            savedPlayer[i] = variables[1];
+            game.info[i] = variables[0];//updates game.info so that variables in game.info are at the same index as the variables in the cookies
+            game.savedPlayer[i] = variables[1];
 
         }
 
 
     }
 
-    getCookie(cookieName, info) {
+    getCookie(cookieName, game) {
         var name = cookieName;
         var index = [];
-
-        for (var i = 0; i < info.length; i++) {
-            if (info[i] == name) {
-                index[0] = parseInt(i);
+        //game.info does not work
+        console.log(game.info[2]);
+        for (var i = 0; i < game.info.length; i++) {
+            if (game.info[i] == "name") {
+                console.log("yep");
+                index[0] = i;
             }
         }
 
         var cookies = document.cookie.split("; ");//splits the cookie in pair variables placed in the array cookies
-
+        
+    console.log(index[0] );
         var variables = cookies[index[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
         index[1] = variables[0];
         index[2] = variables[1];
 
-        return index;//returns the index and the value of the variable name in info
+        return index;//returns the index and the value of the variable name in game.info
     }
 
-    changeCookie(cookieName, info, value) {
+    changeCookie(cookieName, game, value) {
         var name = cookieName;
-        var c = this.getCookie(name, info);
-        document.cookie = info[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+        var c = this.getCookie(name, game.info);
+        document.cookie = game.info[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
 
         var cookies = document.cookie.split("; ");
 
         for (var i = 0; i < cookies.length; i++) {
             var variables = cookies[i].split("=");
-            info[i] = variables[0];//updates info so that variables in info are at the same index as the variables in the cookies
+            game.info[i] = variables[0];//updates game.info so that variables in game.info are at the same index as the variables in the cookies
 
         }
 

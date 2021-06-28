@@ -175,26 +175,27 @@ export class Menu {
         }
     }
 
-    savePlayer(playerInfo, info, savedPlayer) {
+    savePlayer(game) {
         var name = "name";
         console.log(this.input.value);
         if (this.input.value.length != 0) {
-            var c = playerInfo.getCookie(name, info);//gets the index of name in array info
-            playerInfo.changeCookie(info[c[0]], info, this.input.value);
+            var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
+            game.playerInfo.changeCookie(info[c[0]], game, this.input.value);
         }
     }
 
-    newGame(playerInfo, info, savedPlayer, savedGame) {
-        savedGame = false;
+    newGame(game) {
+        game.savedGame = false;
 
         console.log(document.cookie);
-        playerInfo.getSavedPlayer(info, savedPlayer, savedGame);
+        game.playerInfo.getSavedPlayer(game);
         console.log(document.cookie);
     }
 
-    inputValue(info, playerInfo) {
+    inputValue(game) {
         var name = "name";
-        var c = playerInfo.getCookie(name, info);//gets the index of name in array info
+        
+        var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
         if (c[2] == 0 || this.input.value == "") {
             this.input.value = "PLAYER NAME";
         } else {
