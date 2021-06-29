@@ -116,19 +116,14 @@ export class Menu {
         this.newGameButton.height = this.newGameButton.naturalHeight / 3 / this.ratio;
         this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
         this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
-
-        if (savedGame == true) {
-            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-            this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
-        } else {
-            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
-            this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
-        }
-        this.input.style.height = this.gameHeight / 25 + "px";
+        
+        this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+        this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
+        this.input.style.height = this.gameHeight /25+ "px";
         this.input.style.width = this.gameWidth / 5 + "px";
     }
 
-    draw(ctx, gameState, savedGame) {
+    draw(ctx, gameState, savedGame,game) {
 
         ctx.font = "30px Arial";
         ctx.textAlign = "center";
@@ -137,8 +132,11 @@ export class Menu {
         this.gameButtons.forEach((object) => {
             ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
         })
-        if (savedGame == true) {
+        var c= game.playerInfo.getCookie("name");
+        if (c[2]!=0) {
             ctx.drawImage(this.resumeGame, this.resumeGame.position.x, this.resumeGame.position.y, this.resumeGame.width, this.resumeGame.height);
+            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+            this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
         }
 
         if (gameState == 1) {
@@ -177,26 +175,26 @@ export class Menu {
 
     savePlayer(game) {
         var name = "name";
-        console.log(this.input.value);
+        
         if (this.input.value.length != 0) {
             var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
-            game.playerInfo.changeCookie(info[c[0]], game, this.input.value);
+            game.playerInfo.changeCookie(game.playerInfo.playerVariables[c[0]], game, this.input.value);
         }
     }
 
     newGame(game) {
-        game.savedGame = false;
-
-        console.log(document.cookie);
+        for(var i=0;i<game.playerInfo.newPlayerVariables.length;i++){
+            document.cookie=game.playerInfo.newPlayerVariables[i]+"= 0 ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
+        }
         game.playerInfo.getSavedPlayer(game);
-        console.log(document.cookie);
     }
 
     inputValue(game) {
         var name = "name";
         
         var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
-        if (c[2] == 0 || this.input.value == "") {
+        console.log(c);
+        if (c[2] == 0 ) {
             this.input.value = "PLAYER NAME";
         } else {
 
