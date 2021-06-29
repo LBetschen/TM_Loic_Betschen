@@ -1,6 +1,6 @@
 import { Input } from "./menu_input.js";
 import { Menu } from "./menu.js";
-import { PlayerInfo } from "../Assets/playerInfo.js";
+import { PlayerProgress } from "../Assets/playerProgress.js";
 
 const GAMESTATE = {
     RUNNING: 0,
@@ -26,8 +26,8 @@ export class Game {
     start() {
      
         this.menu = new Menu(this);
-        this.playerInfo = new PlayerInfo(this);
-        this.playerInfo.getSavedPlayer(this);//retrieves the progress of the player or creates cookies to save the players progress
+        this.playerProgress = new PlayerProgress(this);
+        this.playerProgress.getSavedPlayer(this);//retrieves the progress of the player or creates cookies to save the players progress
         
         this.menu.inputValue(this);
 
@@ -44,7 +44,7 @@ export class Game {
 
     update(deltaTime, gameWidth, gameHeight) {
         
-        this.playerInfo.updatePlayerVariables();
+        this.playerProgress.updatePlayerVariables();
         this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
 
         this.audio.play();
@@ -86,7 +86,7 @@ export class Game {
             mouseX <= this.menu.resumeGame.position.x + this.menu.resumeGame.width &&
             mouseY >= this.menu.resumeGame.position.y &&
             mouseY <= this.menu.resumeGame.position.y + this.menu.resumeGame.height) {
-            var c= this.playerInfo.getCookie("name");
+            var c= this.playerProgress.getCookie("name");
             
             if (c[2]!=0) {
                 this.menu.savePlayer(this);

@@ -132,7 +132,7 @@ export class Menu {
         this.gameButtons.forEach((object) => {
             ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
         })
-        var c= game.playerInfo.getCookie("name");
+        var c= game.playerProgress.getCookie("name");
         if (c[2]!=0) {
             ctx.drawImage(this.resumeGame, this.resumeGame.position.x, this.resumeGame.position.y, this.resumeGame.width, this.resumeGame.height);
             this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
@@ -177,22 +177,22 @@ export class Menu {
         var name = "name";
         
         if (this.input.value.length != 0) {
-            var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
-            game.playerInfo.changeCookie(game.playerInfo.playerVariables[c[0]], game, this.input.value);
+            var c = game.playerProgress.getCookie(name, game);//gets the index of name in array info
+            game.playerProgress.changeCookie(game.playerProgress.playerVariables[c[0]], game, this.input.value);
         }
     }
 
     newGame(game) {
-        for(var i=0;i<game.playerInfo.newPlayerVariables.length;i++){
-            document.cookie=game.playerInfo.newPlayerVariables[i]+"= 0 ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
+        for(var i=0;i<game.playerProgress.newPlayerVariables.length;i++){
+            document.cookie=game.playerProgress.newPlayerVariables[i]+"= 0 ;expires=Thu, 18 Dec 2010 12:00:00 UTC; path=/";
         }
-        game.playerInfo.getSavedPlayer(game);
+        game.playerProgress.getSavedPlayer(game);
     }
 
     inputValue(game) {
         var name = "name";
         
-        var c = game.playerInfo.getCookie(name, game);//gets the index of name in array info
+        var c = game.playerProgress.getCookie(name, game);//gets the index of name in array info
         console.log(c);
         if (c[2] == 0 ) {
             this.input.value = "PLAYER NAME";

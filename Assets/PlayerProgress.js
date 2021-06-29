@@ -1,4 +1,4 @@
-export class PlayerInfo {
+export class PlayerProgress {
     constructor(game) {
         
         this.newPlayerProgress=[

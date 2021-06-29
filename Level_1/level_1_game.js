@@ -4,7 +4,7 @@ import { ReturnButton } from "./level_1_return.js";
 import { Player } from "./level_1_player.js";
 import { Coins } from "./level_1_coins.js";
 import { ReloadButton } from "./level_1_reload.js";
-import { PlayerInfo } from "../Assets/playerInfo.js";
+import { PlayerInfo } from "../Assets/playerProgress.js";
 
 const GAMESTATE = {
     RUNNING: 0,
