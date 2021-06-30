@@ -78,7 +78,7 @@ export class PlayerProgress {
     changeCookie(cookieName, value) {
         var name = cookieName;
         var c = this.getCookie(name, false);
-        doument.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+        document.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
         this.updatePlayerVariables();
         
     }
