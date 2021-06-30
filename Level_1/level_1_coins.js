@@ -22,12 +22,10 @@ export class Coins {
         this.coinAnimation(ctx);
         this.readFiles();
 
-        this.cScore = game.playerProgress.getCookie("level1score");
+        this.cScore = game.playerProgress.getCookie("level1score",false);
         this.score = this.cScore[2];
-        console.log(this.score);
-        console.log(this.cScore[2]);
 
-        var c = game.playerProgress.getCookie("level1coins");
+        var c = game.playerProgress.getCookie("level1coins",false);
         this.coins = c[2].split(",");
     }
 

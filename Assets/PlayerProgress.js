@@ -48,55 +48,38 @@ export class PlayerProgress {
         }
     }
 
-    getCookie(cookieName) {
+    getCookie(cookieName,newCookie) {
         var name = cookieName;
-        var index = [];
-       
-        for (var i = 0; i < this.playerVariables.length; i++) {
-            if (this.playerVariables[i] == name) {
-                index[0] = i;
+        var index = new Array();
+        if(newCookie==false){
+            for (var i = 0; i < this.playerVariables.length; i++) {
+                if (this.playerVariables[i] == name) {
+                    index[0] = i;
+                }
             }
+            var cookies = document.cookie.split("; ");//splits the cookie in pair variables placed in the array cookies
+            var variables = cookies[index[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
+            index[1] = variables[0];
+            index[2] = variables[1];
+        }else{
+            for (var i = 0; i < this.newPlayerVariables.length; i++) {
+                if (this.newPlayerVariables[i] == name) {
+                    index[0] = i;
+                }
+            }
+            index[1]=this.newPlayerVariables[index[0]];
+            index[2]=this.newPlayerProgress[index[0]];
         }
-
-        var cookies = document.cookie.split("; ");//splits the cookie in pair variables placed in the array cookies
-  
-        var variables = cookies[index[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
-        index[1] = variables[0];
-        index[2] = variables[1];
-
         return index;//returns the index and the value of the variable name in this.newPlayerVariables
     }
     
-    getNewCookie(cookieName){
-        var name = cookieName;
-        var index = [];
-       
-        for (var i = 0; i < this.newPlayerVariables.length; i++) {
-            if (this.newPlayerVariables[i] == name) {
-                index[0] = i;
-            }
-        }
-
-        var cookies = document.cookie.split("; ");//splits the cookie in pair variables placed in the array cookies
-  
-        var variables = cookies[index[0]].split("=");//splits the pair variables in to the variable and the value that are then placed in c
-        index[1] = variables[0];
-        index[2] = variables[1];
-
-        return index;//returns the index and the value of the variable name in this.newPlayerVariables
-    }
+    
 
     changeCookie(cookieName, value) {
         var name = cookieName;
-        var c = this.getCookie(name, this.playerVariables);
-        document.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
-
-        var cookies = document.cookie.split("; ");
-
-        for (var i = 0; i < cookies.length; i++) {
-            var variables = cookies[i].split("=");
-            this.playerVariables[i] = variables[0];//updates this.newPlayerVariables so that variables in this.newPlayerVariables are at the same index as the variables in the cookies
-
-        }
+        var c = this.getCookie(name, false);
+        doument.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+        this.updatePlayerVariables();
+        
     }
 }
