@@ -1,4 +1,4 @@
-import { PlayerInfo } from "../Assets/playerInfo.js";
+import { PlayerProgress } from "../Assets/PlayerProgress.js";
 export class ReloadButton {
     constructor(game) {
         this.button = new Image();
@@ -45,9 +45,13 @@ export class ReloadButton {
             mouseY >= this.position.y &&
             mouseY <= this.position.y + this.height) {
 
-            location.reload();
-            var c = game.playerInfo.getCookie("level1score", game.info);
-            game.playerInfo.changeCookie("level1score", game.info, c[0]);
+            //location.reload();
+            var c = game.playerProgress.getNewCookie("level1score");
+            console.log(c);
+            game.playerProgress.changeCookie("level1score", c[2]);
+            console.log(document.cookie);
+            //c = game.playerProgress.getNewCookie("level1coins");
+            //game.playerProgress.changeCookie("level1coins",c[2]);
 
         }
 

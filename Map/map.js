@@ -3,7 +3,7 @@ export class Map{
         this.map = new Image();
         this.map.src=document.getElementById("map").src;
         this.aspect=this.map.naturalHeight/this.map.naturalWidth;
-        this.width=game.gameWidth;
+        this.width=8*game.gameWidth/10;
         this.height=this.width*this.aspect;
         
         this.ratio=game.gameWidth/this.map.naturalWidth;
@@ -18,9 +18,17 @@ export class Map{
     }
 
     update(deltaTime,GameWidth,GameHeight){  
-        this.width = GameWidth;
-        this.height=this.width*this.aspect;
+        if(GameHeight<=this.height+2*GameHeight/2){
+            this.height= 8*GameHeight/10;
+            this.width=this.height/this.aspect;
+          
+        }else{
+            this.width=8*GameWidth/10;
+            this.height=this.width*this.aspect;
+        }
+        
         this.position.y= GameHeight/10;
+        
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
         this.Xtext=GameWidth/2;

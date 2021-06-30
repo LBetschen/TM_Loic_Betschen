@@ -1,6 +1,6 @@
 import { Input } from "./menu_input.js";
 import { Menu } from "./menu.js";
-import { PlayerProgress } from "../Assets/playerProgress.js";
+import { PlayerProgress } from "../Assets/PlayerProgress.js";
 
 const GAMESTATE = {
     RUNNING: 0,

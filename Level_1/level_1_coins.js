@@ -22,12 +22,12 @@ export class Coins {
         this.coinAnimation(ctx);
         this.readFiles();
 
-        this.cScore = game.playerInfo.getCookie("level1score", game.info);
+        this.cScore = game.playerProgress.getCookie("level1score");
         this.score = this.cScore[2];
         console.log(this.score);
         console.log(this.cScore[2]);
 
-        var c = game.playerInfo.getCookie("level1coins", game.info);
+        var c = game.playerProgress.getCookie("level1coins");
         this.coins = c[2].split(",");
     }
 
@@ -49,8 +49,9 @@ export class Coins {
                     ) {
                         this.score++;
                         this.coins[index] = 0;
-                        game.playerInfo.changeCookie("level1score", game.info, this.score);
-                        game.playerInfo.changeCookie("level1coins", game.info, this.coins);
+                        game.playerProgress.changeCookie("level1score", this.score);
+                        game.playerProgress.changeCookie("level1coins", this.coins);
+                        console.log(this.coins);
 
                         this.coinAudio.play();
                     }
@@ -99,37 +100,13 @@ export class Coins {
     }
 
     readFiles() {
-
-
-
         var res;
-
         fetch("./coins.txt").then(Response => Response.text()).then((data) => {
-
-
-
-
-
             res = data.toString().split(",");
-
-
-
             for (var i = 0; i < res.length; i++) {
-
                 res[i] = parseInt(res[i]);
-
-
-
             }
-
-
-
             this.coinMap = res;
-
         });
-
-
-
     }
-
 }
