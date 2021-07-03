@@ -5,6 +5,7 @@ export class Map{
         this.aspect=this.map.naturalHeight/this.map.naturalWidth;
         this.width=8*game.gameWidth/10;
         this.height=this.width*this.aspect;
+        this.offsetX=(game.gameWidth-this.width)/2;
         
         this.ratio=game.gameWidth/this.map.naturalWidth;
         this.Xtext=game.gameWidth/2;
@@ -12,7 +13,7 @@ export class Map{
         this.gameHeight=game.gameHeight;
         this.gameWidth=game.gameWidth;
         this.position={
-            x:0,
+            x:this.offsetX,
             y:game.gameHeight/10
         }
     }
@@ -26,8 +27,10 @@ export class Map{
             this.width=8*GameWidth/10;
             this.height=this.width*this.aspect;
         }
+        this.offsetX=(GameWidth-this.width)/2;
         
         this.position.y= GameHeight/10;
+        this.position.x=this.offsetX;
         
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;

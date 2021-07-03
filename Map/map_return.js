@@ -21,7 +21,6 @@ export class ReturnToMenu{
     }
 
     update(deltaTime,GameWidth,GameHeight,map){
-        
 
         this.ratio=this.gameWidth/map.width;
         this.position.x=map.width/25;
