@@ -86,8 +86,7 @@ export class Game {
             mouseX <= this.menu.resumeGame.position.x + this.menu.resumeGame.width &&
             mouseY >= this.menu.resumeGame.position.y &&
             mouseY <= this.menu.resumeGame.position.y + this.menu.resumeGame.height) {
-            var c= this.playerProgress.getCookie("name");
-            
+            var c= this.playerProgress.getCookie("name",false);
             if (c[2]!=0) {
                 this.menu.savePlayer(this);
                 window.location = "./Map/map.html";

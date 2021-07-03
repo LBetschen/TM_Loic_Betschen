@@ -193,7 +193,7 @@ export class Menu {
         var name = "name";
         
         var c = game.playerProgress.getCookie(name, false);//gets the index of name in array info
-        console.log(c);
+        
         if (c[2] == 0 ) {
             this.input.value = "PLAYER NAME";
         } else {
