@@ -1,4 +1,4 @@
-import {PauseScreen} from "../Assets/PauseScreen.js";
+import {PauseScreen} from "../GlobalScripts/PauseScreen.js";
 import {Level2Input} from "./level_2_input.js";
 import {ReturnButton} from "./level_2_return.js";
 import {Player} from "./level_2.player.js";

@@ -1,6 +1,7 @@
 import { Input } from "./menu_input.js";
 import { Menu } from "./menu.js";
-import { PlayerProgress } from "../Assets/PlayerProgress.js";
+import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
+import { Settings } from "./menu_settings.js";
 
 const GAMESTATE = {
     RUNNING: 0,
@@ -17,7 +18,8 @@ export class Game {
 
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound1").src;
-        this.audioMuted = false;
+        this.musicMuted = false;
+        this.soundMuted=false;
 
         this.savedGame = false;//true if there is already a player saved
 
@@ -26,6 +28,7 @@ export class Game {
     start() {
      
         this.menu = new Menu(this);
+        this.settings=new Settings(this);
         this.playerProgress = new PlayerProgress(this);
         this.playerProgress.getSavedPlayer(this);//retrieves the progress of the player or creates cookies to save the players progress
         
@@ -35,6 +38,7 @@ export class Game {
 
         this.buttons = [this.menu.aboutButton, this.menu.settingsButton];
         this.buttonsDown = [this.menu.aboutButton, this.menu.settingsButton, this.menu.newGameButton, this.menu.resumeGame];
+        this.settingButtons=[this.menu.soundButton, this.menu.musicButton];
 
         this.gameState = GAMESTATE.RUNNING;
 
@@ -46,12 +50,13 @@ export class Game {
         
         this.playerProgress.updatePlayerVariables();
         this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
-
+        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame)
         this.audio.play();
     }
 
     draw(ctx) {
         this.menu.draw(ctx, this.gameState, this.savedGame, this);
+        this.settings.draw(ctx, this.gameState, this.savedGame, this,this.menu.input);
     }
 
 
@@ -67,12 +72,12 @@ export class Game {
                 object.src = document.getElementById(object.up).src;
             }
         });
-        this.menu.toggleVolumeButton(this.audioMuted, mouseX, mouseY);
+        this.settings.toggleSettingButtons(this, mouseX, mouseY);
 
     }
     toggleClick(mouseX, mouseY) {
-
-        if (mouseX >= this.menu.newGameButton.position.x &&
+        if(this.gameState==0){
+            if (mouseX >= this.menu.newGameButton.position.x &&
             mouseX <= this.menu.newGameButton.position.x + this.menu.newGameButton.width &&
             mouseY >= this.menu.newGameButton.position.y &&
             mouseY <= this.menu.newGameButton.position.y + this.menu.newGameButton.height) {
@@ -92,6 +97,8 @@ export class Game {
                 window.location = "./Map/map.html";
             }
         }
+        }
+        
 
         for (var i = 0; i < this.buttons.length; i++) {
             if (mouseX >= this.buttons[i].position.x &&
@@ -117,20 +124,7 @@ export class Game {
                 }
             }
         }
-
-        if (mouseX >= this.menu.volumeButton.position.x &&
-            mouseX <= this.menu.volumeButton.position.x + this.menu.volumeButton.width &&
-            mouseY >= this.menu.volumeButton.position.y &&
-            mouseY <= this.menu.volumeButton.position.y + this.menu.volumeButton.height) {
-            if (!this.audioMuted) {
-                this.menu.volumeButton.src = document.getElementById("mutedButtonDown").src;
-                this.audioMuted = true;
-                this.audio.muted = true;
-            } else {
-                this.menu.volumeButton.src = document.getElementById("volumeButtonDown").src;
-                this.audioMuted = false;
-                this.audio.muted = false;
-            }
-        }
+        this.settings.toggleButtonClick(this,mouseX,mouseY);
+        
     }
 }

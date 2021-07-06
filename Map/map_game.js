@@ -1,4 +1,4 @@
-import { PauseScreen } from "../Assets/PauseScreen.js";
+import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { MapInput } from "./map_Input.js";
 import { Map } from "./map.js";
 import { levelButtons } from "./levelButtons.js";

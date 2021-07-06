@@ -1,10 +1,10 @@
-import { PauseScreen } from "../Assets/PauseScreen.js";
+import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { Level1Input } from "./level_1_input.js";
 import { ReturnButton } from "./level_1_return.js";
 import { Player } from "./level_1_player.js";
 import { Coins } from "./level_1_coins.js";
 import { ReloadButton } from "./level_1_reload.js";
-import { PlayerProgress } from "../Assets/PlayerProgress.js";
+import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 
 const GAMESTATE = {
     RUNNING: 0,
