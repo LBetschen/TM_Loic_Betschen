@@ -9,48 +9,46 @@ export class Settings{
 
         this.settingsPage = new Image();
         this.settingsPage.src = document.getElementById("settingsPage").src;
-        this.settingsPage.height = this.settingsPage.naturalHeight / 2 / this.ratio;
-        this.settingsPage.width = this.settingsPage.naturalWidth / 2 / this.ratio;
+        this.settingsPage.height = this.settingsPage.naturalHeight*1.5 /  this.ratio;
+        this.settingsPage.width = this.settingsPage.naturalWidth *1.5/  this.ratio;
         this.settingsPage.position = {
-            x: this.gameWidth / 10,
-            y: this.gameHeight / 50
+            x: this.gameWidth /2-this.settingsPage.width/2,
+            y: this.gameHeight /2-this.settingsPage.height/2
         }
-
+        
         this.musicButton = new Image();
         this.musicButton.up = "musicButton";
-        this.musicButton.down = "musicButtonDown";
         this.musicButton.mutedUp = "mutedButton";
-        this.musicButton.mutedDown = "mutedButtonDown";
         this.musicButton.src = document.getElementById(this.musicButton.up).src;
-        this.musicButton.height = this.musicButton.naturalHeight / 3 / this.ratio;
-        this.musicButton.width = this.musicButton.naturalWidth / 3 / this.ratio;
+        this.musicButton.height = this.musicButton.naturalHeight / 2 / this.ratio;
+        this.musicButton.width = this.musicButton.naturalWidth / 2 / this.ratio;
         this.musicButton.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.settingsPage.position.x + this.musicButton.width + 10,
+            y: this.settingsPage.position.y +this.musicButton.height*2.05
         }
-
+        
         this.soundButton = new Image();
         this.soundButton.up = "soundButton";
-        this.soundButton.down = "soundButtonDown";
         this.soundButton.mutedUp = "soundMuted";
-        this.soundButton.mutedDown = "soundMutedDown";
         this.soundButton.src = document.getElementById(this.soundButton.up).src;
-        this.soundButton.height = this.soundButton.naturalHeight / 3 / this.ratio;
-        this.soundButton.width = this.soundButton.naturalWidth / 3 / this.ratio;
+        this.soundButton.height = this.soundButton.naturalHeight / 2 / this.ratio;
+        this.soundButton.width = this.soundButton.naturalWidth / 2 / this.ratio;
         this.soundButton.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.settingsPage.position.x + this.musicButton.width + 10,
+            y: this.musicButton.position.y +this.soundButton.height*1.75
         }
+
         this.saveSettings = new Image();
         this.saveSettings.up = "saveSettings";
         this.saveSettings.down = "saveSettingsDown";
         this.saveSettings.src = document.getElementById(this.saveSettings.up).src;
-        this.saveSettings.height = this.saveSettings.naturalHeight / 3 / this.ratio;
-        this.saveSettings.width = this.saveSettings.naturalWidth / 3 / this.ratio;
+        this.saveSettings.height = this.saveSettings.naturalHeight / 2 / this.ratio;
+        this.saveSettings.width = this.saveSettings.naturalWidth / 2 / this.ratio;
         this.saveSettings.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.gameWidth /2-this.saveSettings.width/2,
+            y: this.gameHeight /1.3
         }
+
         this.creditsButton = new Image();
         this.creditsButton.up = "creditsButton";
         this.creditsButton.down = "creditsButtonDown";
@@ -58,65 +56,68 @@ export class Settings{
         this.creditsButton.height = this.creditsButton.naturalHeight / 2 / this.ratio;
         this.creditsButton.width = this.creditsButton.naturalWidth / 2 / this.ratio;
         this.creditsButton.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.gameWidth / 2-this.creditsButton.width/2,
+            y: this.gameHeight / 1.6
         }
-
+        
         this.musicSwitch = new Image();
         this.musicSwitch.onUp = "switchOn";
         this.musicSwitch.offUp = "switchOff";
         this.musicSwitch.onDown="switchOnDown";
         this.musicSwitch.offDown="switchOffDown";
-        this.musicSwitch.off =false;
-        this.musicSwitch.src = document.getElementById(this.musicSwitch.offUp).src;
+         
+        this.musicSwitch.src = document.getElementById(this.musicSwitch.onUp).src;
         this.musicSwitch.height = this.musicSwitch.naturalHeight / 3 / this.ratio;
         this.musicSwitch.width = this.musicSwitch.naturalWidth / 3 / this.ratio;
         this.musicSwitch.position = {
             x: this.musicButton.position.x+this.gameWidth/15,
-            y: this.gameHeight / 40
+            y: this.musicButton.position.y +this.musicButton.height/2-this.musicSwitch.height/2
         }
-
+        
         this.soundSwitch = new Image();
         this.soundSwitch.onUp = "switchOn";
         this.soundSwitch.offUp = "switchOff";
         this.soundSwitch.onDown="switchOnDown";
         this.soundSwitch.offDown="switchOffDown";
-        this.soundSwitch.off=false;
-        this.soundSwitch.src = document.getElementById(this.soundSwitch.offUp).src;
-        this.soundSwitch.height = this.soundSwitch.naturalHeight /3 / this.ratio;
+        
+        this.soundSwitch.src = document.getElementById(this.soundSwitch.onUp).src;
+        this.soundSwitch.height = this.soundSwitch.naturalHeight / 3 / this.ratio;
         this.soundSwitch.width = this.soundSwitch.naturalWidth / 3 / this.ratio;
         this.soundSwitch.position = {
             x: this.soundButton.position.x+this.gameWidth/15,
-            y: this.soundButton.position.y
+            y: this.soundButton.position.y +this.soundButton.height/2-this.soundSwitch.height/2
         }
-
+        
         this.musicScroll = new Image();
         this.musicScroll.up = "scrollUp";
         this.musicScroll.down = "scrollDown";
         this.musicScroll.src = document.getElementById(this.musicScroll.up).src;
-        this.musicScroll.height = this.musicScroll.naturalHeight / 4 / this.ratio;
-        this.musicScroll.width = this.musicScroll.naturalWidth / 4 / this.ratio;
+        this.musicScroll.height = this.musicScroll.naturalHeight / 3 / this.ratio;
+        this.musicScroll.width = this.musicScroll.naturalWidth / 3 / this.ratio;
         this.musicScroll.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.settingsPage.position.x+this.settingsPage.width/1.1,
+            y: this.musicButton.position.y +this.musicButton.height/2-this.musicScroll.height/2
         }
-        this.musicScroll.value=1.15;
-
+        this.musicScroll.value=1.12;
+        this.musicScroll.drag=false;
+        this.musicScroll.onScroll=false;
+        
         this.soundScroll = new Image();
         this.soundScroll.up = "scrollUp";
         this.soundScroll.down = "scrollDown";
         this.soundScroll.src = document.getElementById(this.soundScroll.up).src;
-        this.soundScroll.height = this.soundScroll.naturalHeight / 4 / this.ratio;
-        this.soundScroll.width = this.soundScroll.naturalWidth / 4 / this.ratio;
+        this.soundScroll.height = this.soundScroll.naturalHeight / 3 / this.ratio;
+        this.soundScroll.width = this.soundScroll.naturalWidth / 3 / this.ratio
         this.soundScroll.position = {
-            x: this.gameWidth / 2,
-            y: this.gameHeight / 50
+            x: this.settingsPage.position.x+this.settingsPage.width/1.1,
+            y: this.soundButton.position.y +this.soundButton.height/2-this.soundScroll.height/2
         }
-        this.soundScroll.value=1.15;
+        this.soundScroll.value=1.12;
+        this.soundScroll.drag=false;
+        this.soundScroll.onScroll=false;
 
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.2;
-
       
         this.settingButtons=[
             this.soundButton,
@@ -169,13 +170,14 @@ export class Settings{
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundSwitch.height/2
         }
         this.musicScroll.position = {
-            x: this.settingsPage.position.x+this.settingsPage.width/this.musicScroll.value,
+            x: this.settingsPage.position.x+this.settingsPage.width/this.musicScroll.value-this.musicScroll.width/2,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicScroll.height/2
         }
         this.soundScroll.position = {
-            x: this.settingsPage.position.x+this.settingsPage.width/this.soundScroll.value,
+            x: this.settingsPage.position.x+this.settingsPage.width/this.soundScroll.value-this.soundScroll.width/2,
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundScroll.height/2
         }
+        
 
         this.settingsPage.height = this.settingsPage.naturalHeight*1.5 /  this.ratio;
         this.settingsPage.width = this.settingsPage.naturalWidth *1.5/  this.ratio;
@@ -196,8 +198,10 @@ export class Settings{
         this.soundScroll.height = this.soundScroll.naturalHeight / 3 / this.ratio;
         this.soundScroll.width = this.soundScroll.naturalWidth / 3 / this.ratio;
         
-        this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
-        this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.2;
+        this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15+this.musicScroll.width/2;
+        this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.2+this.musicScroll.width/2;
+
+        
         
         
     }
@@ -235,34 +239,26 @@ export class Settings{
                 mouseY <= this.settingButtons[i].position.y + this.settingButtons[i].height) {
                     switch (i){
                         case 0:
-                            if (game.soundMuted == false) {
-                                this.soundButton.src = document.getElementById(this.soundButton.down).src;
-                            } else {
-                                this.soundButton.src = document.getElementById(this.soundButton.mutedDown).src;
-                            }
+                            
                             break;
                         case 1:
-                            if (game.musicMuted == false) {
-                                this.musicButton.src = document.getElementById(this.musicButton.down).src;
-                            } else {
-                                this.musicButton.src = document.getElementById(this.musicButton.mutedDown).src;
-                            }
+                        
                             break;
                         case 2:
                             this.saveSettings.src=document.getElementById(this.saveSettings.down).src;
                             break;
                         case 3:
-                            if(this.musicSwitch.off==false){
-                                this.musicSwitch.src=document.getElementById(this.musicSwitch.offDown).src;
-                            }else{
+                            if(game.musicMuted ==false){
                                 this.musicSwitch.src=document.getElementById(this.musicSwitch.onDown).src;
+                            }else{
+                                this.musicSwitch.src=document.getElementById(this.musicSwitch.offDown).src;
                             }
                             break;
                         case 4:
-                            if(this.soundSwitch.off==false){
-                                this.soundSwitch.src=document.getElementById(this.soundSwitch.offDown).src;
-                            }else{
+                            if(game.soundMuted==false){
                                 this.soundSwitch.src=document.getElementById(this.soundSwitch.onDown).src;
+                            }else{
+                                this.soundSwitch.src=document.getElementById(this.soundSwitch.offDown).src;
                             }
                             break;
                         case 5:
@@ -279,34 +275,30 @@ export class Settings{
             } else {
                 switch (i){
                     case 0:
-                        if (game.soundMuted == false) {
-                            this.soundButton.src = document.getElementById(this.soundButton.up).src;
-                        } else {
-                            this.soundButton.src = document.getElementById(this.soundButton.mutedUp).src;
-                        }
+                        
                         break;
                     case 1:
-                        if (game.musicMuted == false) {
-                            this.musicButton.src = document.getElementById(this.musicButton.up).src;
-                        } else {
-                            this.musicButton.src = document.getElementById(this.musicButton.mutedUp).src;
-                        }
+                        
                         break;
                     case 2:
                         this.saveSettings.src=document.getElementById(this.saveSettings.up).src;
                         break;
                     case 3:
-                        if(this.musicSwitch.off==false){
-                            this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;
-                        }else{
+                        if(game.musicMuted==false){
                             this.musicSwitch.src=document.getElementById(this.musicSwitch.onUp).src;
+                            
+                        }else{
+                            this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;
+                            
                         }
                         break;
                     case 4:
-                        if(this.soundSwitch.off==false){
-                            this.soundSwitch.src=document.getElementById(this.soundSwitch.offUp).src;
-                        }else{
+                        if(game.soundMuted==false){
                             this.soundSwitch.src=document.getElementById(this.soundSwitch.onUp).src;
+                            
+                        }else{
+                            this.soundSwitch.src=document.getElementById(this.soundSwitch.offUp).src;
+                           
                         }
                         break;
                     case 5:
@@ -316,7 +308,7 @@ export class Settings{
                         this.musicScroll.src=document.getElementById(this.musicScroll.up).src;
                         break;
                     case 7:
-                        this.soundScroll.src=document.getElementById(this.soundScroll.up).src;
+                        this.soundScroll.src=document.getElementById(this.soundScroll.up).src                     
                         break;
                 }          
             }
@@ -336,65 +328,117 @@ export class Settings{
 
                     switch (i){
                         case 0:
-                            if (!game.soundMuted) {
-                                this.soundButton.src = document.getElementById("soundMutedDown").src;
-                                game.soundMuted = true;
-                                //this.audio.muted = true;
-                            } else {
-                                this.soundButton.src = document.getElementById("soundButtonDown").src;
-                                game.soundMuted = false;
-                                // this.audio.muted = false;
-                            }
+                            
                             break;
                         case 1:
-                            if (!game.musicMuted) {
-                                this.musicButton.src = document.getElementById("mutedButtonDown").src;
-                                game.musicMuted = true;
-                                audio.muted = true;
-                            } else {
-                                this.musicButton.src = document.getElementById("musicButtonDown").src;
-                                game.musicMuted = false;
-                                game.audio.muted = false;
-                            }
+                            
                             break;
                         case 2:
                             game.gameState = 0;
                             console.log(game.gameState);
                             break;
                         case 3:
-                            if(!this.musicSwitch.off){
-                                this.musicSwitch.src=document.getElementById(this.musicSwitch.onDown).src;
-                                this.musicSwitch.off=true;
-                            }else{
+                            if(!game.musicMuted){
                                 this.musicSwitch.src=document.getElementById(this.musicSwitch.offDown).src;
-                                this.musicSwitch.off=false;
+                                this.musicButton.src=document.getElementById(this.musicButton.mutedUp).src;
+                               
+                                game.musicMuted=true;
+                                game.audio.muted = true;
+                                this.musicScroll.value=2.075;
+                            }else{
+                                this.musicSwitch.src=document.getElementById(this.musicSwitch.onDown).src;
+                                this.musicButton.src=document.getElementById(this.musicButton.up).src;
+                                game.musicMuted=false;
+                                game.audio.muted = false;
+                                this.musicScroll.value=2;
                             }
                             break;
                         case 4:
-                            if(!this.soundSwitch.off){
-                                this.soundSwitch.src=document.getElementById(this.soundSwitch.onDown).src;
-                                this.soundSwitch.off=true;
-                            }else{
+                            if(!game.soundMuted){
                                 this.soundSwitch.src=document.getElementById(this.soundSwitch.offDown).src;
-                                this.soundSwitch.off=false;
+                                this.soundButton.src=document.getElementById(this.soundButton.mutedUp).src;
+                                game.soundMuted=true;
+                                this.soundScroll.value=2.075;
+                            }else{
+                                this.soundSwitch.src=document.getElementById(this.soundSwitch.onDown).src;
+                                this.soundButton.src=document.getElementById(this.soundButton.up).src;
+                                game.soundMuted=false;
+                                this.soundScroll.value=2;
                             }
                             break;
                         case 5:
                             break;
                         case 6:
-                            var value=this.settingsPage.width/(mouseX-this.settingsPage.position.x);
-                            if(mouseX>this.minScroll && mouseX<this.maxScroll){
-                                this.musicScroll.position.x=mouseX;
-                            }
-                            
-                            
-    
                             break;
-                        case 7:
+                        case 7:         
                             break;
                     }
                 }           
             }
         }              
-    } 
+    }
+    
+    toggleScroll(mouseX,mouseY,click){
+        if(!click){
+            this.musicScroll.drag=false;
+            this.soundScroll.drag=false;
+        }else{
+
+            if(mouseX >= this.musicScroll.position.x &&
+                mouseX <= this.musicScroll.position.x + this.musicScroll.width &&
+                mouseY >= this.musicScroll.position.y &&
+                mouseY <= this.musicScroll.position.y + this.musicScroll.height){
+                    this.musicScroll.drag=true;
+            }else{
+                this.musicScroll.drag=false;
+            }
+            if(mouseX >= this.soundScroll.position.x &&
+                mouseX <= this.soundScroll.position.x + this.soundScroll.width &&
+                mouseY >= this.soundScroll.position.y &&
+                mouseY <= this.soundScroll.position.y + this.soundScroll.height){
+                    this.soundScroll.drag=true;
+            }else{
+                this.soundScroll.drag=false;
+            }
+        }
+            
+           
+            
+            
+    }
+    moveScrolls(mouseX,mouseY,game){
+    
+
+        if(this.soundScroll.drag==true){
+            if(mouseX>this.minScroll && mouseX<this.maxScroll){
+                this.soundSwitch.src=document.getElementById(this.soundSwitch.onUp).src;
+                game.soundMuted=false;
+                var value=this.settingsPage.width/(mouseX-this.settingsPage.position.x);
+                this.soundScroll.value=value;
+          
+            }else{
+                if(this.soundScroll.position.x<this.minScroll){
+                    this.soundSwitch.src=document.getElementById(this.soundSwitch.offUp).src;
+                    game.soundMuted=true;
+                }
+            }
+            
+        }
+
+        if(this.musicScroll.drag==true){
+            if(mouseX>this.minScroll && mouseX<this.maxScroll){
+                this.musicSwitch.src=document.getElementById(this.musicSwitch.onUp).src;
+                game.musicMuted=false;
+                var value=this.settingsPage.width/(mouseX-this.settingsPage.position.x);
+                this.musicScroll.value=value;
+            }else{
+                if(this.musicScroll.position.x<this.minScroll){
+                    this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;
+                    game.musicMuted=true;
+                }
+            }
+        }
+
+        
+    }
 }
