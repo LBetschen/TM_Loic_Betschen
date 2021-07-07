@@ -5,7 +5,8 @@ export class PlayerProgress {
             0,
             0,0,0,0,0,0,
             0,0,0,0,0,0,
-            [1,1,1,1,1,1,1,1,1]
+            [1,1,1,1,1,1,1,1,1],
+            1,1
 
         ];
 
@@ -13,7 +14,8 @@ export class PlayerProgress {
             "name",
             "level1finished","level2finished","level3finished","level4finished","level5finished","level6finished",
             "level1score","level2score","level3score","level4score","level5score","level6score",
-            "level1coins"
+            "level1coins" ,
+            "musicVolume","soundVolume"
 
         ];
 

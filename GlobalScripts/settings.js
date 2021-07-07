@@ -118,6 +118,9 @@ export class Settings{
 
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.2;
+
+        this.soundVolume=((this.soundScroll.position.x-this.minScroll+this.soundScroll.width/2)/(this.maxScroll-this.minScroll)).toFixed(2);
+        this.musicVolume=((this.musicScroll.position.x-this.minScroll+this.musicScroll.width/2)/(this.maxScroll-this.minScroll)).toFixed(2);
       
         this.settingButtons=[
             this.soundButton,
@@ -133,7 +136,7 @@ export class Settings{
         
     }
 
-    update(deltaTime, GameWidth, GameHeight, gameState, savedGame) {
+    update(deltaTime, GameWidth, GameHeight, gameState, savedGame,game) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
         this.ratio = this.constGamewidth / this.gameWidth;
@@ -202,7 +205,11 @@ export class Settings{
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.2+this.musicScroll.width/2;
 
         
-        
+        this.soundVolume=((this.soundScroll.position.x-this.minScroll+this.soundScroll.width/2)/(this.maxScroll-this.minScroll)).toFixed(2);
+        this.musicVolume=((this.musicScroll.position.x-this.minScroll+this.musicScroll.width/2)/(this.maxScroll-this.minScroll)).toFixed(2);
+        game.playerProgress.changeCookie("soundVolume",this.soundVolume);
+        game.playerProgress.changeCookie("musicVolume",this.musicVolume);
+        game.audio.volume=this.musicVolume;
         
     }
 
@@ -431,6 +438,7 @@ export class Settings{
                 game.musicMuted=false;
                 var value=this.settingsPage.width/(mouseX-this.settingsPage.position.x);
                 this.musicScroll.value=value;
+                
             }else{
                 if(this.musicScroll.position.x<this.minScroll){
                     this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;
@@ -438,6 +446,9 @@ export class Settings{
                 }
             }
         }
+        this.musicVolume=this.musicButton.position
+        console.log(this.soundVolume);
+        console.log(this.musicVolume);
 
         
     }

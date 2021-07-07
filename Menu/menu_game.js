@@ -1,7 +1,7 @@
 import { Input } from "./menu_input.js";
 import { Menu } from "./menu.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
-import { Settings } from "./menu_settings.js";
+import { Settings } from "../GlobalScripts/settings.js";
 
 const GAMESTATE = {
     RUNNING: 0,
@@ -43,6 +43,8 @@ export class Game {
         this.gameState = GAMESTATE.RUNNING;
 
         this.audio.play();
+        var c = this.playerProgress.getCookie("musicVolume",false);
+        this.audio.volume=c[2];
 
     }
 
@@ -50,7 +52,7 @@ export class Game {
         
         this.playerProgress.updatePlayerVariables();
         this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
-        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame)
+        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame,this)
         this.audio.play();
     }
 
