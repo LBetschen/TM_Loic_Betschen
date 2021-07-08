@@ -27,10 +27,10 @@ export class Game {
 
     start() {
      
-        this.menu = new Menu(this);
-        this.settings=new Settings(this);
         this.playerProgress = new PlayerProgress(this);
         this.playerProgress.getSavedPlayer(this);//retrieves the progress of the player or creates cookies to save the players progress
+        this.menu = new Menu(this);
+        this.settings=new Settings(this);
         
         this.menu.inputValue(this);
 
@@ -44,7 +44,9 @@ export class Game {
 
         this.audio.play();
         var c = this.playerProgress.getCookie("musicVolume",false);
+        console.log(c[2]);
         this.audio.volume=c[2];
+        
 
     }
 
