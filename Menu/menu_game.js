@@ -44,7 +44,6 @@ export class Game {
 
         this.audio.play();
         var c = this.playerProgress.getCookie("musicVolume",false);
-        console.log(c[2]);
         this.audio.volume=c[2];
         
 
@@ -54,13 +53,22 @@ export class Game {
         
         this.playerProgress.updatePlayerVariables();
         this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
-        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame,this)
+        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this)
         this.audio.play();
+        if(this.gameState==0){
+            this.menu.input.style.display="initial";
+         }else if (this.gameState == 1) {
+            this.menu.input.style.display="none";
+ 
+             
+         } else if (this.gameState == 2) {
+            this.menu.input.style.display="none"; 
+         }
     }
 
     draw(ctx) {
         this.menu.draw(ctx, this.gameState, this.savedGame, this);
-        this.settings.draw(ctx, this.gameState, this.savedGame, this,this.menu.input);
+        this.settings.draw(ctx, this.gameState,  this,this.menu.input);
     }
 
 

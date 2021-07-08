@@ -2,51 +2,77 @@ import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { MapInput } from "./map_Input.js";
 import { Map } from "./map.js";
 import { levelButtons } from "./levelButtons.js";
-import { ReturnToMenu } from "./map_return.js";
+import { Settings } from "../GlobalScripts/settings.js";
+import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
+
+const GAMESTATE = {
+    RUNNING: 0,
+    SETTINGS: 1,
+    ABOUT: 2
+}
 
 export class MapGame {
     constructor(GameWidth, GameHeight) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
+        this.gameState = GAMESTATE;
+        this.musicMuted = false;
+        this.soundMuted=false;
+
+        this.audio = new Audio();//audio for the menu
+        this.audio.src = document.getElementById("backgroundSound2").src;
     }
 
     start() {
-
+        this.playerProgress=new PlayerProgress(this);
+        this.playerProgress.getSavedPlayer(this);
         this.map = new Map(this);
+        this.settings=new Settings(this);
         this.PauseScreen = new PauseScreen(this);
         this.levelButtons = new levelButtons(this);
-        this.returnToMenu = new ReturnToMenu(this);
+        
         new MapInput(this);
-        console.log(document.cookie);
+        
+        this.gameState=GAMESTATE.RUNNING;
+        var c=this.playerProgress.getCookie("musicVolume",false);
+        this.audio.volume=c[2];
+        this.audio.play();
     }
 
     update(deltaTime, gameWidth, gameHeight) {
-        this.map.update(deltaTime, gameWidth, gameHeight);
-        this.levelButtons.update(deltaTime, gameWidth, gameHeight, this.map);
-        this.returnToMenu.update(deltaTime, gameWidth, gameHeight, this.map);
+        this.map.update(deltaTime, gameWidth, gameHeight,this);
+        this.levelButtons.update(deltaTime, gameWidth, gameHeight, this.map,this);
+        this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState,this)
+        this.audio.play();
     }
 
     draw(ctx) {
         this.map.draw(ctx);
         this.levelButtons.draw(ctx);
-        this.returnToMenu.draw(ctx);
+        this.settings.draw(ctx, this.gameState, this);
+        
     }
 
-    togglePause() {
-        if (this.gameState == GAMESTATE.PAUSED) {
-            this.gameState = GAMESTATE.RUNNING;
-        } else if (this.gameState != GAMESTATE.MENU) {
-            this.gameState = GAMESTATE.PAUSED;
-        }
-    }
+  
 
     toggleButtons(mouseX, mouseY) {
-        this.levelButtons.toggleButton(mouseX, mouseY);
-        this.returnToMenu.toggleButton(mouseX, mouseY);
+        if(this.gameState==0){
+            this.levelButtons.toggleButton(mouseX, mouseY);
+        }
+            this.map.toggleButton(mouseX, mouseY);
+            this.settings.toggleSettingButtons(this, mouseX, mouseY);
+        
+        
+
     }
 
     toggleClick(mouseX, mouseY) {
-        this.returnToMenu.toggleReturn(mouseX, mouseY);
-        this.levelButtons.toggleLevel1(mouseX, mouseY);
+        if(this.gameState==0){
+            this.levelButtons.toggleLevels(mouseX, mouseY);
+            this.map.toggleClick(mouseX, mouseY,this);
+        }else {
+            this.settings.toggleButtonClick(this,mouseX,mouseY);
+            this.map.toggleClick(mouseX, mouseY,this);
+        }
     }
 }

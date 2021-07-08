@@ -14,16 +14,20 @@ export class MapInput{
             let mouseX=event.clientX;
             let mouseY=event.clientY;
             game.toggleButtons(mouseX,mouseY);
-            
+            game.settings.moveScrolls(mouseX,mouseY,game);
             
             
         });
         
-        document.addEventListener("mouseout",(event)=>{
-            let mouseX=event.clientX;
-            let mouseY=event.clientY;
-            
-
+        document.addEventListener("mousedown",(event)=>{
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+            game.settings.toggleScroll(mouseX,mouseY,true);
+        });
+        document.addEventListener("mouseup",(event)=>{
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+            game.settings.toggleScroll(mouseX,mouseY,false);
         });
         
     }

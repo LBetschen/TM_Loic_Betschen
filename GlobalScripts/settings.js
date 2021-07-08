@@ -107,7 +107,7 @@ export class Settings{
         this.musicScroll.width = this.musicScroll.naturalWidth / 3 / this.ratio;
         this.musicScroll.drag=false;
         this.musicScroll.onScroll=false;
-
+        
         var c= game.playerProgress.getCookie("musicVolume",false);
         var pos= c[2]*this.scrollLength+this.minScroll+this.musicScroll.width/2;
         var value=this.settingsPage.width/(pos-this.settingsPage.position.x-this.musicScroll.width/2);
@@ -115,6 +115,20 @@ export class Settings{
         this.musicScroll.position = {
             x: this.settingsPage.position.x+this.settingsPage.width/1.15,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicScroll.height/2
+        }
+        c=game.playerProgress.getCookie("musicMuted",false);
+        game.audio.muted=c[2];
+        if(c[2]=="false"){
+            game.musicMuted=false;
+        }else{
+            game.musicMuted=true;
+        }
+        if(game.musicMuted==false){
+            this.musicButton.src=document.getElementById(this.musicButton.up).src;
+            this.musicSwitch.src=document.getElementById(this.musicSwitch.onUp).src;
+        }else{
+            this.musicButton.src=document.getElementById(this.musicButton.mutedUp).src;
+            this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;
         }
         
 
@@ -132,13 +146,28 @@ export class Settings{
         value=this.settingsPage.width/(pos-this.settingsPage.position.x-this.soundScroll.width/2);
         this.soundScroll.value=value;
         this.soundScroll.position = {
-            x: this.settingsPage.position.x+this.settingsPage.width/this.soundScroll.value,
+            x: this.settingsPage.position.x+this.settingsPage.width/1.15,
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundScroll.height/2
         }
+        c=game.playerProgress.getCookie("soundMuted",false);
+        if(c[2]=="false"){
+            game.soundMuted=false;
+        }else{
+            game.soundMuted=true;
+        }
+        if(game.soundMuted==false){
+            this.soundButton.src=document.getElementById(this.soundButton.up).src;
+            this.soundSwitch.src=document.getElementById(this.soundSwitch.onUp).src;
+        }else{
+            this.soundButton.src=document.getElementById(this.soundButton.mutedUp).src;
+            this.soundSwitch.src=document.getElementById(this.soundSwitch.offUp).src;
+        }
+        
 
 
         this.soundVolume=((this.soundScroll.position.x-this.minScroll)/this.scrollLength).toFixed(2);
         this.musicVolume=((this.musicScroll.position.x-this.minScroll)/this.scrollLength).toFixed(2);
+        
       
         this.settingButtons=[
             this.soundButton,
@@ -152,7 +181,7 @@ export class Settings{
         ]
     }
 
-    update(deltaTime, GameWidth, GameHeight, gameState, savedGame,game) {
+    update(deltaTime, GameWidth, GameHeight, gameState, game) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
         this.ratio = this.constGamewidth / this.gameWidth;
@@ -228,24 +257,20 @@ export class Settings{
         if(this.soundVolume>1){this.soundVolume=1;}else if(this.soundVolume<0){this.soundVolume=0;}
         game.playerProgress.changeCookie("soundVolume",this.soundVolume);
         game.playerProgress.changeCookie("musicVolume",this.musicVolume);
-        console.log(this.musicVolume);
         game.audio.volume=this.musicVolume;
+        game.playerProgress.changeCookie("musicMuted",game.musicMuted);
+        game.playerProgress.changeCookie("soundMuted",game.soundMuted);
         
     }
 
-    draw(ctx, gameState, savedGame,game,input) {
+    draw(ctx, gameState,game,input) {
       
-        if(gameState==0){
-           input.style.display="initial";
-        }else if (gameState == 1) {
-            input.style.display="none";
+         if (gameState == 1) {
 
             ctx.drawImage(this.settingsPage,this.settingsPage.position.x,this.settingsPage.position.y,this.settingsPage.width,this.settingsPage.height);
             this.settingButtons.forEach((object) => {
                 ctx.drawImage(object, object.position.x, object.position.y, object.width, object.height);
             })
-        } else if (gameState == 2) {
-            input.style.display="none"; 
         }
     }
 

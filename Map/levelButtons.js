@@ -1,8 +1,8 @@
 export class levelButtons{
     constructor(game){
-        this.buttonAudio=new Audio;
+        this.buttonAudio=new Audio();
         this.buttonAudio.src=document.getElementById("buttonAudio").src;
-        this.audio=false;
+        this.buttonAudio.playing=false;
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
 
@@ -101,15 +101,18 @@ export class levelButtons{
 
     }
 
-    update(deltaTime,GameWidth,GameHeight,map){
+    update(deltaTime,GameWidth,GameHeight,map,game){
         this.ratio=this.gameWidth/map.width;
-
+        
         this.buttons.forEach((object)=>{
             object.position.x=map.width/object.relativePositionX +map.offsetX;
             object.position.y=map.height/object.relativePositionY+GameHeight/10;
             object.height=this.gameWidth/20/this.ratio;
             object.width=this.gameWidth/20/this.ratio;
         });
+
+        var c= game.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
              
     }
     
@@ -128,18 +131,19 @@ export class levelButtons{
                 mouseY <= object.position.y+object.height)
                 {    
                     object.src=document.getElementById(object.down).src;
-                    if(!this.audio){
+                    if(!this.buttonAudio.playing){
                         this.buttonAudio.play();
-                        this.audio=true;
+                        this.buttonAudio.playing=true;
                     }
                 }else{
                     object.src = document.getElementById(object.up).src;
-                    this.audio=false;
+                    this.buttonAudio.playing=false;
                 }
+                console.log(this.buttonAudio.playing);
         });
     }
 
-    toggleLevel1(mouseX,mouseY){
+    toggleLevels(mouseX,mouseY){
 
         this.buttons.forEach((object)=>{
             if(mouseX>=object.position.x && 
