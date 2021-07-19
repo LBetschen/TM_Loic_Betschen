@@ -113,11 +113,11 @@ export class Settings{
         var value=this.settingsPage.width/(pos-this.settingsPage.position.x-this.musicScroll.width/2);
         this.musicScroll.value=value;
         this.musicScroll.position = {
-            x: this.settingsPage.position.x+this.settingsPage.width/1.15,
+            x: this.settingsPage.position.x+this.settingsPage.width/this.musicScroll.value,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicScroll.height/2
         }
         c=game.playerProgress.getCookie("musicMuted",false);
-        game.audio.muted=c[2];
+        
         if(c[2]=="false"){
             game.musicMuted=false;
         }else{
@@ -146,7 +146,7 @@ export class Settings{
         value=this.settingsPage.width/(pos-this.settingsPage.position.x-this.soundScroll.width/2);
         this.soundScroll.value=value;
         this.soundScroll.position = {
-            x: this.settingsPage.position.x+this.settingsPage.width/1.15,
+            x: this.settingsPage.position.x+this.settingsPage.width/this.soundScroll.value,
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundScroll.height/2
         }
         c=game.playerProgress.getCookie("soundMuted",false);
@@ -265,7 +265,7 @@ export class Settings{
 
     draw(ctx, gameState,game,input) {
       
-         if (gameState == 1) {
+         if (gameState == 2) {
 
             ctx.drawImage(this.settingsPage,this.settingsPage.position.x,this.settingsPage.position.y,this.settingsPage.width,this.settingsPage.height);
             this.settingButtons.forEach((object) => {
@@ -353,7 +353,7 @@ export class Settings{
     toggleButtonClick(game,mouseX,mouseY){
         
         
-        if(game.gameState==1){
+        if(game.gameState==2){
             for(var i =0;i<this.settingButtons.length;i++){
                 if (mouseX >= this.settingButtons[i].position.x &&
                     mouseX <= this.settingButtons[i].position.x + this.settingButtons[i].width &&

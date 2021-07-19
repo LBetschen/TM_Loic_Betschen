@@ -2,16 +2,22 @@ var i = 1;
 export class Coins {
     constructor(game) {
 
-        this.coin = new Image();
-        this.coin.src = document.getElementById("coin1").src;
+        this.coinSheet = new Image();
+        this.coinSheet.src = document.getElementById("coin").src;
+        this.coinSheet.size={
+            columns:16,
+            lignes:1,
+            width:256,
+            height:256
+        }
         this.coinMap = [];
         this.columns = 32;
 
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
 
-        this.width = this.coin.naturalWidth / 8;
-        this.height = this.coin.naturalHeight / 8;
+        this.width=32;
+        this.height=32;
 
     }
 
@@ -27,11 +33,16 @@ export class Coins {
 
         var c = game.playerProgress.getCookie("level1coins",false);
         this.coins = c[2].split(",");
-    }
 
+        c=game.playerProgress.getCookie("soundVolume",false);
+        this.coinAudio.volume=c[2];
+    }
     update(deltaTime, GameWidth, GameHeight, player, game) {
 
-        this.coin.src = document.getElementById("coin" + i).src;
+        
+        var c=game.playerProgress.getCookie("soundVolume",false);
+        this.coinAudio.volume=c[2];
+
         var index = 0;
         for (var k = 0; k < this.coinMap.length; k++) {
             var value = this.coinMap[k];
@@ -40,10 +51,10 @@ export class Coins {
                     var x = (k % this.columns) * this.width;
                     var y = Math.floor(k / this.columns) * this.height;
 
-                    if (player.position.x + player.width / 2 > x &&
-                        player.position.x + player.width / 2 < x + this.width &&
-                        player.position.y + player.height / 2 > y &&
-                        player.position.y + player.height / 2 < y + this.height
+                    if (player.position.x + player.hero.width / 2 > x &&
+                        player.position.x + player.hero.width / 2 < x + this.width &&
+                        player.position.y + player.hero.height / 2 > y &&
+                        player.position.y + player.hero.height / 2 < y + this.height
                     ) {
                         this.score++;
                         this.coins[index] = 0;
@@ -63,19 +74,23 @@ export class Coins {
     draw(ctx, game) {
 
         var index = 0;
-        for (var i = 0; i < this.coinMap.length; i++) {
-            var value = this.coinMap[i];
+        for (var j = 0; j < this.coinMap.length; j++) {
+            var value = this.coinMap[j];
             if (value == 1) {
 
                 if (this.coins[index] == 1) {
 
-                    var x = (i % this.columns) * this.width;
-                    var y = Math.floor(i / this.columns) * this.width;
-                    ctx.drawImage(this.coin, x, y, this.width, this.height);
+                    var source_x=(i%this.coinSheet.size.columns)*this.coinSheet.size.width;
+                    var source_y=0;
+                    var x = (j % this.columns) * this.width;
+                    var y = Math.floor(j / this.columns) * this.width;
+                   
+                    ctx.drawImage(this.coinSheet,source_x,source_y,this.coinSheet.size.width,this.coinSheet.size.height,x,y,this.width,this.height);
                 }
                 index++;
             }
         }
+
 
         ctx.font = "50px";
         ctx.fillStyle = "black";

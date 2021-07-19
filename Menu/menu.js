@@ -69,10 +69,11 @@ export class Menu {
         this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
         this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.25 + "px";
 
+
         this.playersName = document.getElementById("playerNames");
     }
 
-    update(deltaTime, GameWidth, GameHeight, gameState, savedGame) {
+    update(deltaTime, GameWidth, GameHeight, game) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
         this.ratio = this.constGamewidth / this.gameWidth;
@@ -107,10 +108,10 @@ export class Menu {
         this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
         this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
         
-        this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+        this.input.style.height = game.gameHeight /25+ "px";
+        this.input.style.width = game.gameWidth / 5 + "px";
+        this.input.style.left = game.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
         this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
-        this.input.style.height = this.gameHeight /25+ "px";
-        this.input.style.width = this.gameWidth / 5 + "px";
     }
 
     draw(ctx, gameState, savedGame,game) {
@@ -123,7 +124,7 @@ export class Menu {
         var c= game.playerProgress.getCookie("name",false);
         if (c[2]!=0) {
             ctx.drawImage(this.resumeGame, this.resumeGame.position.x, this.resumeGame.position.y, this.resumeGame.width, this.resumeGame.height);
-            this.input.style.left = this.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+            this.input.style.left = game.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
             this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
         }
         

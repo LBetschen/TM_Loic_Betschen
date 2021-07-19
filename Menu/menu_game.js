@@ -5,9 +5,12 @@ import { Settings } from "../GlobalScripts/settings.js";
 
 const GAMESTATE = {
     RUNNING: 0,
-    SETTINGS: 1,
-    ABOUT: 2
+    PAUSED: 1,
+    SETTINGS:2,
+    ABOUT:3,
 }
+
+
 
 export class Game {
     constructor(gameWidth, gameHeight) {
@@ -44,7 +47,9 @@ export class Game {
 
         this.audio.play();
         var c = this.playerProgress.getCookie("musicVolume",false);
-        this.audio.volume=c[2];
+        this.audio.volume=parseInt(c[2]);
+        console.log(c);
+        this.audio.play();
         
 
     }
@@ -52,16 +57,16 @@ export class Game {
     update(deltaTime, gameWidth, gameHeight) {
         
         this.playerProgress.updatePlayerVariables();
-        this.menu.update(deltaTime, gameWidth, gameHeight, this.gameState, this.savedGame);
+        this.menu.update(deltaTime, gameWidth, gameHeight,this);
         this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState, this)
         this.audio.play();
-        if(this.gameState==0){
+        if(this.gameState==GAMESTATE.RUNNING){
             this.menu.input.style.display="initial";
-         }else if (this.gameState == 1) {
+         }else if (this.gameState == GAMESTATE.SETTINGS) {
             this.menu.input.style.display="none";
  
              
-         } else if (this.gameState == 2) {
+         } else if (this.gameState == GAMESTATE.ABOUT) {
             this.menu.input.style.display="none"; 
          }
     }
@@ -119,7 +124,7 @@ export class Game {
                 mouseY <= this.buttons[i].position.y + this.buttons[i].height) {
                 switch (i) {
                     case 0:
-                        if (this.gameState != 2) {
+                        if (this.gameState != 3) {
                             this.gameState = GAMESTATE.ABOUT;
                         } else {
                             this.gameState = GAMESTATE.RUNNING;

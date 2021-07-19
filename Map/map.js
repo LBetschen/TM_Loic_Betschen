@@ -19,6 +19,8 @@ export class Map{
             x:this.offsetX,
             y:game.gameHeight/10
         }
+        
+
 
         this.ratio = this.gameWidth / game.gameWidth;
         
@@ -32,6 +34,7 @@ export class Map{
             x: this.gameWidth / 1.07,
             y: this.gameHeight / 50
         }
+        this.settingsButton.audio=false;
         
         this.returnButton =  new Image();
         this.returnButton.up="returnButton";
@@ -43,12 +46,8 @@ export class Map{
             x:this.gameWidth/25,
             y:this.gameHeight/20
         }    
-        this.buttonAudio=new Audio;
-        this.buttonAudio.src=document.getElementById("buttonAudio").src;
-        this.audio=false;
-
-        
-        
+        ;
+        this.returnButton.audio=false;
 
 
         this.buttons=[
@@ -80,17 +79,18 @@ export class Map{
 
         this.returnButton.position.x=this.width/25;
         this.returnButton.position.y=GameHeight/20  ;
-        this.returnButton.height=this.returnButton.naturalHeight / 3 / this.ratio;
-        this.returnButton.width=this.returnButton.naturalWidth / 3 / this.ratio;
+        this.returnButton.height=this.returnButton.naturalHeight / 2.5 / this.ratio;
+        this.returnButton.width=this.returnButton.naturalWidth / 2.5 / this.ratio;
 
-        this.settingsButton.height = this.settingsButton.naturalHeight / 3 / this.ratio;
-        this.settingsButton.width = this.settingsButton.naturalWidth / 3 / this.ratio;
+        this.settingsButton.height = this.settingsButton.naturalHeight / 2.5 / this.ratio;
+        this.settingsButton.width = this.settingsButton.naturalWidth / 2.5 / this.ratio;
         this.settingsButton.position = {
             x: this.gameWidth / 1.07,
             y: this.gameHeight / 50
         }
 
         var c= game.playerProgress.getCookie("soundVolume",false);
+       
         this.buttonAudio.volume=c[2];
              
     }
@@ -114,8 +114,8 @@ export class Map{
                     mouseY <= this.buttons[i].position.y + this.buttons[i].height) {
                     switch (i) {
                         case 0:
-                            if (game.gameState != 1) {
-                                game.gameState = 1;
+                            if (game.gameState != 2) {
+                                game.gameState = 2;
                             } else {
                                 game.gameState = 0;
                             }
@@ -136,13 +136,13 @@ export class Map{
                 mouseY <= object.position.y + object.height) {
                     
                 object.src = document.getElementById(object.down).src;
-                if(!this.audio){
+                if(!object.audio){
                     this.buttonAudio.play();
-                    this.audio=true;
+                    object.audio=true;
                 }
             } else {
                 object.src = document.getElementById(object.up).src;
-                this.audio=false;
+                object.audio=false;
             }
         });
     }

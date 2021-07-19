@@ -4,15 +4,17 @@ export class PlayerProgress {
         this.newPlayerProgress=[
             0,
             0,0,0,0,0,0,
+            1,0,0,0,0,0,
             0,0,0,0,0,0,
             [1,1,1,1,1,1,1,1,1],
-            1,,false,1,false
+            1,false,1,false
 
         ];
 
         this.newPlayerVariables=[
             "name",
             "level1finished","level2finished","level3finished","level4finished","level5finished","level6finished",
+            "level1locked","level2locked","level3locked","level4locked","level5locked","level6locked",
             "level1score","level2score","level3score","level4score","level5score","level6score",
             "level1coins" ,
             "musicVolume","musicMuted","soundVolume","soundMuted"

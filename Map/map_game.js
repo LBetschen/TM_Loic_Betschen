@@ -5,10 +5,11 @@ import { levelButtons } from "./levelButtons.js";
 import { Settings } from "../GlobalScripts/settings.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 
+
 const GAMESTATE = {
     RUNNING: 0,
-    SETTINGS: 1,
-    ABOUT: 2
+    PAUSED: 1,
+    SETTINGS:2,
 }
 
 export class MapGame {
@@ -69,10 +70,10 @@ export class MapGame {
     toggleClick(mouseX, mouseY) {
         if(this.gameState==0){
             this.levelButtons.toggleLevels(mouseX, mouseY);
-            this.map.toggleClick(mouseX, mouseY,this);
-        }else {
+            
+        }else{
             this.settings.toggleButtonClick(this,mouseX,mouseY);
-            this.map.toggleClick(mouseX, mouseY,this);
         }
+        this.map.toggleClick(mouseX, mouseY,this);
     }
 }

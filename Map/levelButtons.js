@@ -2,14 +2,19 @@ export class levelButtons{
     constructor(game){
         this.buttonAudio=new Audio();
         this.buttonAudio.src=document.getElementById("buttonAudio").src;
-        this.buttonAudio.playing=false;
+
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
 
+        this.levelLockedUp="levelLocked";
+        this.levelLockedDown="levelLockedDown";
+        this.lockedAnimation=false;
+    
+        
         this.buttonlvl1 =  new Image();
-        this.buttonlvl1.src = document.getElementById("buttonUp").src;
-        this.buttonlvl1.down="buttonDown";
-        this.buttonlvl1.up="buttonUp";
+        this.buttonlvl1.down="level1Down";
+        this.buttonlvl1.up="level1";
+        this.buttonlvl1.src = document.getElementById(this.buttonlvl1.up).src;
         this.buttonlvl1.target="../Level_1/level_1.html";
         this.buttonlvl1.height=this.gameWidth/20;
         this.buttonlvl1.width=this.gameWidth/20;
@@ -19,11 +24,14 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl1.relativePositionX,
             y:this.gameHeight/this.buttonlvl1.relativePositionY
         }
+        this.buttonlvl1.audioPlaying=false;
+        this.buttonlvl1.locked=game.playerProgress.getCookie("level1locked",false)[2];
 
         this.buttonlvl2 =  new Image();
-        this.buttonlvl2.src = document.getElementById("buttonUp").src;
-        this.buttonlvl2.down="buttonDown";
-        this.buttonlvl2.up="buttonUp";
+        this.buttonlvl2.down="level2Down";
+        this.buttonlvl2.up="level2";
+        this.buttonlvl2.locked=game.playerProgress.getCookie("level2locked",false)[2];
+        this.buttonlvl2.src = document.getElementById(this.buttonlvl2.up).src;
         this.buttonlvl2.target="../Level_2/level_2.html";
         this.buttonlvl2.height=this.gameWidth/20;
         this.buttonlvl2.width=this.gameWidth/20;
@@ -33,11 +41,12 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl2.relativePositionX,
             y:this.gameHeight/this.buttonlvl2.relativePositionY
         }
+        this.buttonlvl2.audioPlaying=false;
 
         this.buttonlvl3 =  new Image();
-        this.buttonlvl3.src = document.getElementById("buttonUp").src;
-        this.buttonlvl3.down="buttonDown";
-        this.buttonlvl3.up="buttonUp";
+        this.buttonlvl3.down="level3Down";
+        this.buttonlvl3.up="level3";
+        this.buttonlvl3.src = document.getElementById(this.buttonlvl3.up).src;
         this.buttonlvl3.target="../Level_3/level_3.html";
         this.buttonlvl3.height=this.gameWidth/20;
         this.buttonlvl3.width=this.gameWidth/20;
@@ -47,11 +56,13 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl3.relativePositionX,
             y:this.gameHeight/this.buttonlvl3.relativePositionY
         }
+        this.buttonlvl3.audioPlaying=false;
+        this.buttonlvl3.locked=game.playerProgress.getCookie("level3locked",false)[2];
 
         this.buttonlvl4=  new Image();
-        this.buttonlvl4.src = document.getElementById("buttonUp").src;
-        this.buttonlvl4.down="buttonDown";
-        this.buttonlvl4.up="buttonUp";
+        this.buttonlvl4.down="level4Down";
+        this.buttonlvl4.up="level4";
+        this.buttonlvl4.src = document.getElementById(this.buttonlvl4.up).src;
         this.buttonlvl4.target="../Level_4/level_4.html";
         this.buttonlvl4.height=this.gameWidth/20;
         this.buttonlvl4.width=this.gameWidth/20;
@@ -61,12 +72,14 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl4.relativePositionX,
             y:this.gameHeight/this.buttonlvl4.relativePositionY
         }
+        this.buttonlvl4.audioPlaying=false;
+        this.buttonlvl4.locked=game.playerProgress.getCookie("level4locked",false)[2];
 
         this.buttonlvl5=  new Image();
-        this.buttonlvl5.src = document.getElementById("buttonUp").src;
-        this.buttonlvl5.down="buttonDown";
-        this.buttonlvl5.up="buttonUp";
-        this.buttonlvl15target="../Level_5/level_5.html";
+        this.buttonlvl5.down="level5Down";
+        this.buttonlvl5.up="level5";
+        this.buttonlvl5.src = document.getElementById(this.buttonlvl5.up).src;
+        this.buttonlvl5.target="../Level_5/level_5.html";
         this.buttonlvl5.height=this.gameWidth/20;
         this.buttonlvl5.width=this.gameWidth/20;
         this.buttonlvl5.relativePositionX=1.95;
@@ -75,11 +88,13 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl5.relativePositionX,
             y:this.gameHeight/this.buttonlvl5.relativePositionY
         }
+        this.buttonlvl5.audioPlaying=false;
+        this.buttonlvl5.locked=game.playerProgress.getCookie("level5locked",false)[2];
 
         this.buttonlvl6=  new Image();
-        this.buttonlvl6.src = document.getElementById("buttonUp").src;
-        this.buttonlvl6.down="buttonDown";
-        this.buttonlvl6.up="buttonUp";
+        this.buttonlvl6.down="level6Down";
+        this.buttonlvl6.up="level6";
+        this.buttonlvl6.src = document.getElementById(this.buttonlvl6.up).src;
         this.buttonlvl6.target="../Level_6/level_6.html";
         this.buttonlvl6.height=this.gameWidth/20;   
         this.buttonlvl6.width=this.gameWidth/20;
@@ -89,6 +104,8 @@ export class levelButtons{
             x:this.gameWidth/this.buttonlvl6.relativePositionX,
             y:this.gameHeight/this.buttonlvl6.relativePositionY
         }
+        this.buttonlvl6.audioPlaying=false;
+        this.buttonlvl6.locked=game.playerProgress.getCookie("level6locked",false)[2];
 
         this.buttons=[
             this.buttonlvl1,
@@ -98,6 +115,11 @@ export class levelButtons{
             this.buttonlvl5,
             this.buttonlvl6
         ];
+        this.buttons.forEach((object)=>{
+            if(object.locked==0){
+                object.src=document.getElementById(this.levelLockedUp).src;
+            }
+        });
 
     }
 
@@ -109,6 +131,7 @@ export class levelButtons{
             object.position.y=map.height/object.relativePositionY+GameHeight/10;
             object.height=this.gameWidth/20/this.ratio;
             object.width=this.gameWidth/20/this.ratio;
+            
         });
 
         var c= game.playerProgress.getCookie("soundVolume",false);
@@ -120,8 +143,15 @@ export class levelButtons{
         this.buttons.forEach((object)=>{
             ctx.drawImage(object,object.position.x,object.position.y,object.width,object.width);
         });
+        if(this.lockedAnimation==true){
+            ctx.font="30px Arial";
+            ctx.strokeText("hello",200,200,20,20);
+        }
+        
+        
+        
     }
-
+l
     toggleButton(mouseX,mouseY){
 
         this.buttons.forEach((object)=>{
@@ -129,30 +159,45 @@ export class levelButtons{
                 mouseX <= object.position.x+object.width &&
                 mouseY >= object.position.y &&
                 mouseY <= object.position.y+object.height)
-                {    
-                    object.src=document.getElementById(object.down).src;
-                    if(!this.buttonAudio.playing){
+                {   
+                    if(object.locked==0){
+                        object.src=document.getElementById(this.levelLockedDown).src;
+                       
+                    }else{
+                        object.src=document.getElementById(object.down).src;
+                    }    
+                    if(!object.audioPlaying){
                         this.buttonAudio.play();
-                        this.buttonAudio.playing=true;
+                        object.audioPlaying=true;
                     }
                 }else{
-                    object.src = document.getElementById(object.up).src;
-                    this.buttonAudio.playing=false;
+                    if(object.locked==0){
+                        object.src=document.getElementById(this.levelLockedUp).src;
+                    }else{
+                        object.src=document.getElementById(object.up).src;
+                    }   
+                    
+                    object.audioPlaying=false;
                 }
-                console.log(this.buttonAudio.playing);
+                
+            });
+        }
+        
+        toggleLevels(mouseX,mouseY){
+            
+            this.buttons.forEach((object)=>{
+                if(mouseX>=object.position.x && 
+                    mouseX <= object.position.x+object.width &&
+                    mouseY >= object.position.y &&
+                    mouseY <= object.position.y+object.height)
+                    {   
+                        if(object.locked==1){
+                        window.location=object.target;
+                        }else{
+                            this.lockedAnimation=true;
+                        }
+                }
         });
     }
-
-    toggleLevels(mouseX,mouseY){
-
-        this.buttons.forEach((object)=>{
-            if(mouseX>=object.position.x && 
-                mouseX <= object.position.x+object.width &&
-                mouseY >= object.position.y &&
-                mouseY <= object.position.y+object.height)
-                { 
-                    window.location=object.target;
-                }
-        });
-    }
+    
 }
