@@ -129,6 +129,7 @@ export class Player{
         if(this.position.x<0){
             this.position.x=0;
         }
+        
     }
 
     moveLeft(){

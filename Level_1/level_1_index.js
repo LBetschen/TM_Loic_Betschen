@@ -31,7 +31,7 @@ function gameLoop(timestamp){
     ctx.fillText("Level 1",GameWidth/2,GameHeight/6);
     
     level1game.update(deltaTime,GameWidth,GameHeight);
-    level1game.draw(ctx);
+    level1game.draw(ctx,GameWidth,GameHeight);
 
     requestAnimationFrame(gameLoop);
 }

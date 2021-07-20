@@ -2,15 +2,18 @@ import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { LevelInput } from "../GlobalScripts/level_input.js";
 import { LevelButtons } from "../GlobalScripts/level_buttons.js";
 import { Player } from "../GlobalScripts/Player.js";
-import { Coins } from "./level_1_coins.js";
+import { Coins } from "../GlobalScripts/level_coins.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 import { Settings } from "../GlobalScripts/settings.js";
-import { Level1Map } from "./level_1_map.js";
+import { Level1Map } from "../GlobalScripts/level_map.js";
+import { Background } from "./level_1_background.js";
 
 const GAMESTATE = {
     RUNNING: 0,
     PAUSED: 1,
     SETTINGS:2,
+    ABOUT:3,
+    GAMEOVER:4
 }
 
 export class level1Game {
@@ -18,6 +21,7 @@ export class level1Game {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
+        
 
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound3").src;
@@ -37,6 +41,7 @@ export class level1Game {
         this.gameState = GAMESTATE.RUNNING;
         this.buttons = new LevelButtons(this);
         this.level1Map=new Level1Map(this,this.player);
+        this.background = new Background(this);
         
         //this.coins.coinAnimation();
         new LevelInput(this);
@@ -65,17 +70,22 @@ export class level1Game {
         this.level1Map.update(deltaTime, GameWidth, GameHeight,this);
 
 
-        if (this.gameState == GAMESTATE.PAUSED) {
-            this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
+      
+        
+        if(this.gameState==GAMESTATE.RUNNING){
+
+            this.background.update(deltaTime,GameWidth,GameHeight,this.gameState);
+        }else if(this.gameState==GAMESTATE.PAUSED){
+           this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
             this.buttons.update(deltaTime, GameWidth, GameHeight);
-            
         }
         this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
 
 
     }
 
-    draw(ctx) {
+    draw(ctx,GameWidth,GameHeight) {
+        this.background.draw(ctx,GameWidth,GameHeight);
         this.level1Map.draw(ctx);
         this.coins.draw(ctx, this);
         this.player.draw(ctx);
@@ -84,6 +94,8 @@ export class level1Game {
             this.PauseScreen.draw(ctx);
             this.buttons.draw(ctx);
             
+        }else if(this.gameState==4){
+            ctx.fillText("GAMEOVER",200,200,200,200);
         }
         this.settings.draw(ctx, this.gameState, this);
     }

@@ -4,7 +4,7 @@ export class PlayerProgress {
         this.newPlayerProgress=[
             0,
             0,0,0,0,0,0,
-            1,0,0,0,0,0,
+            1,1,1,1,1,1,
             0,0,0,0,0,0,
             [1,1,1,1,1,1,1,1,1],
             1,false,1,false
