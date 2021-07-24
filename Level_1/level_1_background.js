@@ -86,10 +86,11 @@ export class Background{
         
     }
 
-    update(deltaTime,GameWidth,GameHeight){
+    update(deltaTime,GameWidth,GameHeight,game){
         
         this.width=GameWidth;
         this.height=this.width*this.aspect;
+        this.offsetX=game.player.offsetX;
         
         this.backgroundObjects.forEach((object)=>{
 
@@ -136,29 +137,48 @@ export class Background{
     moveLeft(){
         this.controller.left=true;
         this.friction=1;
-        this.backgroundObjects.forEach((object)=>{
-            object.x_speed=object.x_maxSpeed;
-        });
-        this.backgroundSkyObjects.forEach((object)=>{
-            object.x_speed=object.x_maxSpeed;
-        });
+        if(this.offsetX!=0){
+            this.backgroundObjects.forEach((object)=>{
+                object.x_speed=object.x_maxSpeed;
+            });
+            this.backgroundSkyObjects.forEach((object)=>{
+                object.x_speed=object.x_maxSpeed;
+            });
+
+        }else{
+            this.backgroundObjects.forEach((object)=>{
+                object.x_speed=0;
+            });
+            this.backgroundSkyObjects.forEach((object)=>{
+                object.x_speed=0;
+            });
+        }
     }
 
     moveRight(){
         this.controller.right=true;
         this.friction=1;
-        this.backgroundObjects.forEach((object)=>{
-            object.x_speed=-object.x_maxSpeed;
-        });
-        this.backgroundSkyObjects.forEach((object)=>{
-            object.x_speed=-object.x_maxSpeed;
-        });
+        if(this.offsetX!=0){
+            this.backgroundObjects.forEach((object)=>{
+                object.x_speed=-object.x_maxSpeed;
+            });
+            this.backgroundSkyObjects.forEach((object)=>{
+                object.x_speed=-object.x_maxSpeed;
+            });
+        }else{
+            this.backgroundObjects.forEach((object)=>{
+                object.x_speed=0;
+            });
+            this.backgroundSkyObjects.forEach((object)=>{
+                object.x_speed=0;
+            });
+        }
     }
 
     stopRight(){
         this.controller.right=false;
         if(this.controller.left==false){
-            this.friction=0.9
+            this.friction=0.9;
         }    
     }
 

@@ -11,7 +11,7 @@ export class Coins {
             height:256
         }
         this.coinMap = [];
-        this.columns = 32;
+        this.columns = 25;
 
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
@@ -48,7 +48,7 @@ export class Coins {
             var value = this.coinMap[k];
             if (value == 1) {
                 if (this.coins[index] == 1) {
-                    var x = (k % this.columns) * this.width;
+                    var x = (k % this.columns) * this.width+game.player.offsetX;
                     var y = Math.floor(k / this.columns) * this.height;
 
                     if (player.position.x + player.hero.width / 2 > x &&
@@ -82,7 +82,7 @@ export class Coins {
 
                     var source_x=(i%this.coinSheet.size.columns)*this.coinSheet.size.width;
                     var source_y=0;
-                    var x = (j % this.columns) * this.width;
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
                     var y = Math.floor(j / this.columns) * this.width;
                    
                     ctx.drawImage(this.coinSheet,source_x,source_y,this.coinSheet.size.width,this.coinSheet.size.height,x,y,this.width,this.height);

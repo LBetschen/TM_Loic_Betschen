@@ -24,7 +24,7 @@ export class Level1Map{
         this.offsetY=game.player.offsetY;
         
 
-        this.columns=24;
+        this.columns=50;
         this.tileWidth=80;
         this.tileHeight=80;
 
@@ -56,16 +56,18 @@ export class Level1Map{
 
     }
 
-    draw(ctx,offsetX,offsetY){
+    draw(ctx,game){
+            
        
             for(var i = 0;i<this.map.length;i++){
                 var value=this.map[i];
                 
+                
                     if(value!=0){
                         var source_x=((value-1)%this.tileMap.size.columns)*this.tileMap.size.width;
-                        var source_y=Math.floor((value-1)/this.tileMap.size.lignes)*this.tileMap.size.height;
+                        var source_y=Math.floor((value-1)/this.tileMap.size.columns)*this.tileMap.size.height;
                         
-                        var x=(i%this.columns)*this.tileWidth; + this.offsetX;
+                        var x=(i%this.columns)*this.tileWidth + game.player.offsetX;
                         var y=Math.floor(i/this.columns)*this.tileWidth ;
     
                         ctx.drawImage(this.tileMap,source_x,source_y,this.tileMap.size.width,this.tileMap.size.height,x,y,this.tileWidth,this.tileWidth);
@@ -73,8 +75,8 @@ export class Level1Map{
                     if(value==30){
                         var source_x=(j%this.waterFall.size.columns)*this.waterFall.size.width;
                         var source_y=0;
-                        var x=(i%this.columns)*this.tileWidth; + this.offsetX;
-                        var y=Math.floor(i/this.columns)*this.tileWidthd;
+                        var x=(i%this.columns)*this.tileWidth + game.player.offsetX;
+                        var y=Math.floor(i/this.columns)*this.tileWidth;
 
                         ctx.drawImage(this.waterFall,source_x,source_y,this.waterFall.size.width,this.waterFall.size.height,x,y,this.tileWidth,this.tileHeight);
                      
@@ -82,8 +84,9 @@ export class Level1Map{
                     if(value==31){
                         var source_x=(j%this.waterFall.size.columns)*this.waterFall.size.width;
                         var source_y=256;
-                        var x=(i%this.columns)*this.tileWidth; + this.offsetX;
+                        var x=(i%this.columns)*this.tileWidth + game.player.offsetX;
                         var y=Math.floor(i/this.columns)*this.tileWidth;
+                        
 
                         ctx.drawImage(this.waterFall,source_x,source_y,this.waterFall.size.width,this.waterFall.size.height,x,y,this.tileWidth,this.tileHeight);
                     }
@@ -104,9 +107,12 @@ export class Level1Map{
         var res;
         fetch("./map.txt").then(Response => Response.text()).then((data) => {
             res = data.toString().split(",");
+            console.log(res);
             for (var i = 0; i < res.length; i++) {
                 res[i] = parseInt(res[i]);
+                
             }
+            console.log(res);
             this.map = res;
         });
     }

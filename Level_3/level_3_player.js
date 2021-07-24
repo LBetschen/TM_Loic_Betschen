@@ -102,7 +102,7 @@ export class Player{
             }       
         }
         
-        if(this.offsetX>0){
+        if(this.offsetX<0){
             this.offsetX=0;
             this.position.x-=this.x_speed;
         }else if(this.position.x>this.gameWidth/2+this.width/2){
@@ -111,14 +111,14 @@ export class Player{
             this.position.x-=this.x_speed;
         }
         
-        if(this.offsetY>0){
+       /* if(this.offsetY>0){
             this.offsetY=0;
             this.position.y-=this.y_speed;
         }else if(this.position.y>this.gameHeight/2+this.height/2){
             this.offsetY+=this.y_speed;
         }else{
             this.position.y-=this.y_speed;
-        }
+        }*/
 
         this.x_speed*=this.x_friction;
         this.y_speed*=this.y_friction;

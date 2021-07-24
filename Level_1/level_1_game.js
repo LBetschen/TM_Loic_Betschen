@@ -74,7 +74,7 @@ export class level1Game {
         
         if(this.gameState==GAMESTATE.RUNNING){
 
-            this.background.update(deltaTime,GameWidth,GameHeight,this.gameState);
+            this.background.update(deltaTime,GameWidth,GameHeight,this);
         }else if(this.gameState==GAMESTATE.PAUSED){
            this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
             this.buttons.update(deltaTime, GameWidth, GameHeight);
@@ -86,7 +86,7 @@ export class level1Game {
 
     draw(ctx,GameWidth,GameHeight) {
         this.background.draw(ctx,GameWidth,GameHeight);
-        this.level1Map.draw(ctx);
+        this.level1Map.draw(ctx,this);
         this.coins.draw(ctx, this);
         this.player.draw(ctx);
 

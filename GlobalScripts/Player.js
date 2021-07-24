@@ -135,20 +135,19 @@ export class Player{
 
 
 
-        this.position.x+=this.x_speed;
+        
         this.position.y+=this.y_speed;
        
         this.x_speed*=this.friction;
 
         if(this.x_speed<0.5 && this.x_speed>-0.5 && this.jumping==false && this.doubleJump==false){
-           this.Xdirection="idle";    
             
-           if(this.Xdirection=="right"){
+            if(this.Xdirection=="left"){
                 this.hero.src=document.getElementById("idlePlayerLeft").src;
-            }else{
+            }else if(this.Xdirection=="right"){
                 this.hero.src=document.getElementById("idlePlayerRight").src;
-
             }
+            this.Xdirection="idle";    
             
         }else if(this.jumping==true && this.jumpAnimation==true){
             
@@ -171,15 +170,18 @@ export class Player{
         }
 
         
-        /*if(this.offsetX>0){
-            this.offsetX=0;
-            //this.position.x-=this.x_speed;
-        }else if(this.position.x>this.gameWidth/2+this.hero.width/2){
-            this.offsetX+=this.x_speed;
-        }else{
-            //this.position.x-=this.x_speed;
-        }
         
+        
+        if(this.offsetX>0){
+            this.offsetX=0;
+            this.position.x+=this.x_speed;
+        }else if(this.position.x>this.gameWidth/2-this.width/2){
+            this.offsetX-=this.x_speed;
+        }else{
+            this.position.x+=this.x_speed;
+            this.offsetX=0;
+        }
+
         /*if(this.offsetY>0){
             this.offsetY=0;
             this.position.y-=this.y_speed;
@@ -190,7 +192,7 @@ export class Player{
         }*/
 
         
-        ;
+        
 
         if(this.position.x+this.hero.width>GameWidth){
             this.position.x = GameWidth-this.hero.width;
@@ -251,13 +253,16 @@ export class Player{
         if(this.Xdirection=="left"){
             this.hero.src=document.getElementById("playerJumpingLeft").src;
             
-        }else{
+        }else if(this.Xdirection=="right"){
             this.hero.src=document.getElementById("playerJumpingRight").src;
-            
         }
         let timeout;
         timeout=setTimeout(function(){
-            this.hero.src=document.getElementById("playerIdleLeft").src;
+            if(this.Xdirection=="left"){
+                this.hero.src=document.getElementById("idlePlayerLeft").src;
+            }else if(this.Xdirection=="right"){
+                this.hero.src=document.getElementById("idlePlayerRight").src;
+            }
         },1000,this.hero.src);
  
     }
