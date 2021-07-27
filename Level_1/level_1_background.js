@@ -91,32 +91,39 @@ export class Background{
         this.width=GameWidth;
         this.height=this.width*this.aspect;
         this.offsetX=game.player.offsetX;
-        
-        this.backgroundObjects.forEach((object)=>{
 
-            object.position.y=GameHeight-this.height;
-            object.position.x+=object.x_speed;
-            object.x_speed*=this.friction;
-            
-            if(object.position.x +  this.width <0 || object.position.x>GameWidth){
-                object.position.x=0;
-            }
-        });
+        this.playerSpeed=game.player.x_speed;
 
-        this.backgroundSkyObjects.forEach((object)=>{
-            object.width=GameWidth/object.ratio;
-            object.height=object.width*object.aspect;
-            
-            object.position.x+=object.x_speed;
-            object.x_speed*=this.friction;
-            object.position.y=GameWidth/object.Y_ratio;
-            
-            if(object.position.x + object.width <0){
-                object.position.x=GameWidth-object.width;
-            }else if(object.position.x>GameWidth){
-                object.position.x=0;
-            }
-        });
+       
+        if(this.playerSpeed!=0){
+
+            this.backgroundObjects.forEach((object)=>{
+                
+                object.position.y=GameHeight-this.height;
+                object.position.x+=object.x_speed;
+                object.x_speed*=this.friction;
+                
+                if(object.position.x +  this.width <0 || object.position.x>GameWidth){
+                    object.position.x=0;
+                }
+            });
+    
+            this.backgroundSkyObjects.forEach((object)=>{
+                object.width=GameWidth/object.ratio;
+                object.height=object.width*object.aspect;
+                
+                object.position.x+=object.x_speed;
+                object.x_speed*=this.friction;
+                object.position.y=GameWidth/object.Y_ratio;
+                
+                if(object.position.x + object.width <0){
+                    object.position.x=GameWidth-object.width;
+                }else if(object.position.x>GameWidth){
+                    object.position.x=0;
+                }
+            });
+        }
+
     }
 
     draw(ctx,GameWidth,GameHeight){
@@ -137,20 +144,20 @@ export class Background{
     moveLeft(){
         this.controller.left=true;
         this.friction=1;
-        if(this.offsetX!=0){
+        if(this.offsetX==0 || this.playerSpeed==0){
             this.backgroundObjects.forEach((object)=>{
-                object.x_speed=object.x_maxSpeed;
+                object.x_speed=0;
             });
             this.backgroundSkyObjects.forEach((object)=>{
-                object.x_speed=object.x_maxSpeed;
+                object.x_speed=0;
             });
-
+            
         }else{
             this.backgroundObjects.forEach((object)=>{
-                object.x_speed=0;
+                object.x_speed=object.x_maxSpeed;
             });
             this.backgroundSkyObjects.forEach((object)=>{
-                object.x_speed=0;
+                object.x_speed=object.x_maxSpeed;
             });
         }
     }
@@ -158,19 +165,19 @@ export class Background{
     moveRight(){
         this.controller.right=true;
         this.friction=1;
-        if(this.offsetX!=0){
+        if(this.offsetX==0 || this.playerSpeed==0){
             this.backgroundObjects.forEach((object)=>{
-                object.x_speed=-object.x_maxSpeed;
+                object.x_speed=0;
             });
             this.backgroundSkyObjects.forEach((object)=>{
-                object.x_speed=-object.x_maxSpeed;
+                object.x_speed=0;
             });
         }else{
             this.backgroundObjects.forEach((object)=>{
-                object.x_speed=0;
+                object.x_speed=-object.x_maxSpeed;
             });
             this.backgroundSkyObjects.forEach((object)=>{
-                object.x_speed=0;
+                object.x_speed=-object.x_maxSpeed;
             });
         }
     }

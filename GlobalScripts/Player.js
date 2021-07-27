@@ -36,8 +36,17 @@ export class Player{
             left:false
         }
 
+        this.bullet=new Image();
+        this.bullet.src=document.getElementById("fireball").src;
+        this.bullet.height=40;
+        this.bullet.width=40;
+        this.bullet.speed=20;
+        this.bullets=[];
+        this.b=0;
+        
+
         this.Ydirection="down";
-        this.Xdirection="idle";
+        this.Xdirection="left";
         
         this.offsetX=0;
         this.offsetY=0;
@@ -47,10 +56,13 @@ export class Player{
         this.x_speed = 0;
         this.y_speed =0;
         
+        this.shooting=false;
+        this.moving=false;
         this.jumping=false;
         this.doubleJump=false;
         this.friction=1;
         this.jumpAnimation=false;
+
 
         var c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
@@ -65,23 +77,34 @@ export class Player{
     }
     draw(ctx){
 
-        if(this.jumping==true && i==5 && this.jumpAnimation==true){
-            
-            this.jumpAnimation=false;
-            if(this.Xdirection=="left"){
-                this.hero.src=document.getElementById("idlePlayerLeft").src;
-            }else{
-                this.hero.src=document.getElementById("idlePlayerRight").src;
-            }
-        }
+        
         
         var x = i * this.hero.width;
         var y = Math.floor(i / this.columns) * this.hero.height;
         ctx.drawImage(this.hero,x,0,this.hero.width,this.hero.height,this.position.x,this.position.y,this.hero.width,this.hero.height);
+        for(var k=0;k<this.bullets.length;k++){
+            ctx.drawImage(this.bullet,this.bullets[k].x,this.bullets[k].y,this.bullet.width,this.bullet.height);
+        }
+
+        
+        if(x>320){
+            if(this.shooting==true){
+                this.shooting=false;
+            }
+            if(this.jumping==true){
+            this.jumping=false;
+            }
+            if(this.doubleJump==true){
+                this.doubleJump=false;
+            }
+        }
+       
+        
                     
     }
     
     update(deltaTime,GameWidth,GameHeight,game){
+        
 
         var c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
@@ -90,22 +113,24 @@ export class Player{
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
         this.ratio=this.constGameHeight/GameHeight;
-
+        
         this.height=this.constGameHeight/10/this.ratio;
         this.width=this.constGameHeight/10/this.ratio;
-
+        
         this.x_maxSpeed=GameWidth/200;
         this.y_speed+=GameHeight/1000;
 
         
+        
+        
         for(var k=0;k<game.level1Map.map.length;k++){
-
+            
             if(game.level1Map.map[k]==0 || game.level1Map.map[k]==30 || game.level1Map.map[k]==31){
             }else{
-
+                
                 var x=(k%game.level1Map.columns)*game.level1Map.tileWidth + this.offsetX;
-                var y=Math.floor(k/game.level1Map.columns)*game.level1Map.tileWidth + this.offsetY;  
-
+                var y=Math.floor(k/game.level1Map.columns)*game.level1Map.tileWidth ;  
+                
                 if(this.position.y+this.y_speed+this.hero.height>y+game.level1Map.tileHeight/5 && this.Ydirection=="down" && this.position.x+this.hero.width>x && this.position.x<x+game.level1Map.tileWidth){
                     if(y-game.level1Map.tileHeight>this.position.y){
                         this.position.y=y+game.level1Map.tileHeight/5-this.hero.height;
@@ -117,60 +142,31 @@ export class Player{
                 
                 if(this.position.x+this.x_speed<x+game.level1Map.tileWidth && this.Xdirection=="left" && this.position.x>x && this.position.x< x+game.level1Map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.level1Map.tileHeight || this.position.y+game.level1Map.tileHeight>y && this.position.y+game.level1Map.tileHeight<y+game.level1Map.tileHeight){
-                        this.position.x=x+game.level1Map.tileWidth;
-                        this.x_speed=0;
+                        if(this.offsetX==0){
+                            this.position.x=x+game.level1Map.tileWidth;
+                            this.x_speed=0;
+                        }else{
+                            this.x_speed=0;
+                        }
                     }
                 }
-    
+                
                 if(this.position.x+this.x_speed+this.hero.width>x && this.Xdirection=="right" &&  this.position.x<x && this.position.x> x-game.level1Map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.level1Map.tileHeight || this.position.y+game.level1Map.tileHeight>y && this.position.y+game.level1Map.tileHeight<y+game.level1Map.tileHeight){
-                        this.position.x=x-this.hero.width;
-                        this.x_speed=0;
+                        if(this.offsetX==0){
+                            this.position.x=x-this.hero.width;
+                            this.x_speed=0;
+                        }else{
+                            this.x_speed=0;
+                        }
                     }
                 }
             }
         }
 
-        
-
-
-
-        
-        this.position.y+=this.y_speed;
-       
-        this.x_speed*=this.friction;
-
-        if(this.x_speed<0.5 && this.x_speed>-0.5 && this.jumping==false && this.doubleJump==false){
-            
-            if(this.Xdirection=="left"){
-                this.hero.src=document.getElementById("idlePlayerLeft").src;
-            }else if(this.Xdirection=="right"){
-                this.hero.src=document.getElementById("idlePlayerRight").src;
-            }
-            this.Xdirection="idle";    
-            
-        }else if(this.jumping==true && this.jumpAnimation==true){
-            
-            if(this.Xdirection=="left"){
-                this.hero.src=document.getElementById("playerJumpingLeft").src;
-            }else{
-                this.hero.src=document.getElementById("playerJumpingRight").src;
-
-            }
+        for(var k=0;k<this.bullets.length;k++){
+           this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;//+this.offsetX;
         }
-        if(this.y_speed>0.5){
-            this.Ydirection="down";
-        }else if(this.y_speed<-0.5){
-            this.Ydirection="up";
-        }
-
-       
-        if(this.position.y >GameHeight){
-            game.gameState=4;
-        }
-
-        
-        
         
         if(this.offsetX>0){
             this.offsetX=0;
@@ -181,30 +177,74 @@ export class Player{
             this.position.x+=this.x_speed;
             this.offsetX=0;
         }
+        
+        this.position.y+=this.y_speed;
+        this.x_speed*=this.friction;
 
-        /*if(this.offsetY>0){
-            this.offsetY=0;
-            this.position.y-=this.y_speed;
-        }else if(this.position.y>this.gameHeight/2+this.hero.height/2){
-            this.offsetY+=this.y_speed;
+
+
+        if(this.jumping==true){
+            
+            if(this.Xdirection=="left"){
+                this.hero.src=document.getElementById("playerJumpingLeft").src;
+            }else{
+                this.hero.src=document.getElementById("playerJumpingRight").src;
+
+            }
+        }else if(this.shooting==true){
+            
+            if(this.Xdirection=="left"){
+                this.hero.src=document.getElementById("shootingLeft").src;
+            }else{
+                this.hero.src=document.getElementById("shootingRight").src;
+
+            }
+        }else if(this.moving==true){
+            
+            if(this.Xdirection=="left"){
+                this.hero.src=document.getElementById("runningLeft").src;
+            }else{
+                this.hero.src=document.getElementById("runningRight").src;
+
+            }
+
         }else{
-            this.position.y-=this.y_speed;
-        }*/
+            if(this.Xdirection=="left"){
+                this.hero.src=document.getElementById("idlePlayerLeft").src;
+            }else if(this.Xdirection=="right"){
+                this.hero.src=document.getElementById("idlePlayerRight").src;
+            }
+                 
 
-        
-        
+        } 
 
+
+        if(this.y_speed>0.5){
+            this.Ydirection="down";
+        }else if(this.y_speed<-0.5){
+            this.Ydirection="up";
+        }
+
+       
+        if(this.position.y >GameHeight){
+            game.gameState=4;
+        }
         if(this.position.x+this.hero.width>GameWidth){
             this.position.x = GameWidth-this.hero.width;
         }
-
         if(this.position.y<0){
             this.position.y=0;
         }
-        
         if(this.position.x<0 ){
             this.position.x=0;
         }    
+
+       
+        if(this.x_speed>0.5 || this.x_speed<-0.5 ) {
+                this.moving=true;
+        }else{
+            this.moving=false;
+        }
     }
 
     moveLeft(){
@@ -213,10 +253,7 @@ export class Player{
         this.controller.left=true;
         this.friction=1;
         this.x_speed=-this.x_maxSpeed;
-        if(!this.jumping){
-            this.hero.src=document.getElementById("runningLeft").src;
-
-        }
+       
     }
     
     moveRight(){
@@ -225,10 +262,7 @@ export class Player{
         this.controller.right=true;
         this.friction=1;
         this.x_speed=this.x_maxSpeed;
-        if(!this.jumping){
-            this.hero.src=document.getElementById("runningRight").src;
-            
-        }
+        
     }
 
     jump(GameHeight){
@@ -250,20 +284,8 @@ export class Player{
             this.jumpAnimation=true;
             
         }
-        if(this.Xdirection=="left"){
-            this.hero.src=document.getElementById("playerJumpingLeft").src;
-            
-        }else if(this.Xdirection=="right"){
-            this.hero.src=document.getElementById("playerJumpingRight").src;
-        }
-        let timeout;
-        timeout=setTimeout(function(){
-            if(this.Xdirection=="left"){
-                this.hero.src=document.getElementById("idlePlayerLeft").src;
-            }else if(this.Xdirection=="right"){
-                this.hero.src=document.getElementById("idlePlayerRight").src;
-            }
-        },1000,this.hero.src);
+      
+
  
     }
     
@@ -281,6 +303,32 @@ export class Player{
             this.friction=0.9; 
         }
     }
+
+    fire(){
+        
+        let direction=1;
+        let x_bullet=0;
+        this.shooting=true;
+        i=0;
+        if(this.Xdirection=="left"){
+            direction=-1;
+            x_bullet=this.position.x-this.bullet.width;
+
+        }else{
+            direction=1;
+            x_bullet=this.position.x+this.hero.width;
+        }
+        this.fireball={
+            x:x_bullet,
+            y:this.position.y+this.hero.height/3,
+            dir:direction
+
+        }
+        this.bullets.push(this.fireball);
+        this.b++;
+        
+
+    }
     
     playerAnimation(){
         t = setInterval(function () {      
@@ -291,4 +339,6 @@ export class Player{
             }
         }, 175);       
     }
+
+    
 }

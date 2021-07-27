@@ -17,8 +17,20 @@ export class LevelInput{
                     break;
                 case 32:
                     //game.player.jump(game.GameHeight);
+                    game.player.fire();
                     break;
                 case 87:
+                    game.player.jump(game.GameHeight);
+                    break;
+                case 37:
+                    game.player.moveLeft();
+                    game.background.moveLeft();
+                    break;
+                case 39:
+                    game.player.moveRight();
+                    game.background.moveRight();
+                    break;
+                case 38:
                     game.player.jump(game.GameHeight);
                     break;
                 
@@ -36,7 +48,16 @@ export class LevelInput{
                 case 68:                   
                     game.player.stopRight();
                     game.background.stopRight();
-                    break;                                     
+                    break;    
+                case 37:
+                    game.player.stopLeft();
+                    game.background.stopLeft();
+                    break;
+
+                case 39:                   
+                    game.player.stopRight();
+                    game.background.stopRight();
+                    break;                                   
             }
         });      
 
