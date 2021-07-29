@@ -119,7 +119,16 @@ export class Player{
         
         this.x_maxSpeed=GameWidth/200;
         this.y_speed+=GameHeight/1000;
+        
+        for(var k=0;k<this.bullets.length;k++){
+            if(this.offsetX==0 ){
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;//+this.offsetX;
+            }else{
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir-this.x_speed;//+this.offsetX;
+            }
 
+        
+        }
         
         
         
@@ -161,12 +170,20 @@ export class Player{
                         }
                     }
                 }
+
+                for(var j=0;j<this.bullets.length;j++){
+                   
+        
+                    if(this.bullets[j].dir==-1 && this.bullets[j].x<x+game.level1Map.tileWidth && this.bullets[j].y>y&& this.bullets[j].y<y+game.level1Map.tileHeight){
+                        this.bullets.splice(j,1);
+                    }else if(this.bullets[j].dir==1 && this.bullets[j].x+this.bullet.width>x && this.bullets[j].y>y&& this.bullets[j].y<y+game.level1Map.tileHeight){
+                        this.bullets.splice(j,1);
+                    }
+                }
             }
+
         }
 
-        for(var k=0;k<this.bullets.length;k++){
-           this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;//+this.offsetX;
-        }
         
         if(this.offsetX>0){
             this.offsetX=0;
