@@ -2,11 +2,12 @@ import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { LevelInput } from "../GlobalScripts/level_input.js";
 import { LevelButtons } from "../GlobalScripts/level_buttons.js";
 import { Player } from "../GlobalScripts/Player.js";
-import { Coins } from "../GlobalScripts/level_coins.js";
+import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 import { Settings } from "../GlobalScripts/settings.js";
-import { Level1Map } from "../GlobalScripts/level_map.js";
+import { Map } from "../GlobalScripts/level_map.js";
 import { Background } from "./level_1_background.js";
+import { GameOver } from "../GlobalScripts/GameOver.js";
 
 const GAMESTATE = {
     RUNNING: 0,
@@ -37,17 +38,18 @@ export class level1Game {
         this.settings= new Settings(this);
         this.PauseScreen = new PauseScreen(this);
         this.player = new Player(this);
-        this.coins = new Coins(this);
+        this.interactiveObjects = new InteractiveObjects(this);
         this.gameState = GAMESTATE.RUNNING;
         this.buttons = new LevelButtons(this);
-        this.level1Map=new Level1Map(this,this.player);
+        this.map=new Map(this,this.player);
         this.background = new Background(this);
+        this.gameOver = new GameOver(this);
         
-        //this.coins.coinAnimation();
+     
         new LevelInput(this);
-        this.coins.start(ctx, this);
+        this.interactiveObjects.start(ctx, this);
         this.player.start();
-        this.level1Map.start();
+        this.map.start();
 
         this.gameState=GAMESTATE.RUNNING;
         var c=this.playerProgress.getCookie("musicVolume",false);
@@ -61,43 +63,53 @@ export class level1Game {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
 
-        this.middleOfPlayer = {
-            x: this.player.position.x + (this.player.width / 2),
-            y: this.player.position.y + (this.player.height / 2),
+        switch (this.gameState){
+            case 0:
+                this.background.update(deltaTime,GameWidth,GameHeight,this);
+                this.player.update(deltaTime, GameWidth, GameHeight,this);
+                this.map.update(deltaTime, GameWidth, GameHeight,this);
+                this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this);
+                break;
+            case 1:
+                this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                break;
+            case 2:
+                this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
+                break;
+            case 3:
+                break;
+            case 4:
+                this.gameOver.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                break;
         }
-        this.coins.update(deltaTime, GameWidth, GameHeight, this.player, this);
-        this.player.update(deltaTime, GameWidth, GameHeight,this);
-        this.level1Map.update(deltaTime, GameWidth, GameHeight,this);
-
-
-      
-        
-        if(this.gameState==GAMESTATE.RUNNING){
-
-            this.background.update(deltaTime,GameWidth,GameHeight,this);
-        }else if(this.gameState==GAMESTATE.PAUSED){
-           this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
-            this.buttons.update(deltaTime, GameWidth, GameHeight);
-        }
-        this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
-
-
     }
 
     draw(ctx,GameWidth,GameHeight) {
         this.background.draw(ctx,GameWidth,GameHeight);
-        this.level1Map.draw(ctx,this);
-        this.coins.draw(ctx, this);
+        this.map.draw(ctx,this);
+        this.interactiveObjects.draw(ctx, this);
         this.player.draw(ctx);
 
-        if (this.gameState == GAMESTATE.PAUSED) {
-            this.PauseScreen.draw(ctx);
-            this.buttons.draw(ctx);
-            
-        }else if(this.gameState==4){
-            ctx.fillText("GAMEOVER",200,200,200,200);
+        switch (this.gameState){
+            case 0:
+                break;
+            case 1:
+                this.PauseScreen.draw(ctx);
+                this.buttons.draw(ctx);
+                break;
+            case 2:
+                this.settings.draw(ctx, this.gameState, this);
+                break;
+            case 3:
+                break;
+            case 4:
+                this.gameOver.draw(ctx);
+                this.buttons.draw(ctx);
+                break;
         }
-        this.settings.draw(ctx, this.gameState, this);
+        
     }
 
     togglePause() {
@@ -109,20 +121,43 @@ export class level1Game {
     }
 
     toggleClick(mouseX, mouseY) {
-        if (this.gameState == GAMESTATE.PAUSED) {
-            this.buttons.toggleReturn(mouseX, mouseY, this);
-           
-        }else if(this.gameState==GAMESTATE.SETTINGS){
-            this.settings.toggleButtonClick(this,mouseX,mouseY);
+        
+        switch (this.gameState){
+            case 0:
+                break;
+            case 1:
+                this.buttons.toggleReturn(mouseX, mouseY, this);
+                break;
+            case 2:
+                this.settings.toggleButtonClick(this,mouseX,mouseY);
+                break;
+            case 3:
+                break;
+            case 4:
+                this.buttons.toggleReturn(mouseX, mouseY, this);
+                break;
         }
+        
     }
 
     toggleButtons(mouseX, mouseY) {
-        if (this.gameState == GAMESTATE.PAUSED) {
-            this.buttons.toggleButton(mouseX, mouseY);
-            
+        
+       
+        switch (this.gameState){
+            case 0:
+                break;
+            case 1:
+                this.buttons.toggleButton(mouseX, mouseY);
+                break;
+            case 2:
+                this.settings.toggleSettingButtons(this, mouseX, mouseY);                
+                break;
+            case 3:
+                break;
+            case 4:
+                this.buttons.toggleButton(mouseX, mouseY);
+                break;
         }
-        this.settings.toggleSettingButtons(this, mouseX, mouseY);
     }
 
 

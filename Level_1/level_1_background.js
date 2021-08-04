@@ -83,6 +83,15 @@ export class Background{
             this.cloud1,
             this.cloud2
         ]
+
+        this.tuto=new Image();
+        this.tuto.src=document.getElementById("tuto").src;
+        this.tuto.height=this.tuto.naturalHeight;
+        this.tuto.width=this.tuto.naturalWidth;
+        this.tuto.position={
+            x:this.gameWidth/20,
+            y:this.gameHeight/5
+        }
         
     }
 
@@ -94,7 +103,13 @@ export class Background{
 
         this.playerSpeed=game.player.x_speed;
 
-       
+        
+        this.tuto.height=this.tuto.naturalHeight/4;
+        this.tuto.width=this.tuto.naturalWidth/4;
+        this.tuto.position={
+            x:this.gameWidth/20+game.player.offsetX,
+            y:this.gameHeight/5
+        }
         if(this.playerSpeed!=0){
 
             this.backgroundObjects.forEach((object)=>{
@@ -139,6 +154,8 @@ export class Background{
             ctx.drawImage(object,object.position.x + this.width,object.position.y,this.width,this.height);    
             ctx.drawImage(object,object.position.x - this.width,object.position.y,this.width,this.height);      
         });
+
+        ctx.drawImage(this.tuto,this.tuto.position.x,this.tuto.position.y,this.tuto.width,this.tuto.height);
     }
 
     moveLeft(){

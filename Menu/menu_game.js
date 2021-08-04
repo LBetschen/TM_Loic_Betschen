@@ -26,6 +26,16 @@ export class Game {
 
         this.savedGame = false;//true if there is already a player saved
 
+        this.aboutPage=new Image();
+        this.aboutPage.src=document.getElementById("aboutText").src;
+        this.aboutPage.height=this.aboutPage.naturalHeight;
+        this.aboutPage.width=this.aboutPage.naturalWidth;
+        this.aboutPage.position={
+            x:this.gameWidth/2-this.aboutPage.width/2,
+            y:this.gameHeight/2-this.aboutPage.width/2
+        }
+
+
     }
 
     start() {
@@ -69,11 +79,21 @@ export class Game {
          } else if (this.gameState == GAMESTATE.ABOUT) {
             this.menu.input.style.display="none"; 
          }
+
+        this.aboutPage.height=this.aboutPage.naturalHeight*1.5;
+        this.aboutPage.width=this.aboutPage.naturalWidth*1.5;
+        this.aboutPage.position={
+            x:gameWidth/2-this.aboutPage.width/2,
+            y:gameHeight/2-this.aboutPage.height/2
+        }
     }
 
     draw(ctx) {
         this.menu.draw(ctx, this.gameState, this.savedGame, this);
         this.settings.draw(ctx, this.gameState,  this,this.menu.input);
+        if(this.gameState==3){
+            ctx.drawImage(this.aboutPage,this.aboutPage.position.x,this.aboutPage.position.y,this.aboutPage.width,this.aboutPage.height);
+        }
     }
 
 
@@ -102,18 +122,18 @@ export class Game {
             this.menu.newGame(this);
             this.menu.savePlayer(this);
             window.location = "./Map/map.html";
-        }
-
-        if (mouseX >= this.menu.resumeGame.position.x &&
-            mouseX <= this.menu.resumeGame.position.x + this.menu.resumeGame.width &&
-            mouseY >= this.menu.resumeGame.position.y &&
-            mouseY <= this.menu.resumeGame.position.y + this.menu.resumeGame.height) {
-            var c= this.playerProgress.getCookie("name",false);
-            if (c[2]!=0) {
-                this.menu.savePlayer(this);
-                window.location = "./Map/map.html";
             }
-        }
+
+            if (mouseX >= this.menu.resumeGame.position.x &&
+                mouseX <= this.menu.resumeGame.position.x + this.menu.resumeGame.width &&
+                mouseY >= this.menu.resumeGame.position.y &&
+                mouseY <= this.menu.resumeGame.position.y + this.menu.resumeGame.height) {
+                var c= this.playerProgress.getCookie("name",false);
+                if (c[2]!=0) {
+                    this.menu.savePlayer(this);
+                    window.location = "./Map/map.html";
+                }
+            }
         }
         
 
@@ -132,7 +152,7 @@ export class Game {
 
                         break;
                     case 1:
-                        if (this.gameState != 1) {
+                        if (this.gameState != 2) {
                             this.gameState = GAMESTATE.SETTINGS;
                         } else {
                             this.gameState = GAMESTATE.RUNNING;

@@ -13,10 +13,10 @@ export class PauseScreen {
     draw(ctx) {
         ctx.fillStyle = "rgba(0,0,0,0.5)";
         ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
-        ctx.font = "30px Arial";
+        ctx.font = "50px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
-        ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 2)
+        ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
 
 
     }

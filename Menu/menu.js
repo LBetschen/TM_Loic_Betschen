@@ -18,6 +18,8 @@ export class Menu {
             y: this.gameHeight / 50
         }
 
+      
+
         this.newGameButton = new Image();
         this.newGameButton.down = "newGameDown";
         this.newGameButton.up = "newGameButton";

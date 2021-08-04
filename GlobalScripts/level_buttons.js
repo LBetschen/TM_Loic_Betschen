@@ -47,23 +47,24 @@ export class LevelButtons{
     }
 
     update(deltaTime,GameWidth,GameHeight){
-        this.returnButton.position={
-            x:this.gameWidth/25,
-            y:this.gameHeight/20
-        }
-        this.returnButton.height=this.returnButton.naturalHeight/2;
-        this.returnButton.width=this.returnButton.naturalWidth/2;
-
         this.reloadButton.position={
-            x: this.gameWidth / 1.15,
-            y: this.gameHeight / 20
+            x: this.gameWidth / 2-this.reloadButton.width/2,
+            y: this.gameHeight / 2 - this.reloadButton.width/2
         }
         this.reloadButton.height=this.reloadButton.naturalHeight/2;
         this.reloadButton.width=this.reloadButton.naturalWidth/2;
 
+        this.returnButton.position={
+            x:this.reloadButton.position.x- this.returnButton.width*2,
+            y:this.gameHeight/2- this.returnButton.width/2
+        }
+        this.returnButton.height=this.returnButton.naturalHeight/2;
+        this.returnButton.width=this.returnButton.naturalWidth/2;
+
+
         this.settingsButton.position = {
-            x: this.gameWidth / 1.07,
-            y: this.gameHeight / 20
+            x: this.reloadButton.position.x +this.settingsButton.width*2,
+            y: this.gameHeight / 2- this.settingsButton.width/2
         }
         this.settingsButton.height = this.settingsButton.naturalHeight /2;
         this.settingsButton.width = this.settingsButton.naturalWidth / 2;
@@ -102,7 +103,7 @@ export class LevelButtons{
                    switch (i){
                        case 0:
                             var c = game.playerProgress.getCookie("level1score", true);//gets the index of name in array info
-                            game.coins.score=c[2];
+                            game.interactiveObjects.score=c[2];
                             game.playerProgress.changeCookie("level1score",c[2]);
                             c=game.playerProgress.getCookie("level1coins",true),
                             game.playerProgress.changeCookie("level1coins",c[2]);

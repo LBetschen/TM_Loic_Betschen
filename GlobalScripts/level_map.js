@@ -1,5 +1,5 @@
 var j=1;
-export class Level1Map{
+export class Map{
     constructor(game,player){
         this.tileMap=new Image();
         this.tileMap.src=document.getElementById("map").src;
@@ -24,11 +24,12 @@ export class Level1Map{
         this.offsetY=game.player.offsetY;
         
 
-        this.columns=50;
+        this.columns=200;
         this.tileWidth=80;
         this.tileHeight=80;
 
         this.map=[];
+        this.maxMapWidth=this.columns*this.tileWidth;
     
     }
 
@@ -107,12 +108,12 @@ export class Level1Map{
         var res;
         fetch("./map.txt").then(Response => Response.text()).then((data) => {
             res = data.toString().split(",");
-            console.log(res);
+           
             for (var i = 0; i < res.length; i++) {
                 res[i] = parseInt(res[i]);
                 
             }
-            console.log(res);
+           
             this.map = res;
         });
     }
