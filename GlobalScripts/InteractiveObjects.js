@@ -1,4 +1,5 @@
 var i = 1;
+
 export class InteractiveObjects {
     constructor(game) {
 
@@ -10,14 +11,16 @@ export class InteractiveObjects {
             width:256,
             height:256
         }
+        this.coinHeight=60;
+        this.coinWidth=60;
         this.coinMap = [];
         this.columns = 25;
 
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
 
-        this.width=32;
-        this.height=32;
+        this.width=80;
+        this.height=80;
 
         this.checkpoint=new Image();
         this.checkpoint.up="checkpoint1";
@@ -25,7 +28,25 @@ export class InteractiveObjects {
         this.checkpoint.src=document.getElementById(this.checkpoint.down).src;
         this.checkpoint.height=this.checkpoint.naturalHeight;
         this.checkpoint.width=this.checkpoint.naturalWidth;
+
+        this.enemie=new Image();
+        this.enemie.left="enemieLeft";
+        this.enemie.right="enemieRight"
+        this.enemie.src=document.getElementById(this.enemie.left).src;
+        this.enemie.size={
+            columns:4,
+            lignes:1,
+            width:63,
+            height:54
+        }
+        this.enemie.distance=400;
+        this.enemieDir=true;
         
+        
+        this.heart=new Image();
+        this.heart.src=document.getElementById("heart").src;
+        this.heart.height=80;
+        this.heart.width=80;
 
     }
 
@@ -42,11 +63,16 @@ export class InteractiveObjects {
         var c = game.playerProgress.getCookie("level1coins",false);
         this.coins = c[2].split(",");
 
-        var c = game.playerProgress.getCookie("level1coins",false);
+        var c = game.playerProgress.getCookie("level1Checkpoints",false);
         this.checkpoints = c[2].split(",");
 
         c=game.playerProgress.getCookie("soundVolume",false);
         this.coinAudio.volume=c[2];
+
+        c=game.playerProgress.getCookie("level1Enemies",false);
+        this.enemies=c[2].split(",");
+
+        this.objects=[this.coins,this.checkpoints];
     }
     update(deltaTime, GameWidth, GameHeight, player, game) {
 
@@ -55,7 +81,6 @@ export class InteractiveObjects {
         this.coinAudio.volume=c[2];
         this.checkpoint.height=80;
         this.checkpoint.width=80;
-        
 
     }
 
@@ -63,6 +88,7 @@ export class InteractiveObjects {
 
         var coinsIndex = 0;
         var checkPIndex =0;
+        var eindex=0;
         for (var j = 0; j < this.coinMap.length; j++) {
             var value = this.coinMap[j];
             switch (value){
@@ -74,7 +100,7 @@ export class InteractiveObjects {
                         var x = (j % this.columns) * this.width + game.player.offsetX;
                         var y = Math.floor(j / this.columns) * this.width;
                        
-                        ctx.drawImage(this.coinSheet,source_x,source_y,this.coinSheet.size.width,this.coinSheet.size.height,x,y,this.width,this.height);
+                        ctx.drawImage(this.coinSheet,source_x,source_y,this.coinSheet.size.width,this.coinSheet.size.height,x,y,this.coinWidth,this.coinHeight);
                     }
                     coinsIndex++;
                     break;
@@ -91,16 +117,46 @@ export class InteractiveObjects {
                     ctx.drawImage(this.checkpoint,x,y,this.checkpoint.width,this.checkpoint.height);
                     checkPIndex++;
                     break;
+                case 3:
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
+                    var y = Math.floor(j / this.columns) * this.width;
+                    var source_x=(i%this.enemie.size.columns)*this.enemie.size.width;
+                    var source_y=0;
+                    if(this.enemies[eindex]==1){
+                        ctx.drawImage(this.enemie,source_x,source_y,this.enemie.size.width,this.enemie.size.height,x+this.enemie.distance,y,this.width,this.height);
+                        if(this.enemie.distance>400){
+                            this.enemieDir=false;
+                            this.enemie.src=document.getElementById(this.enemie.left).src;
+                        }else if(this.enemie.distance<0){
+                            this.enemieDir=true;
+                            this.enemie.src=document.getElementById(this.enemie.right).src;
+                        }
+                    }
+                    eindex++;
+                    break;
+                }
+                
+                
             }
-
             
-        }
-
+            if(this.enemieDir==false){
+                this.enemie.distance-=3;
+            }else if(this.enemieDir==true){
+                this.enemie.distance+=3;
+            }
 
         ctx.font = "50px Arial";
         ctx.fillStyle = "black";
 
-        ctx.fillText("Score : " + this.score, 75, 50);
+        ctx.fillText(this.score, 100, 75);
+        ctx.drawImage(this.coinSheet,0,0,this.coinSheet.size.width,this.coinSheet.size.height,25,25,this.coinWidth,this.coinHeight);
+
+        ctx.font = "50px Arial";
+        ctx.fillStyle = "black";
+
+        ctx.fillText(game.player.hero.lives, 300, 75);
+        ctx.drawImage(this.heart,200,25,this.heart.width,this.heart.height);
+
 
     }
 
@@ -113,9 +169,9 @@ export class InteractiveObjects {
             } else {
                 i++;
             }
-
         }, 100);
     }
+    
 
     readFiles() {
         var res;

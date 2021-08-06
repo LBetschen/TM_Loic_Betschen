@@ -9,6 +9,8 @@ export class PlayerProgress {
             [1,1,1,1,1,1,1,1,1],
             1,false,1,false,
             [1,1,1,1,1,1,1,1,1],
+            3,
+            [1,1,1]
 
 
         ];
@@ -20,7 +22,9 @@ export class PlayerProgress {
             "level1score","level2score","level3score","level4score","level5score","level6score",
             "level1coins" ,
             "musicVolume","musicMuted","soundVolume","soundMuted",
-            "level1Checkpoints"
+            "level1Checkpoints",
+            "playerLives",
+            "level1Enemies"
 
         ];
 

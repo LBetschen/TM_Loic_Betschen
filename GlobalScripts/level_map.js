@@ -19,7 +19,8 @@ export class Map{
             width:256,
             height:256
         };
-       
+
+      
         this.offsetX=game.player.offsetX;
         this.offsetY=game.player.offsetY;
         
@@ -41,19 +42,6 @@ export class Map{
 
     update(deltaTime,GameWidth,GameHeight,game){
 
-        /*if(game.player.offsetX>0){
-            this.offsetX=0;
-        }else{
-           this.offsetX=game.player.offsetX; 
-        }*/
-
-        
-        
-        
-        
-        
-        
-      
 
     }
 
@@ -64,7 +52,7 @@ export class Map{
                 var value=this.map[i];
                 
                 
-                    if(value!=0){
+                    if(value!=0 && value <30){
                         var source_x=((value-1)%this.tileMap.size.columns)*this.tileMap.size.width;
                         var source_y=Math.floor((value-1)/this.tileMap.size.columns)*this.tileMap.size.height;
                         
@@ -73,6 +61,7 @@ export class Map{
     
                         ctx.drawImage(this.tileMap,source_x,source_y,this.tileMap.size.width,this.tileMap.size.height,x,y,this.tileWidth,this.tileWidth);
                     }
+                    
                     if(value==30){
                         var source_x=(j%this.waterFall.size.columns)*this.waterFall.size.width;
                         var source_y=0;
@@ -90,7 +79,8 @@ export class Map{
                         
 
                         ctx.drawImage(this.waterFall,source_x,source_y,this.waterFall.size.width,this.waterFall.size.height,x,y,this.tileWidth,this.tileHeight);
-                    }
+                    } 
+                   
 
                 
                 

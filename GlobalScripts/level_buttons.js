@@ -107,6 +107,10 @@ export class LevelButtons{
                             game.playerProgress.changeCookie("level1score",c[2]);
                             c=game.playerProgress.getCookie("level1coins",true),
                             game.playerProgress.changeCookie("level1coins",c[2]);
+                            c=game.playerProgress.getCookie("level1Checkpoints",true),
+                            game.playerProgress.changeCookie("level1Checkpoints",c[2]);
+                            c=game.playerProgress.getCookie("level1Enemies",true),
+                            game.playerProgress.changeCookie("level1Enemies",c[2]);
                             location.reload();
                             break;
                         case 1:

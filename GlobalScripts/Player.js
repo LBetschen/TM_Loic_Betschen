@@ -10,7 +10,9 @@ export class Player{
         this.hero.height=165;
         this.columns=5;
         
-        this.hero.lives=3;
+        var c= game.playerProgress.getCookie("playerLives",false);
+
+        this.hero.lives=c[2];
         this.hero.ammo=10;
         
         this.jumpAudio=new Audio();
@@ -66,7 +68,7 @@ export class Player{
         this.jumpAnimation=false;
 
 
-        var c= game.playerProgress.getCookie("soundVolume",false);
+        c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
         this.doubleJumpAudio.volume=c[2];
 
@@ -99,10 +101,7 @@ export class Player{
             if(this.doubleJump==true){
                 this.doubleJump=false;
             }
-        }
-       
-        
-                    
+        }              
     }
     
     update(deltaTime,GameWidth,GameHeight,game){
@@ -128,8 +127,6 @@ export class Player{
             }else{
                 this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir-this.x_speed;//+this.offsetX;
             }
-
-        
         }
         
         
@@ -175,136 +172,109 @@ export class Player{
 
                 for(var j=0;j<this.bullets.length;j++){
                    
-                    
-                    
-
-                    
                     if(this.bullets[j].dir==-1 && this.bullets[j].x<x+game.map.tileWidth && x<this.bullets[j].x &&
                          this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight){
                       
                         this.bullets.splice(j,1);
-                    }else if(this.bullets[j].dir==1 && this.bullets[j].x+this.bullet.width>x &&this.bullets[j].x<x+game.map.tileWidth && this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight){
+                    }else if(this.bullets[j].dir==1 && this.bullets[j].x+this.bullet.width>x &&this.bullets[j].x<x+game.map.tileWidth &&
+                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight){
                         
                         this.bullets.splice(j,1);
                     }
                 }
             }
-
-            
-        }
-        var index = 0;
-        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){
-            
-            var value = game.interactiveObjects.coinMap[k];
-            if (value == 1) {
-                if (game.interactiveObjects.coins[index] == 1) {
-                    var x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
-                    var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
-
-                    
-                    if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                        if(y-game.interactiveObjects.height>this.position.y){
-                            game.interactiveObjects.score++;
-                            game.interactiveObjects.coins[index] = 0;
-                            game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
-                            game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
-                            game.interactiveObjects.coinAudio.play();
-                            
-                        
-                        }
-                        
-                    }
-                    if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                        if(y-game.interactiveObjects.height>this.position.y){
-                            game.interactiveObjects.score++;
-                            game.interactiveObjects.coins[index] = 0;
-                            game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
-                            game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
-                            game.interactiveObjects.coinAudio.play();
-                           
-
-                        }
-                        
-                    }
-                    
-                    if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
-                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                            game.interactiveObjects.score++;
-                            game.interactiveObjects.coins[index] = 0;
-                            game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
-                            game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
-                            game.interactiveObjects.coinAudio.play();
-                            
-
-                        }
-                    }
-                    
-                    if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
-                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                            game.interactiveObjects.score++;
-                            game.interactiveObjects.coins[index] = 0;
-                            game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
-                            game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
-                            game.interactiveObjects.coinAudio.play();
-                            
-
-                        }
-                    }  
-                }
-                index++;
-            }
-        }
-        var cindex = 0;
-        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){
-            
-            var value = game.interactiveObjects.coinMap[k];
-            if (value == 1) {
-                if (game.interactiveObjects.checkpoints[cindex] == 1) {
-                    var x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
-                    var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
-
-                    
-                    if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                        if(y-game.interactiveObjects.height>this.position.y){
-                            game.interactiveObjects.checkpoints[cindex] = 0;
-                            game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
-                            
-                        
-                        }
-                        
-                    }
-                    if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                        if(y-game.interactiveObjects.height>this.position.y){
-                            game.interactiveObjects.checkpoints[cindex] = 0;
-                            game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
-                           
-
-                        }
-                        
-                    }
-                    
-                    if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
-                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                            game.interactiveObjects.checkpoints[cindex] = 0;
-                            game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
-                            
-
-                        }
-                    }
-                    
-                    if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
-                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                            game.interactiveObjects.checkpoints[cindex] = 0;
-                            game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
-                            
-
-                        }
-                    }  
-                }
-                cindex++;
-            }
         }
        
+
+        var cindex=0;
+        var index=0;
+        var eindex=0;
+        var hit=false;
+        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){
+            var value = game.interactiveObjects.coinMap[k];
+            hit = false;
+            var x;
+            if(value==3){
+                x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX+game.interactiveObjects.enemie.distance;
+
+            }else{
+                 x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
+            }
+            var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
+            
+            if(value!=0){
+                
+                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && 
+                this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                    if(y-game.interactiveObjects.height>this.position.y){
+                         hit=true;
+                    }
+                }
+                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                    if(y-game.interactiveObjects.height>this.position.y){
+                        hit=true;
+                    }
+                }
+                if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
+                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){              
+                        hit=true;
+                    }
+                } 
+                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
+                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
+                        hit=true;    
+                    }
+                }              
+                
+                if(hit==true){
+                    switch (value){
+                        case 1:
+                            if(game.interactiveObjects.coins[index]==1){
+                                game.interactiveObjects.score++;
+                                game.interactiveObjects.coins[index] = 0;
+                                game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
+                                game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
+                                game.interactiveObjects.coinAudio.play();
+                            }
+                            break;
+                        case 2:
+                            if(game.interactiveObjects.checkpoints[cindex]==1){
+                                game.interactiveObjects.checkpoints[cindex] = 0;
+                                game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
+                            }
+                            break;
+                        case 3:
+                            if(game.interactiveObjects.enemies[eindex]==1){
+                                game.interactiveObjects.enemies[eindex]=0;
+                                game.playerProgress.changeCookie("level1Enemies", game.interactiveObjects.enemies);
+                                this.hero.lives--;
+                                if(this.hero.lives<=0){
+                                    game.gameState=4;
+                                }
+                            }
+                            break;
+                    } 
+                }
+                switch (value){
+                    case 1:
+                        index++;
+                        break;
+                    case 2:
+                        cindex++;
+                        break;
+                    case 3:
+                        eindex++;
+                        break;
+                }
+            }
+        }
+
+       
+
+
+
+
+
            
            
            
