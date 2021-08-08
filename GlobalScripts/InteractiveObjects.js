@@ -14,7 +14,7 @@ export class InteractiveObjects {
         this.coinHeight=60;
         this.coinWidth=60;
         this.coinMap = [];
-        this.columns = 25;
+        this.columns = 200;
 
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
@@ -175,7 +175,7 @@ export class InteractiveObjects {
 
     readFiles() {
         var res;
-        fetch("./coins.txt").then(Response => Response.text()).then((data) => {
+        fetch("./IObjects.txt").then(Response => Response.text()).then((data) => {
             res = data.toString().split(",");
             for (var i = 0; i < res.length; i++) {
                 res[i] = parseInt(res[i]);

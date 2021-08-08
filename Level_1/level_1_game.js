@@ -48,8 +48,8 @@ export class level1Game {
      
         new LevelInput(this);
         this.interactiveObjects.start(ctx, this);
-        this.player.start();
         this.map.start();
+        this.player.start(this);
 
         this.gameState=GAMESTATE.RUNNING;
         var c=this.playerProgress.getCookie("musicVolume",false);
