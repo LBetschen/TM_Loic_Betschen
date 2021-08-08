@@ -3,28 +3,58 @@ export class PlayerProgress {
         
         this.newPlayerProgress=[
             0,
+            1,false,1,false,
+            3,
             0,0,0,0,0,0,
             1,1,1,1,1,1,
             0,0,0,0,0,0,
-            [1,1,1,1,1,1,1,1,1],
-            1,false,1,false,
-            [1,1,1,1,1,1,1,1,1],
-            3,
-            [1,1,1]
-
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+            
 
         ];
 
         this.newPlayerVariables=[
             "name",
+            "musicVolume","musicMuted","soundVolume","soundMuted",
+            "playerLives",
             "level1finished","level2finished","level3finished","level4finished","level5finished","level6finished",
             "level1locked","level2locked","level3locked","level4locked","level5locked","level6locked",
             "level1score","level2score","level3score","level4score","level5score","level6score",
             "level1coins" ,
-            "musicVolume","musicMuted","soundVolume","soundMuted",
             "level1Checkpoints",
-            "playerLives",
-            "level1Enemies"
+            "level1Enemies",
+            "level2coins" ,
+            "level2Checkpoints",
+            "level2Enemies",
+            "level3coins" ,
+            "level3Checkpoints",
+            "level3Enemies",
+            "level4coins" ,
+            "level4Checkpoints",
+            "level4Enemies",
+            "level5coins" ,
+            "level5Checkpoints",
+            "level5Enemies",
+            "level6coins" ,
+            "level6Checkpoints",
+            "level6Enemies"
 
         ];
 

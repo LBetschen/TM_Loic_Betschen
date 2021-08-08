@@ -16,7 +16,6 @@ export class LevelInput{
                     game.background.moveRight();
                     break;
                 case 32:
-                    //game.player.jump(game.GameHeight);
                     game.player.fire();
                     break;
                 case 87:

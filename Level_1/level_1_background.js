@@ -86,8 +86,8 @@ export class Background{
 
         this.tuto=new Image();
         this.tuto.src=document.getElementById("tuto").src;
-        this.tuto.height=this.tuto.naturalHeight;
-        this.tuto.width=this.tuto.naturalWidth;
+        this.tuto.height=this.tuto.naturalHeight/4;
+        this.tuto.width=this.tuto.naturalWidth/4;
         this.tuto.position={
             x:this.gameWidth/20,
             y:this.gameHeight/5

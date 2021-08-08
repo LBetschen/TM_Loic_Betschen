@@ -31,7 +31,7 @@ export class Player{
 
         this.position={
             x: 200,
-            y: 200
+            y: 0
         }
         
         this.controller={

@@ -8,13 +8,15 @@ import { Settings } from "../GlobalScripts/settings.js";
 import { Map } from "../GlobalScripts/level_map.js";
 import { Background } from "./level_1_background.js";
 import { GameOver } from "../GlobalScripts/GameOver.js";
+import { Intro } from "./level_1_intro.js";
 
 const GAMESTATE = {
     RUNNING: 0,
     PAUSED: 1,
     SETTINGS:2,
     ABOUT:3,
-    GAMEOVER:4
+    GAMEOVER:4,
+    INTRO:5
 }
 
 export class level1Game {
@@ -44,14 +46,16 @@ export class level1Game {
         this.map=new Map(this,this.player);
         this.background = new Background(this);
         this.gameOver = new GameOver(this);
-        
+        this.intro=new Intro(this);
      
         new LevelInput(this);
         this.interactiveObjects.start(ctx, this);
         this.map.start();
         this.player.start(this);
+       
+        this.intro.start(this);
 
-        this.gameState=GAMESTATE.RUNNING;
+        
         var c=this.playerProgress.getCookie("musicVolume",false);
         this.audio.volume=c[2];
         this.audio.play();
@@ -83,6 +87,9 @@ export class level1Game {
                 this.gameOver.update(deltaTime, GameWidth, GameHeight);
                 this.buttons.update(deltaTime, GameWidth, GameHeight);
                 break;
+            case 5:
+                this.intro.update(deltaTime, GameWidth, GameHeight);
+                break;
         }
     }
 
@@ -107,6 +114,9 @@ export class level1Game {
             case 4:
                 this.gameOver.draw(ctx);
                 this.buttons.draw(ctx);
+                break;
+            case 5:
+                this.intro.draw(ctx);
                 break;
         }
         
