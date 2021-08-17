@@ -97,21 +97,26 @@ export class level1Game {
         this.background.draw(ctx,GameWidth,GameHeight);
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
-        this.player.draw(ctx);
+       // this.player.draw(ctx);
 
         switch (this.gameState){
             case 0:
+                this.player.draw(ctx);
                 break;
             case 1:
+                this.player.draw(ctx);
                 this.PauseScreen.draw(ctx);
                 this.buttons.draw(ctx);
                 break;
             case 2:
+                this.player.draw(ctx);
                 this.settings.draw(ctx, this.gameState, this);
+
                 break;
             case 3:
                 break;
             case 4:
+                this.player.draw(ctx);
                 this.gameOver.draw(ctx);
                 this.buttons.draw(ctx);
                 break;

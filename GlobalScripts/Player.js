@@ -46,6 +46,7 @@ export class Player{
         this.bullet.speed=20;
         this.bullets=[];
         this.b=0;
+        this.bulletAmmo=10;
         
 
         this.Ydirection="down";
@@ -70,6 +71,9 @@ export class Player{
         c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
         this.doubleJumpAudio.volume=c[2];
+
+        this.trashchestCollision=false;
+        this.powerChestCollision=false;
 
        
     }
@@ -183,8 +187,8 @@ export class Player{
                 }
             }
         }
-       
-
+        
+        
         var cindex=0;
         var index=0;
         var eindex=0;
@@ -274,8 +278,26 @@ export class Player{
                                 }
                             }
                             break;
+                        case 4:
+                            this.powerChestCollision=true;
+                            break;
+                        case 5:
+                            this.powerChestCollision=true;
+                            
+                            break;
                         } 
+                }else{
+                    switch (value){
+                        case 4:
+                            this.powerChestCollision=false;
+
+                            break;
+                        case 5:
+                            this.powerChestCollision=false;
+
+                            break;
                     }
+                }
                 
                 switch (value){
                     case 1:
@@ -292,7 +314,7 @@ export class Player{
         }
 
        
-
+       
 
 
 
@@ -495,22 +517,25 @@ export class Player{
         let x_bullet=0;
         this.shooting=true;
         i=0;
-        if(this.Xdirection=="left"){
-            direction=-1;
-            x_bullet=this.position.x-this.bullet.width;
-
-        }else{
-            direction=1;
-            x_bullet=this.position.x+this.hero.width;
+        if(this.bulletAmmo!=0){
+            if(this.Xdirection=="left"){
+                direction=-1;
+                x_bullet=this.position.x-this.bullet.width;
+    
+            }else{
+                direction=1;
+                x_bullet=this.position.x+this.hero.width;
+            }
+            this.fireball={
+                x:x_bullet,
+                y:this.position.y+this.hero.height/3,
+                dir:direction
+    
+            }
+            this.bullets.push(this.fireball);
+            this.b++;
+            this.bulletAmmo--;
         }
-        this.fireball={
-            x:x_bullet,
-            y:this.position.y+this.hero.height/3,
-            dir:direction
-
-        }
-        this.bullets.push(this.fireball);
-        this.b++;
         
 
     }
@@ -523,6 +548,10 @@ export class Player{
                  i++;
             }
         }, 175);       
+    }
+
+    openChest(){
+
     }
 
     

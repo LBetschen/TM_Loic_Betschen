@@ -29,6 +29,22 @@ export class InteractiveObjects {
         this.checkpoint.height=this.checkpoint.naturalHeight;
         this.checkpoint.width=this.checkpoint.naturalWidth;
 
+        this.trashchest=new Image();
+        this.trashchest.open="trashcanOpen";
+        this.trashchest.closed="trashcan";
+        this.trashchest.src=document.getElementById(this.trashchest.closed).src;
+        this.trashchest.height=this.height;
+        this.trashchest.width=this.trashchest.height*(this.trashchest.naturalWidth/this.trashchest.naturalHeight);
+
+        this.powerChest=new Image();
+        this.powerChest.open="recyclingOpen";
+        this.powerChest.closed="recycling";
+        this.powerChest.src=document.getElementById(this.powerChest.closed).src;
+        this.powerChest.height=this.height;
+        this.powerChest.width=this.powerChest.height*(this.powerChest.naturalWidth/this.powerChest.naturalHeight);
+
+        
+
         this.enemie=new Image();
         this.enemie.left="enemieLeft";
         this.enemie.right="enemieRight"
@@ -47,6 +63,9 @@ export class InteractiveObjects {
         this.heart.src=document.getElementById("heart").src;
         this.heart.height=80;
         this.heart.width=80;
+
+        this.powerChests=[1];
+        this.trashchests=[1];
 
     }
 
@@ -88,6 +107,8 @@ export class InteractiveObjects {
 
         var coinsIndex = 0;
         var checkPIndex =0;
+        var powerChestIndex=0;
+        var trashChestIndex=0;
         var eindex=0;
         for (var j = 0; j < this.coinMap.length; j++) {
             var value = this.coinMap[j];
@@ -134,6 +155,33 @@ export class InteractiveObjects {
                     }
                     eindex++;
                     break;
+                case 4:
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
+                    var y = Math.floor(j / this.columns) * this.width;
+                    if(this.trashchests[trashChestIndex]==1){
+                        this.trashchest.src=document.getElementById(this.trashchest.closed).src;
+
+                    }else{
+                        this.trashchest.src=document.getElementById(this.trashchest.open).src;
+
+                    }
+                    ctx.drawImage(this.trashchest,x,y,this.trashchest.width,this.trashchest.height);
+                    trashChestIndex++;
+                    break;
+                case 5:
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
+                    var y = Math.floor(j / this.columns) * this.width;
+                    if(this.powerChests[powerChestIndex]==1){
+                        this.powerChest.src=document.getElementById(this.powerChest.closed).src;
+
+                    }else{
+                        this.powerChest.src=document.getElementById(this.powerChest.open).src;
+
+                    }
+                    
+                    ctx.drawImage(this.powerChest,x,y,this.powerChest.width,this.powerChest.height);
+                    powerChestIndex++;
+                    break;
                 }
                 
                 
@@ -156,6 +204,9 @@ export class InteractiveObjects {
 
         ctx.fillText(game.player.hero.lives, 300, 75);
         ctx.drawImage(this.heart,200,25,this.heart.width,this.heart.height);
+
+        ctx.fillText(game.player.bulletAmmo, 400, 75);
+        //ctx.drawImage(this.heart,200,25,this.heart.width,this.heart.height);
 
 
     }

@@ -2,7 +2,6 @@ export class LevelInput{
     constructor(game){  
 
         document.addEventListener("keydown",(event)=>{
-           
             switch (event.keyCode){
                 case 27:
                     game.togglePause();
@@ -31,6 +30,9 @@ export class LevelInput{
                     break;
                 case 38:
                     game.player.jump(game.GameHeight);
+                    break;
+                case 69:
+                    game.player.openChest();
                     break;
                 
             }
