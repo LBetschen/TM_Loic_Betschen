@@ -32,7 +32,7 @@ export class LevelInput{
                     game.player.jump(game.GameHeight);
                     break;
                 case 69:
-                    game.player.openChest();
+                    game.player.openChest(game);
                     break;
                 
             }

@@ -12,7 +12,7 @@ export class Player{
         var c= game.playerProgress.getCookie("playerLives",false);
 
         this.hero.lives=c[2];
-        this.hero.ammo=10;
+        
         
         this.jumpAudio=new Audio();
         this.jumpAudio.src=document.getElementById("jumpAudio").src;
@@ -46,7 +46,7 @@ export class Player{
         this.bullet.speed=20;
         this.bullets=[];
         this.b=0;
-        this.bulletAmmo=10;
+        this.bulletAmmo=5;
         
 
         this.Ydirection="down";
@@ -278,25 +278,7 @@ export class Player{
                                 }
                             }
                             break;
-                        case 4:
-                            this.powerChestCollision=true;
-                            break;
-                        case 5:
-                            this.powerChestCollision=true;
-                            
-                            break;
                         } 
-                }else{
-                    switch (value){
-                        case 4:
-                            this.powerChestCollision=false;
-
-                            break;
-                        case 5:
-                            this.powerChestCollision=false;
-
-                            break;
-                    }
                 }
                 
                 switch (value){
@@ -391,7 +373,11 @@ export class Player{
 
        
         if(this.position.y >GameHeight){
-            game.gameState=4;
+            this.hero.lives--;
+            this.playerRespawn(game);
+            if(this.hero.lives<=0){
+                game.gameState=4;
+            }
         }
         if(this.position.x+this.hero.width>GameWidth){
             this.position.x = GameWidth-this.hero.width;
@@ -550,7 +536,71 @@ export class Player{
         }, 175);       
     }
 
-    openChest(){
+    openChest(game){
+        var pindex=0;
+        var tindex=0;
+        var hit=false;
+        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){
+            var value = game.interactiveObjects.coinMap[k];
+            hit = false;
+            
+            if(value==4 || value==5){
+                var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
+                var x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
+                
+                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && 
+                this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                    if(y-game.interactiveObjects.height>this.position.y){               
+                        hit=true;
+                    }
+                }
+                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                    if(y-game.interactiveObjects.height>this.position.y){
+                        hit=true;
+                    }
+                }
+                if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
+                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){              
+                        hit=true;
+                    }
+                } 
+                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
+                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
+                        hit=true;    
+                    }
+                }              
+                
+                if(hit==true){
+                    switch (value){
+                        case 4:
+                            if(game.interactiveObjects.trashChests[tindex]==1){
+                                game.interactiveObjects.score+=5;    
+                                game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
+                                game.interactiveObjects.coinAudio.play();
+                                game.interactiveObjects.trashChests[tindex]=0;
+                            }
+                            break;
+                        case 5:
+                            if(game.interactiveObjects.powerChests[pindex]==1){
+                                game.interactiveObjects.powerChests[pindex]=0;
+                                this.bulletAmmo+=2;
+                            }
+                            break;
+                        } 
+                }
+
+                switch (value){
+                    case 4:
+                        tindex++;
+                        break;
+                    case 5:
+                        pindex++;
+                        break;
+                    } 
+                
+                
+            }
+        }
 
     }
 

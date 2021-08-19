@@ -29,12 +29,12 @@ export class InteractiveObjects {
         this.checkpoint.height=this.checkpoint.naturalHeight;
         this.checkpoint.width=this.checkpoint.naturalWidth;
 
-        this.trashchest=new Image();
-        this.trashchest.open="trashcanOpen";
-        this.trashchest.closed="trashcan";
-        this.trashchest.src=document.getElementById(this.trashchest.closed).src;
-        this.trashchest.height=this.height;
-        this.trashchest.width=this.trashchest.height*(this.trashchest.naturalWidth/this.trashchest.naturalHeight);
+        this.trashChest=new Image();
+        this.trashChest.open="trashcanOpen";
+        this.trashChest.closed="trashcan";
+        this.trashChest.src=document.getElementById(this.trashChest.closed).src;
+        this.trashChest.height=this.height;
+        this.trashChest.width=this.trashChest.height*(this.trashChest.naturalWidth/this.trashChest.naturalHeight);
 
         this.powerChest=new Image();
         this.powerChest.open="recyclingOpen";
@@ -65,7 +65,7 @@ export class InteractiveObjects {
         this.heart.width=80;
 
         this.powerChests=[1];
-        this.trashchests=[1];
+        this.trashChests=[1];
 
     }
 
@@ -77,7 +77,7 @@ export class InteractiveObjects {
         this.readFiles();
 
         this.cScore = game.playerProgress.getCookie("level1score",false);
-        this.score = this.cScore[2];
+        this.score = parseInt(this.cScore[2]);
 
         var c = game.playerProgress.getCookie("level1coins",false);
         this.coins = c[2].split(",");
@@ -158,14 +158,14 @@ export class InteractiveObjects {
                 case 4:
                     var x = (j % this.columns) * this.width + game.player.offsetX;
                     var y = Math.floor(j / this.columns) * this.width;
-                    if(this.trashchests[trashChestIndex]==1){
-                        this.trashchest.src=document.getElementById(this.trashchest.closed).src;
+                    if(this.trashChests[trashChestIndex]==1){
+                        this.trashChest.src=document.getElementById(this.trashChest.closed).src;
 
                     }else{
-                        this.trashchest.src=document.getElementById(this.trashchest.open).src;
+                        this.trashChest.src=document.getElementById(this.trashChest.open).src;
 
                     }
-                    ctx.drawImage(this.trashchest,x,y,this.trashchest.width,this.trashchest.height);
+                    ctx.drawImage(this.trashChest,x,y,this.trashChest.width,this.trashChest.height);
                     trashChestIndex++;
                     break;
                 case 5:
