@@ -26,8 +26,8 @@ export class Map{
         
 
         this.columns=200;
-        this.tileWidth=80;
-        this.tileHeight=80;
+        this.tileWidth=game.gameHeight/12;
+        this.tileHeight=game.gameHeight/12;
 
         this.map=[];
         this.maxMapWidth=this.columns*this.tileWidth;

@@ -1,5 +1,5 @@
 import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
-import { MapInput } from "./map_Input.js";
+import { Input } from "../GlobalScripts/Input.js";
 import { Map } from "./map.js";
 import { levelButtons } from "./levelButtons.js";
 import { Settings } from "../GlobalScripts/settings.js";
@@ -13,12 +13,15 @@ const GAMESTATE = {
 }
 
 export class MapGame {
-    constructor(GameWidth, GameHeight) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
         this.musicMuted = false;
         this.soundMuted=false;
+        this.frameOffsetX=parseInt(FrameOffsetX);
+        this.frameOffsetY=parseInt(FrameOffsetY);
+        console.log(this.frameOffsetX);
 
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound2").src;
@@ -32,7 +35,7 @@ export class MapGame {
         this.PauseScreen = new PauseScreen(this);
         this.levelButtons = new levelButtons(this);
         
-        new MapInput(this);
+        new Input(this);
         
         this.gameState=GAMESTATE.RUNNING;
         var c=this.playerProgress.getCookie("musicVolume",false);

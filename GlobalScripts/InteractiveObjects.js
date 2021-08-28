@@ -1,7 +1,8 @@
 var i = 1;
-
 export class InteractiveObjects {
     constructor(game) {
+        this.width=game.gameHeight/12;
+        this.height=game.gameHeight/12;
 
         this.coinSheet = new Image();
         this.coinSheet.src = document.getElementById("coin").src;
@@ -11,16 +12,15 @@ export class InteractiveObjects {
             width:256,
             height:256
         }
-        this.coinHeight=60;
-        this.coinWidth=60;
+        this.coinHeight=this.height*0.75;
+        this.coinWidth=this.width*0.75;
         this.coinMap = [];
         this.columns = 200;
 
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
 
-        this.width=80;
-        this.height=80;
+        
 
         this.checkpoint=new Image();
         this.checkpoint.up="checkpoint1";
@@ -75,7 +75,7 @@ export class InteractiveObjects {
 
         this.coinAnimation(ctx);
         this.readFiles();
-
+        //getting all the saved progress
         this.cScore = game.playerProgress.getCookie("level1score",false);
         this.score = parseInt(this.cScore[2]);
 
@@ -90,6 +90,9 @@ export class InteractiveObjects {
 
         c=game.playerProgress.getCookie("level1Enemies",false);
         this.enemies=c[2].split(",");
+
+        c=game.playerProgress.getCookie("level1Hearts",false);
+        this.hearts=c[2].split(",");
 
         this.objects=[this.coins,this.checkpoints];
     }
@@ -107,10 +110,11 @@ export class InteractiveObjects {
 
         var coinsIndex = 0;
         var checkPIndex =0;
+        var heartIndex=0;
         var powerChestIndex=0;
         var trashChestIndex=0;
         var eindex=0;
-        for (var j = 0; j < this.coinMap.length; j++) {
+        for (var j = 0; j < this.coinMap.length; j++) {//draws all the interactive objects
             var value = this.coinMap[j];
             switch (value){
                 case 1:
@@ -165,7 +169,7 @@ export class InteractiveObjects {
                         this.trashChest.src=document.getElementById(this.trashChest.open).src;
 
                     }
-                    ctx.drawImage(this.trashChest,x,y,this.trashChest.width,this.trashChest.height);
+                    ctx.drawImage(this.trashChest,x,y,this.width,this.height);
                     trashChestIndex++;
                     break;
                 case 5:
@@ -179,10 +183,20 @@ export class InteractiveObjects {
 
                     }
                     
-                    ctx.drawImage(this.powerChest,x,y,this.powerChest.width,this.powerChest.height);
+                    ctx.drawImage(this.powerChest,x,y,this.width,this.height);
                     powerChestIndex++;
                     break;
+                case 6:
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
+                    var y = Math.floor(j / this.columns) * this.width;
+                    if(this.hearts[heartIndex]==1){
+                        ctx.drawImage(this.heart,x,y,this.heart.width,this.heart.height);
+                    }
+                    
+                    heartIndex++;
+                    break;
                 }
+
                 
                 
             }
@@ -225,6 +239,7 @@ export class InteractiveObjects {
     
 
     readFiles() {
+        //opens txt file and reads the matrix and puts it into an array
         var res;
         fetch("./IObjects.txt").then(Response => Response.text()).then((data) => {
             res = data.toString().split(",");

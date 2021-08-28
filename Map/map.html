@@ -16,9 +16,21 @@
         audio{
             display: none;
         }
-    </style>
+        canvas{
+
+            position: relative;
+            top: 0px;
+            left: 0px;
+            height: auto;
+            width: auto;
+        }
+        
+        
+        
+        </style>
 </head>
 <body id="body">
+    <canvas id ="gameScreen" ></canvas>
     
     <img id="map" src="../Assets/MapOfWorld.jpg">
     <img id="level1" src="../Assets/GUI/LevelButtons/level1Button.png">
@@ -62,8 +74,8 @@
 
     <audio id="buttonAudio" src="../Assets/Audio/Button3.wav"></audio>
     <audio id="backgroundSound2" src="../Assets/Audio/Motivated.mp3"></audio>
-
-    <canvas id ="gameScreen" height="auto" width="auto" ></canvas>
+    
+    
     <script type="module" src="map_index.js"></script>
     
 </body>

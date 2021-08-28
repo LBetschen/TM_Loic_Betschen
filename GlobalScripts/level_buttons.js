@@ -102,6 +102,7 @@ export class LevelButtons{
                 { 
                    switch (i){
                        case 0:
+                           //clears player progress and reloads page
                             var c = game.playerProgress.getCookie("level1score", true);//gets the index of name in array info
                             game.interactiveObjects.score=c[2];
                             game.playerProgress.changeCookie("level1score",c[2]);

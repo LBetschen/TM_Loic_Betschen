@@ -13,7 +13,6 @@ export class Player{
 
         this.hero.lives=c[2];
         
-        
         this.jumpAudio=new Audio();
         this.jumpAudio.src=document.getElementById("jumpAudio").src;
     
@@ -22,12 +21,6 @@ export class Player{
         
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
-        this.constGameHeight=game.gameHeight;
-        this.constGameWidth=game.gameWidth;
-        this.ratio=this.constGameHeight/this.gameHeight;
-
-        this.height=this.constGameHeight/5;
-        this.width=this.constGameHeight/5;
 
         this.position={
             x: 200,
@@ -43,11 +36,9 @@ export class Player{
         this.bullet.src=document.getElementById("fireball").src;
         this.bullet.height=40;
         this.bullet.width=40;
-        this.bullet.speed=20;
+        this.bullet.speed=12;
         this.bullets=[];
-        this.b=0;
         this.bulletAmmo=5;
-        
 
         this.Ydirection="down";
         this.Xdirection="right";
@@ -67,15 +58,10 @@ export class Player{
         this.friction=1;
         this.jumpAnimation=false;
 
-
         c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
         this.doubleJumpAudio.volume=c[2];
 
-        this.trashchestCollision=false;
-        this.powerChestCollision=false;
-
-       
     }
     
     start(game){
@@ -83,18 +69,13 @@ export class Player{
         
     }
     draw(ctx){
-
-        
-        
         var x = i * this.hero.width;
-        var y = Math.floor(i / this.columns) * this.hero.height;
-        ctx.drawImage(this.hero,x,0,this.hero.width,this.hero.height,this.position.x,this.position.y,this.hero.width,this.hero.height);
+        ctx.drawImage(this.hero,x,0,this.hero.width,this.hero.height,this.position.x,this.position.y,this.hero.width,this.hero.height);//draws player
         for(var k=0;k<this.bullets.length;k++){
-            ctx.drawImage(this.bullet,this.bullets[k].x,this.bullets[k].y,this.bullet.width,this.bullet.height);
+            ctx.drawImage(this.bullet,this.bullets[k].x,this.bullets[k].y,this.bullet.width,this.bullet.height);//draws bullets
         }
 
-        
-        if(x>320){
+        if(x>320){                  //stops animation after its played
             if(this.shooting==true){
                 this.shooting=false;
             }
@@ -107,34 +88,33 @@ export class Player{
         }              
     }
     
-    update(deltaTime,GameWidth,GameHeight,game){
+    update(deltaTime,GameWidth,GameHeight,game,ctx){
         
 
-        var c= game.playerProgress.getCookie("soundVolume",false);
+        var c= game.playerProgress.getCookie("soundVolume",false);//gets volume of audio for jumping
         this.jumpAudio.volume=c[2];
         this.doubleJumpAudio.volume=c[2];
         
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
-        this.ratio=this.constGameHeight/GameHeight;
+       
         
-        this.height=this.constGameHeight/10/this.ratio;
-        this.width=this.constGameHeight/10/this.ratio;
+        
         
         this.x_maxSpeed=GameWidth/200;
         this.y_speed+=GameHeight/1000;
         
-        for(var k=0;k<this.bullets.length;k++){
+        for(var k=0;k<this.bullets.length;k++){//moves bullets 
             if(this.offsetX==0 ){
-                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;//+this.offsetX;
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;
             }else{
-                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir-this.x_speed;//+this.offsetX;
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir-this.x_speed;
             }
         }
         
         
         
-        for(var k=0;k<game.map.map.length;k++){
+        for(var k=0;k<game.map.map.length;k++){//checks if the player and the bullets are colliding with tiles
             
             if(game.map.map[k]==0 || game.map.map[k]==30 || game.map.map[k]==31){
             }else{
@@ -149,7 +129,7 @@ export class Player{
                     }
                     this.jumping=false;
                     this.doubleJump=false;
-                }
+                }//checks ground collision 
                 
                 if(this.position.x+this.x_speed<x+game.map.tileWidth && this.Xdirection=="left" && this.position.x>x && this.position.x< x+game.map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.map.tileHeight || this.position.y+game.map.tileHeight>y && this.position.y+game.map.tileHeight<y+game.map.tileHeight){
@@ -160,7 +140,7 @@ export class Player{
                             this.x_speed=0;
                         }
                     }
-                }
+                }//checks side collision
                 
                 if(this.position.x+this.x_speed+this.hero.width>x && this.Xdirection=="right" &&  this.position.x<x && this.position.x> x-game.map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.map.tileHeight || this.position.y+game.map.tileHeight>y && this.position.y+game.map.tileHeight<y+game.map.tileHeight){
@@ -171,7 +151,7 @@ export class Player{
                             this.x_speed=0;
                         }
                     }
-                }
+                }//checks side collision
 
                 for(var j=0;j<this.bullets.length;j++){
                    
@@ -184,7 +164,7 @@ export class Player{
                         
                         this.bullets.splice(j,1);
                     }
-                }
+                }//checks bullet collision with tiles
             }
         }
         
@@ -192,8 +172,9 @@ export class Player{
         var cindex=0;
         var index=0;
         var eindex=0;
+        var hindex=0;
         var hit=false;
-        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){
+        for(var k=0;k<game.interactiveObjects.coinMap.length;k++){//checks if player and bullets are colliding with interactive objects(coins,enemies,chests,checkpoints)
             var value = game.interactiveObjects.coinMap[k];
             hit = false;
             var x;
@@ -204,8 +185,30 @@ export class Player{
                  x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
             }
             var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
-            
-            if(value!=0){
+
+            if(value==4 || value==5){//collision with chests to display text
+                if(value==4 || value==5){
+                
+                    if(this.position.x>x-this.hero.width && this.position.x<x+game.interactiveObjects.width){
+                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
+                            hit=true;
+                        }
+                    }
+                    ctx.font="20px Arial";
+                    if(hit==true){
+                        switch (value){
+                            case 4:
+                                ctx.fillText("Press E to open",x,y-100);
+                                break;
+                            case 5:
+                                ctx.fillText("Press E to open",x,y-100);
+                                break;
+                            } 
+                    }
+                    
+                    
+                }
+            }else if(value!=0){//other collisions
                 
                 if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && 
                 this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
@@ -228,7 +231,7 @@ export class Player{
                         hit=true;    
                     }
                 }              
-                for(var j=0;j<this.bullets.length;j++){
+                for(var j=0;j<this.bullets.length;j++){//bullet collisions with enemies
        
                     if(this.bullets[j].dir==-1 && this.bullets[j].x<x+game.map.tileWidth && x<this.bullets[j].x &&
                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight && value==3 ){
@@ -253,7 +256,7 @@ export class Player{
                 if(hit==true){
                     switch (value){
                         case 1:
-                            if(game.interactiveObjects.coins[index]==1){
+                            if(game.interactiveObjects.coins[index]==1){//changes score if hit==true
                                 game.interactiveObjects.score++;
                                 game.interactiveObjects.coins[index] = 0;
                                 game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
@@ -262,13 +265,13 @@ export class Player{
                             }
                             break;
                         case 2:
-                            if(game.interactiveObjects.checkpoints[cindex]==1){
+                            if(game.interactiveObjects.checkpoints[cindex]==1){//marks checkpoint if hit==true
                                 game.interactiveObjects.checkpoints[cindex] = 0;
                                 game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
                             }
                             break;
                         case 3:
-                            if(game.interactiveObjects.enemies[eindex]==1){
+                            if(game.interactiveObjects.enemies[eindex]==1){//kills enemie if hit==true
                                 game.interactiveObjects.enemies[eindex]=0;
                                 game.playerProgress.changeCookie("level1Enemies", game.interactiveObjects.enemies);
                                 this.hero.lives--;
@@ -278,6 +281,15 @@ export class Player{
                                 }
                             }
                             break;
+                        case 6:
+                            if(game.interactiveObjects.hearts[hindex]==1){//kills enemie if hit==true
+                                game.interactiveObjects.hearts[hindex]=0;
+                                game.playerProgress.changeCookie("level1Hearts", game.interactiveObjects.hearts);
+                                this.hero.lives++;
+        
+                            }
+                            break;
+                         
                         } 
                 }
                 
@@ -291,34 +303,30 @@ export class Player{
                     case 3:
                         eindex++;
                         break;
+                    case 6:
+                        hindex++;
+                        break;
                 }
             }
         }
 
-       
-       
-
-
-
-
+        
            
-           
-           
-           if(this.offsetX>=0 ){
-                this.offsetX=0;
-                this.position.x+=this.x_speed;
-            }else if(this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
-                this.offsetX=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2;
-                this.position.x+=this.x_speed;
-           }
-           if(this.position.x>this.gameWidth/2-this.hero.width/2 && this.offsetX>=0){
-                this.offsetX-=this.x_speed;
-           }else if(this.position.x<this.gameWidth/2-this.hero.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
-                this.offsetX-=this.x_speed;
-           }
-           if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.hero.width/2 && this.offsetX<0 ){
-                this.offsetX-=this.x_speed;
-           }
+        if(this.offsetX>=0 ){//moves map and player depending on the pos of the map and the player
+            this.offsetX=0;
+            this.position.x+=this.x_speed;
+        }else if(this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
+            this.offsetX=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2;
+            this.position.x+=this.x_speed;
+        }
+        if(this.position.x>this.gameWidth/2-this.hero.width/2 && this.offsetX>=0){
+            this.offsetX-=this.x_speed;
+        }else if(this.position.x<this.gameWidth/2-this.hero.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
+            this.offsetX-=this.x_speed;
+        }
+        if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.hero.width/2 && this.offsetX<0 ){
+            this.offsetX-=this.x_speed;
+        }
 
            
            
@@ -329,7 +337,7 @@ export class Player{
 
 
 
-        if(this.jumping==true){
+        if(this.jumping==true){//changes player depending on which direction he is going
             
             if(this.Xdirection=="left"){
                 this.hero.src=document.getElementById("playerJumpingLeft").src;
@@ -372,14 +380,15 @@ export class Player{
         }
 
        
-        if(this.position.y >GameHeight){
+        if(this.position.y >GameHeight){//checks if player fell in the water
             this.hero.lives--;
             this.playerRespawn(game);
             if(this.hero.lives<=0){
                 game.gameState=4;
             }
         }
-        if(this.position.x+this.hero.width>GameWidth){
+
+        if(this.position.x+this.hero.width>GameWidth){//limites how far the player can go
             this.position.x = GameWidth-this.hero.width;
         }
         if(this.position.y<0){
@@ -410,24 +419,22 @@ export class Player{
             }
         }
         
-        console.log(checkpoints);
-        console.log(k);
+    
 
-        for(var j=0;j<game.interactiveObjects.coinMap.length;j++){
+        for(var j=0;j<game.interactiveObjects.coinMap.length;j++){//respawns player depending on the last checkpoint
             var value = game.interactiveObjects.coinMap[j];
             
             if(value==2){
                 eindex++;
             }
-            if(k==0){
+            if(k==0){//if no checkpoints marked
                 this.offsetX=0;
                 this.position={
                     x:200,
                     y:200
                 }
             }
-            console.log(value);
-            console.log(eindex,k);
+        
 
             if(value==2 && eindex==k){
                 
@@ -498,7 +505,7 @@ export class Player{
     }
 
     fire(){
-        
+        //creates and fires bullets
         let direction=1;
         let x_bullet=0;
         this.shooting=true;
@@ -519,9 +526,10 @@ export class Player{
     
             }
             this.bullets.push(this.fireball);
-            this.b++;
+            
             this.bulletAmmo--;
         }
+
         
 
     }
@@ -536,7 +544,8 @@ export class Player{
         }, 175);       
     }
 
-    openChest(game){
+    openChest(game,ctx){
+        //if E is clicked this checks collision between player and the chest than changes score or ammo count and opens chest
         var pindex=0;
         var tindex=0;
         var hit=false;
@@ -548,29 +557,14 @@ export class Player{
                 var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
                 var x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
                 
-                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && 
-                this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                    if(y-game.interactiveObjects.height>this.position.y){               
-                        hit=true;
-                    }
-                }
-                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
-                    if(y-game.interactiveObjects.height>this.position.y){
-                        hit=true;
-                    }
-                }
-                if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
-                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){              
-                        hit=true;
-                    }
-                } 
-                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
+                if(this.position.x>x-this.hero.width && this.position.x<x+game.interactiveObjects.width){
                     if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                        hit=true;    
+                        hit=true;
                     }
-                }              
+                }           
                 
                 if(hit==true){
+                    
                     switch (value){
                         case 4:
                             if(game.interactiveObjects.trashChests[tindex]==1){

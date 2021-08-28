@@ -1,5 +1,5 @@
 import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
-import { LevelInput } from "../GlobalScripts/level_input.js";
+import { Input } from "../GlobalScripts/Input.js";
 import { LevelButtons } from "../GlobalScripts/level_buttons.js";
 import { Player } from "../GlobalScripts/Player.js";
 import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
@@ -20,10 +20,12 @@ const GAMESTATE = {
 }
 
 export class level1Game {
-    constructor(GameWidth, GameHeight) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
+        this.frameOffsetX=parseInt(FrameOffsetX);
+        this.frameOffsetY=parseInt(FrameOffsetY);
         
 
         this.audio = new Audio();//audio for the menu
@@ -48,7 +50,7 @@ export class level1Game {
         this.gameOver = new GameOver(this);
         this.intro=new Intro(this);
      
-        new LevelInput(this);
+        new Input(this);
         this.interactiveObjects.start(ctx, this);
         this.map.start();
         this.player.start(this);
@@ -63,16 +65,16 @@ export class level1Game {
 
     }
 
-    update(deltaTime, GameWidth, GameHeight) {
+    update(deltaTime, GameWidth, GameHeight,ctx) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
 
         switch (this.gameState){
             case 0:
                 this.background.update(deltaTime,GameWidth,GameHeight,this);
-                this.player.update(deltaTime, GameWidth, GameHeight,this);
+                this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
                 this.map.update(deltaTime, GameWidth, GameHeight,this);
-                this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this);
+                this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
                 break;
             case 1:
                 this.PauseScreen.update(deltaTime, GameWidth, GameHeight);
@@ -94,7 +96,7 @@ export class level1Game {
     }
 
     draw(ctx,GameWidth,GameHeight) {
-        this.background.draw(ctx,GameWidth,GameHeight);
+        //this.background.draw(ctx,GameWidth,GameHeight);
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
        // this.player.draw(ctx);
