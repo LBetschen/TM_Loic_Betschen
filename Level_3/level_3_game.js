@@ -1,122 +1,175 @@
-import {PauseScreen} from "../GlobalScripts/PauseScreen.js";
-import {Level3Input} from "./level_3_input.js";
-import {ReturnButton} from "./level_3_return.js";
-import {Level3Map} from "./level_3_map.js";
-import {Player} from "./level_3_player.js";
-import {ReloadButton} from "./level_3_reload.js";
+import { Input } from "../GlobalScripts/Input.js";
+import { LevelButtons } from "../GlobalScripts/buttons.js";
+import { Player } from "../GlobalScripts/Player.js";
+import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
+import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
+import { Settings } from "../GlobalScripts/settings.js";
+import { Map } from "../GlobalScripts/map.js";
+import { GameOver } from "../GlobalScripts/GameOver.js";
 
-const GAMESTATE={
-    RUNNING:0,
-    PAUSED:1
+const GAMESTATE = {
+    RUNNING: 0,
+    PAUSED: 1,
+    SETTINGS:2,
+    ABOUT:3,
+    GAMEOVER:4,
+    INTRO:5,
+    END:6
 }
 
+export class level1Game {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY) {
+        this.gameWidth = GameWidth;
+        this.gameHeight = GameHeight;
+        this.gameState = GAMESTATE;
+        this.frameOffsetX=parseInt(FrameOffsetX);
+        this.frameOffsetY=parseInt(FrameOffsetY);
+        
 
-export class level3Game{
-    constructor(GameWidth,GameHeight){
-        this.gameWidth=GameWidth;
-        this.gameHeight=GameHeight;
-        this.gameState=GAMESTATE;
-        this.map=[];
-        this.mapObjects=3;
-        this.columns=16;
-        this.tileWidth=80;
-        this.tileHeight=80;
-
+        this.audio = new Audio();//audio for the menu
+        this.audio.src = document.getElementById("backgroundSound3").src;
+        this.level="level3";
         
     }
 
-    start(){
-  
-        this.readTextFiles(this.map);
+    start(ctx) {
+
+
         
+        this.playerProgress = new PlayerProgress(this);
+        this.playerProgress.getSavedPlayer(this);
+        this.settings= new Settings(this);
         this.player = new Player(this);
-        this.PauseScreen= new PauseScreen(this);
-        this.returnButton= new ReturnButton(this);
-        this.level3Map = new Level3Map(this,this.player,this.map);
-        this.reloadButton = new ReloadButton(this);
-        this.gameState=GAMESTATE.RUNNING;
+        this.interactiveObjects = new InteractiveObjects(this);
+        this.gameState = GAMESTATE.RUNNING;
+        this.buttons = new LevelButtons(this);
+        this.map=new Map(this,this.player);
+        this.gameOver = new GameOver(this);
+     
+        new Input(this);
+        this.interactiveObjects.start(ctx, this);
+        this.map.start();
+        this.player.start(this);
+       
 
-        new Level3Input(this);
         
+        var c=this.playerProgress.getCookie("musicVolume",false);
+        this.audio.volume=c[2];
+        this.audio.play();
+
+
     }
 
-    update(deltaTime,GameWidth,GameHeight){
-        this.gameHeight=GameHeight;
-        this.gameWidth=GameWidth;
-        this.player.update(deltaTime,GameWidth,GameHeight);
-        this.level3Map.update(deltaTime,GameWidth,GameHeight,this.player,this.map);
-        if(this.gameState==GAMESTATE.PAUSED){
-            this.PauseScreen.update(deltaTime,GameWidth,GameHeight);
-            this.returnButton.update(deltaTime,GameWidth,GameHeight);
-            this.reloadButton.update(deltaTime,GameWidth,GameHeight);
+    update(deltaTime, GameWidth, GameHeight,ctx) {
+        this.gameHeight = GameHeight;
+        this.gameWidth = GameWidth;
+
+        switch (this.gameState){
+            case 0:
+                this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
+                this.map.update(deltaTime, GameWidth, GameHeight,this);
+                this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
+                break;
+            case 1:
+                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                break;
+            case 2:
+                this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
+                break;
+            case 3:
+                break;
+            case 4:
+                this.gameOver.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
+    }
+
+    draw(ctx,GameWidth,GameHeight) {
+        this.map.draw(ctx,this);
+        this.interactiveObjects.draw(ctx, this);
+
+        switch (this.gameState){
+            case 0:
+                this.player.draw(ctx);
+                break;
+            case 1:
+                this.player.draw(ctx);
+                this.buttons.draw(ctx);
+                break;
+            case 2:
+                this.player.draw(ctx);
+                this.settings.draw(ctx, this.gameState, this);
+
+                break;
+            case 3:
+                break;
+            case 4:
+                this.player.draw(ctx);
+                this.gameOver.draw(ctx);
+                this.buttons.draw(ctx);
+                break;
+            case 5:
+                break;
+            case 6:
+                this.player.draw(ctx);
+                break;
         }
         
     }
 
-    draw(ctx){
-
-        this.level3Map.draw(ctx);
-        this.player.draw(ctx);
-
-        if(this.gameState==GAMESTATE.PAUSED){
-            this.PauseScreen.draw(ctx);
-            this.returnButton.draw(ctx);
-            this.reloadButton.draw(ctx);
-            
+    togglePause() {
+        if (this.gameState == GAMESTATE.PAUSED) {
+            this.gameState = GAMESTATE.RUNNING;
+        } else if (this.gameState == GAMESTATE.RUNNING) {
+            this.gameState = GAMESTATE.PAUSED;
         }
     }
 
-    togglePause(){
-        if(this.gameState==GAMESTATE.PAUSED ){
-            this.gameState=GAMESTATE.RUNNING;
-        }else if(this.gameState==GAMESTATE.RUNNING){
-            this.gameState=GAMESTATE.PAUSED;
-        } 
+    toggleClick(mouseX, mouseY) {
+        
+        switch (this.gameState){
+            case 0:
+                break;
+            case 1:
+                this.buttons.toggleReturn(mouseX, mouseY, this);
+                break;
+            case 2:
+                this.settings.toggleButtonClick(this,mouseX,mouseY);
+                break;
+            case 3:
+                break;
+            case 4:
+                this.buttons.toggleReturn(mouseX, mouseY, this);
+                break;
+        }
+        
     }
-    toggleReturn(mouseX,mouseY){
-        if(this.gameState==GAMESTATE.PAUSED){
-            this.returnButton.toggleReturn(mouseX,mouseY);
-            this.reloadButton.toggleReload(mouseX,mouseY);
 
+    toggleButtons(mouseX, mouseY) {
+        
+       
+        switch (this.gameState){
+            case 0:
+                break;
+            case 1:
+                this.buttons.toggleButton(mouseX, mouseY);
+                break;
+            case 2:
+                this.settings.toggleSettingButtons(this, mouseX, mouseY);                
+                break;
+            case 3:
+                break;
+            case 4:
+                this.buttons.toggleButton(mouseX, mouseY);
+                break;
         }
     }
     
-    toggleButtons(mouseX,mouseY){
-        if(this.gameState==GAMESTATE.PAUSED){
-            this.returnButton.toggleButton(mouseX,mouseY);
-            this.reloadButton.toggleButton(mouseX,mouseY);
-        }
-    }
 
-    readTextFiles(map){
-        for(var index=0;index<this.mapObjects;index++){
-            var res;
-            var f = new XMLHttpRequest();
-            switch (index){
-                case 0:
-                    f.open("GET", "./TileMap/level_3_groundArray.txt", false);
-                    break;
-                case 1:
-                    f.open("GET", "./TileMap/level_3_structures.txt", false);
-                    break;
-                case 2:
-                    f.open("GET", "./TileMap/level_3_collision.txt", false);
-                    break;
-            }
-            
-            
-            f.onreadystatechange = function (){
-                if(f.readyState === 4 && f.status === 200 )
-                {
-                    res = f.responseText;
-                    res=res.split(",");
-                    for(var i=0;i<res.length;i++){
-                        res[i]=parseInt(res[i]);
-                    }
-                }
-            }
-            f.send(null);
-            map[index]=res;
-        }
-    }
+
 }

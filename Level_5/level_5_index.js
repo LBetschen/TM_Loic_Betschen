@@ -1,38 +1,50 @@
-import {level5Game} from "./level_5_game.js";
+import {level1Game} from "./level_5_game.js";
 let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
 
 canvas.height=window.innerHeight-5;
 canvas.width=window.innerWidth;
+if(canvas.width/canvas.height<16/9){
+    canvas.height=canvas.width*9/16;
+}else if(canvas.width/canvas.height>16/9){
+    canvas.width=canvas.height*16/9;
+}
+canvas.style.left=(window.innerWidth-canvas.width)/2+"px";
+canvas.style.top=(window.innerHeight-canvas.height)/2+"px";
 
+let frameOffsetX=canvas.style.left;
+let frameOffsetY=canvas.style.top;
 let GAME_HEIGHT = canvas.height;
 let GAME_WIDTH = canvas.width;
 
-let level5game= new level5Game(GAME_WIDTH,GAME_HEIGHT);
-level5game.start();
+let level1game= new level1Game(GAME_WIDTH,GAME_HEIGHT,frameOffsetX,frameOffsetY);
+level1game.start();
 
 let lastTime=0;
 
 function gameLoop(timestamp){
     let deltaTime= timestamp-lastTime;
     lastTime=timestamp;
-    
+
     canvas.height=window.innerHeight-5;
     canvas.width=window.innerWidth;
+    if(canvas.width/canvas.height<16/9){
+        canvas.height=canvas.width*9/16;
+    }else if(canvas.width/canvas.height>16/9){
+        canvas.width=canvas.height*16/9;
+    }
+    canvas.style.left=(window.innerWidth-canvas.width)/2+"px";
+    canvas.style.top=(window.innerHeight-canvas.height)/2+"px";
 
-    ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     
-    let GameWidth=window.innerWidth;
-    let GameHeight=window.innerHeight-5;
-
-    ctx.font="30px Arial";
-    ctx.fillStyle="black";
-    ctx.textAlign="center";
-    ctx.fillText("Level 5",GameWidth/2,GameHeight/6);
-    
-    level5game.update(deltaTime,GameWidth,GameHeight);
-    level5game.draw(ctx);
-
+    let GameWidth=canvas.width;
+    let GameHeight=canvas.height;
+    let frameOffsetX=canvas.style.left;
+    let frameOffsetY=canvas.style.top;
+   
+    level1game.update(deltaTime,GameWidth,GameHeight,ctx,frameOffsetX,frameOffsetY);
+    level1game.draw(ctx,GameWidth,GameHeight);    
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);

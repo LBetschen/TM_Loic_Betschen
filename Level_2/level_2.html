@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>level 2</title>
-    <style>
-
-        body{    
-            margin: 0px;
-        }
-        img{
-            display: none;
-        }
-
-    </style>
+    <title>Level 2</title>
 </head>
-<body >
+<style>
+    body{
+        margin: 0px;
+        
+    }
+    img{
+        display: none;
+    }
+    canvas{
+        
+        position: relative;
+        top: 0px;
+        left: 0px;
+        height: auto;
+        width: auto;
+        
+    }
+</style>
+<body>
     <img id="returnButton" src="../Assets/GUI/ReturnButton2.png">
     <img id="returnButtonDown" src="../Assets/GUI/ReturnButton2Down.png">
     <img id="playerJumpingLeft" src="../Assets/PlayerSprites/PlayerJumping.png">
@@ -34,15 +42,6 @@
     <img id="map" src="../Assets/tilesets/TileMap.png">
     <img id="water" src="../Assets/tilesets/WaterAnimation.png">
     
-    <img id="background" src="../Assets/Background/Back.png">
-    <img id="mid1" src="../Assets/Background/Mid.png">
-    <img id="mid2" src="../Assets/Background/Mid (2).png">
-    <img id="front" src="../Assets/Background/Front.png">
-    <img id="sky" src="../Assets/Background/Sky.png">
-    <img id="cloud1" src="../Assets/Background/Cloud_1.png">
-    <img id="cloud2" src="../Assets/Background/Cloud_2.png">
-    <img id="redoButton" src="../Assets/GUI/ButtonRedo.png">
-    <img id="redoButtonDown" src="../Assets/GUI/ButtonRedoDown.png">
 
     <img id="reloadButton" src="../Assets/GUI/ButtonRedo.png">
     <img id="reloadButtonDown" src="../Assets/GUI/ButtonRedoDown.png">
@@ -53,8 +52,6 @@
     <img id="switchOnDown" src="../Assets/GUI/SwitchOnDown.png">
     <img id="switchOff" src="../Assets/GUI/SwitchOff.png">
     <img id="switchOffDown" src="../Assets/GUI/SwitchOffDown.png">
-    <img id="creditsButton" src="../Assets/GUI/creditsButton.png">
-    <img id="creditsButtonDown" src="../Assets/GUI/creditsDown.png">
     <img id="scrollUp" src="../Assets/GUI/WoodenButton.png">
     <img id="scrollDown" src="../Assets/GUI/WoodenButtonDown.png">
     <img id="settingsButton" src="../Assets/GUI/SettingsButton.png" />
@@ -67,20 +64,26 @@
     <img id="soundButtonDown" src="../Assets/GUI/SoundButtonDown.png">
     <img id="soundMuted" src="../Assets/GUI/MuteSoundButton.png">
     <img id="soundMutedDown" src="../Assets/GUI/MuteSoundButtonDown.png"> 
-    <img id="tuto" src="../Assets/Tuto.png">
     <img id="checkpoint" src="../Assets/Checkpoint.PNG">
     <img id="checkpoint1" src="../Assets/Checkpoint1.PNG">
     <img id="enemieLeft" src="../Assets/monster2.png">
     <img id="enemieRight" src="../Assets/monster2right.png">
     <img id="heart" src="../Assets/heart.png">
-
+    <img id="trashcanOpen" src="../Assets/trashcanOpen.png">
+    <img id="trashcan" src="../Assets/trashcanClosed.png">
+    <img id="recyclingOpen" src="../Assets/recyclingOpen.png">
+    <img id="recycling" src="../Assets/recyclingClosed.png">
+    <img id="mailboxEmpty" src="../Assets/mailBoxEmpty.png">
+    <img id="mailboxFull" src="../Assets/mailBoxFull.png">
 
     <audio id="jumpAudio" src="../Assets/Audio/Jump1.wav"></audio>
     
     <audio id="coinAudio" src="../Assets/Audio/Coins_Single_50.mp3"></audio>
     <audio  id="backgroundSound3" src="./Assets/Audio/Star Commander1.wav"></audio>
+
+  
     
-    <canvas id ="gameScreen" height="auto" width="auto" ></canvas>
+    <canvas id ="gameScreen"  ></canvas>
     <script type="module" src="./level_2_index.js"></script>
     
 </body>
