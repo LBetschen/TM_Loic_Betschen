@@ -5,43 +5,42 @@ export class Menu {
         this.gameState = game.gamestate;
         this.constGamewidth = game.gameWidth;
 
-        this.ratio = this.gameWidth / game.gameWidth;
 
         this.aboutButton = new Image();
         this.aboutButton.down = "aboutButtonDown";
         this.aboutButton.up = "aboutButton";
         this.aboutButton.src = document.getElementById(this.aboutButton.up).src;
-        this.aboutButton.height = this.aboutButton.naturalHeight / 3 / this.ratio;
-        this.aboutButton.width = this.aboutButton.naturalWidth / 3 / this.ratio;
+        this.aboutButton.height = this.gameWidth / 20;
+        this.aboutButton.width = this.gameWidth / 20;
         this.aboutButton.position = {
             x: this.gameWidth / 50,
             y: this.gameHeight / 50
         }
 
       
+        this.settingsButton = new Image();
+        this.settingsButton.down = "settingsButtonDown";
+        this.settingsButton.up = "settingsButton";
+        this.settingsButton.src = document.getElementById(this.settingsButton.up).src;
+        this.settingsButton.height = this.gameWidth / 20 ;
+        this.settingsButton.width = this.gameWidth / 20;
+        this.settingsButton.position = {
+            x: this.gameWidth / 1.07,
+            y: this.gameHeight / 50
+        }
 
         this.newGameButton = new Image();
         this.newGameButton.down = "newGameDown";
         this.newGameButton.up = "newGameButton";
         this.newGameButton.src = document.getElementById(this.newGameButton.up).src;
-        this.newGameButton.aspect = this.newGameButton.naturalHeight / this.newGameButton.naturalWidth;
-        this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
-        this.newGameButton.height = this.newGameButton.naturalHeight / 3 / this.ratio;
+        this.newGameButton.ratio = this.newGameButton.naturalHeight / this.newGameButton.naturalWidth;
+        this.newGameButton.height = this.gameWidth/30;
+        this.newGameButton.width = this.newGameButton.height/this.newGameButton.ratio;
         this.newGameButton.position = {
             x: this.gameWidth / 2 - this.newGameButton.width / 2,
             y: this.gameHeight / 2 - this.newGameButton.height
         }
 
-        this.settingsButton = new Image();
-        this.settingsButton.down = "settingsButtonDown";
-        this.settingsButton.up = "settingsButton";
-        this.settingsButton.src = document.getElementById(this.settingsButton.up).src;
-        this.settingsButton.height = this.settingsButton.naturalHeight / 3 / this.ratio;
-        this.settingsButton.width = this.settingsButton.naturalWidth / 3 / this.ratio;
-        this.settingsButton.position = {
-            x: this.gameWidth / 1.07,
-            y: this.gameHeight / 50
-        }
 
         
 
@@ -49,8 +48,9 @@ export class Menu {
         this.resumeGame.down = "resumeGameDown";
         this.resumeGame.up = "resumeGame";
         this.resumeGame.src = document.getElementById(this.resumeGame.up).src;
-        this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
-        this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
+        this.resumeGame.ratio=this.resumeGame.naturalHeight/this.resumeGame.naturalWidth;
+        this.resumeGame.height = this.gameWidth / 30;
+        this.resumeGame.width = this.resumeGame.height *this.resumeGame.ratio;
         this.resumeGame.position = {
             x: this.gameWidth / 2 - this.resumeGame.width / 2,
             y: this.gameHeight / 50
@@ -78,7 +78,7 @@ export class Menu {
     update(deltaTime, GameWidth, GameHeight, game) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
-        this.ratio = this.constGamewidth / this.gameWidth;
+        
 
         this.settingsButton.position = {
             x: this.gameWidth / 1.07,
@@ -100,19 +100,19 @@ export class Menu {
             x: this.gameWidth / 2 - this.resumeGame.width / 2,
             y: this.gameHeight / 2
         }
-        this.aboutButton.height = this.aboutButton.naturalHeight / 3 / this.ratio;
-        this.aboutButton.width = this.aboutButton.naturalWidth / 3 / this.ratio;
-        this.settingsButton.height = this.settingsButton.naturalHeight / 3 / this.ratio;
-        this.settingsButton.width = this.settingsButton.naturalWidth / 3 / this.ratio;
+        this.aboutButton.height = GameWidth / 20;
+        this.aboutButton.width = GameWidth / 20;
+        this.settingsButton.height = GameWidth / 20 ;
+        this.settingsButton.width = GameWidth / 20;
         
-        this.newGameButton.width = this.newGameButton.naturalWidth / 3 / this.ratio;
-        this.newGameButton.height = this.newGameButton.naturalHeight / 3 / this.ratio;
-        this.resumeGame.height = this.resumeGame.naturalHeight / 3 / this.ratio;
-        this.resumeGame.width = this.resumeGame.naturalWidth / 3 / this.ratio;
+        this.newGameButton.height = GameWidth/30;
+        this.newGameButton.width = this.newGameButton.height/this.newGameButton.ratio;
+        this.resumeGame.height =GameWidth / 30;
+        this.resumeGame.width = this.resumeGame.height /this.resumeGame.ratio;
         
-        this.input.style.height = game.gameHeight /25+ "px";
-        this.input.style.width = game.gameWidth / 5 + "px";
-        this.input.style.left = game.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
+        this.input.style.height = GameHeight /25+ "px";
+        this.input.style.width = GameWidth / 5 + "px";
+        this.input.style.left = GameWidth / 2 - this.input.offsetWidth / 2 + "px";
         this.input.style.top = this.newGameButton.position.y + this.newGameButton.height * 1.5 + "px";
     }
 

@@ -143,7 +143,7 @@ export class Background{
 
     draw(ctx,GameWidth,GameHeight){
         
-        this.backgroundSkyObjects.forEach((object)=>{
+        /*this.backgroundSkyObjects.forEach((object)=>{
             ctx.drawImage(object,object.position.x,object.position.y,object.width,object.height);
             ctx.drawImage(object,object.position.x + GameWidth,object.position.y,object.width,object.height);    
             ctx.drawImage(object,object.position.x - GameWidth,object.position.y,object.width,object.height);        
@@ -153,7 +153,7 @@ export class Background{
             ctx.drawImage(object,object.position.x,object.position.y,this.width,this.height);
             ctx.drawImage(object,object.position.x + this.width,object.position.y,this.width,this.height);    
             ctx.drawImage(object,object.position.x - this.width,object.position.y,this.width,this.height);      
-        });
+        });*/
 
         ctx.drawImage(this.tuto,this.tuto.position.x,this.tuto.position.y,this.tuto.width,this.tuto.height);
     }

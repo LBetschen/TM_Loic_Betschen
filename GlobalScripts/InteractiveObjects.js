@@ -43,6 +43,13 @@ export class InteractiveObjects {
         this.powerChest.height=this.height;
         this.powerChest.width=this.powerChest.height*(this.powerChest.naturalWidth/this.powerChest.naturalHeight);
 
+
+        this.mailBox=new Image();
+        this.mailBox.open="mailboxFull";
+        this.mailBox.closed="mailboxEmpty";
+        this.mailBox.src=document.getElementById(this.mailBox.closed).src;
+        this.mailBox.height=this.height;
+        this.mailBox.width=this.mailBox.height*(this.mailBox.naturalWidth/this.mailBox.naturalHeight);
         
 
         this.enemie=new Image();
@@ -76,22 +83,22 @@ export class InteractiveObjects {
         this.coinAnimation(ctx);
         this.readFiles();
         //getting all the saved progress
-        this.cScore = game.playerProgress.getCookie("level1score",false);
+        this.cScore = game.playerProgress.getCookie(game.level+"score",false);
         this.score = parseInt(this.cScore[2]);
 
-        var c = game.playerProgress.getCookie("level1coins",false);
+        var c = game.playerProgress.getCookie(game.level+"coins",false);
         this.coins = c[2].split(",");
 
-        var c = game.playerProgress.getCookie("level1Checkpoints",false);
+        var c = game.playerProgress.getCookie(game.level+"Checkpoints",false);
         this.checkpoints = c[2].split(",");
 
-        c=game.playerProgress.getCookie("soundVolume",false);
+        c=game.playerProgress.getCookie("musicVolume",false);
         this.coinAudio.volume=c[2];
 
-        c=game.playerProgress.getCookie("level1Enemies",false);
+        c=game.playerProgress.getCookie(game.level+"Enemies",false);
         this.enemies=c[2].split(",");
 
-        c=game.playerProgress.getCookie("level1Hearts",false);
+        c=game.playerProgress.getCookie(game.level+"Hearts",false);
         this.hearts=c[2].split(",");
 
         this.objects=[this.coins,this.checkpoints];
@@ -101,8 +108,17 @@ export class InteractiveObjects {
         
         var c=game.playerProgress.getCookie("soundVolume",false);
         this.coinAudio.volume=c[2];
-        this.checkpoint.height=80;
-        this.checkpoint.width=80;
+        this.width=GameHeight/12;
+        this.height=GameHeight/12;
+
+        this.mailBox.height=this.height;
+        this.mailBox.width=this.mailBox.height*(this.mailBox.naturalWidth/this.mailBox.naturalHeight);
+        this.trashChest.height=this.height;
+        this.trashChest.width=this.trashChest.height*(this.trashChest.naturalWidth/this.trashChest.naturalHeight);
+        this.checkpoint.height=this.height;
+        this.checkpoint.width=this.width;
+        this.coinHeight=this.height*0.75;
+        this.coinWidth=this.width*0.75;
 
     }
 
@@ -195,7 +211,17 @@ export class InteractiveObjects {
                     
                     heartIndex++;
                     break;
+                case 7:
+                    var x = (j % this.columns) * this.width + game.player.offsetX;
+                    var y = Math.floor(j / this.columns) * this.width;
+                    
+                        ctx.drawImage(this.mailBox,x,y,this.mailBox.width,this.mailBox.height);
+                    
+                    
+                    
+                    break;
                 }
+
 
                 
                 

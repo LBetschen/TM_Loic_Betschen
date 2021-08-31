@@ -41,6 +41,8 @@ export class Map{
     }
 
     update(deltaTime,GameWidth,GameHeight,game){
+        this.tileWidth=GameHeight/12;
+        this.tileHeight=GameHeight/12;
 
 
     }

@@ -28,8 +28,8 @@ export class Map{
         this.settingsButton.down = "settingsButtonDown";
         this.settingsButton.up = "settingsButton";
         this.settingsButton.src = document.getElementById(this.settingsButton.up).src;
-        this.settingsButton.height = this.settingsButton.naturalHeight / 3 / this.ratio;
-        this.settingsButton.width = this.settingsButton.naturalWidth / 3 / this.ratio;
+        this.settingsButton.height = this.gameWidth / 20 ;
+        this.settingsButton.width = this.gameWidth / 20;
         this.settingsButton.position = {
             x: this.gameWidth / 1.07,
             y: this.gameHeight / 50
@@ -40,8 +40,8 @@ export class Map{
         this.returnButton.up="returnButton";
         this.returnButton.down="returnButtonDown";
         this.returnButton.src = document.getElementById("returnButton").src;
-        this.returnButton.height=this.returnButton.naturalHeight/2;
-        this.returnButton.width=this.returnButton.naturalWidth/2;
+        this.returnButton.height=this.gameWidth / 20;
+        this.returnButton.width=this.gameWidth / 20;
         this.returnButton.position={
             x:this.gameWidth/25,
             y:this.gameHeight/20
@@ -79,11 +79,11 @@ export class Map{
 
         this.returnButton.position.x=this.width/25;
         this.returnButton.position.y=GameHeight/20  ;
-        this.returnButton.height=this.returnButton.naturalHeight / 2.5 / this.ratio;
-        this.returnButton.width=this.returnButton.naturalWidth / 2.5 / this.ratio;
+        this.returnButton.height=GameWidth / 20;
+        this.returnButton.width=GameWidth / 20;
 
-        this.settingsButton.height = this.settingsButton.naturalHeight / 2.5 / this.ratio;
-        this.settingsButton.width = this.settingsButton.naturalWidth / 2.5 / this.ratio;
+        this.settingsButton.height = GameWidth / 20;
+        this.settingsButton.width = GameWidth / 20;
         this.settingsButton.position = {
             x: this.gameWidth / 1.07,
             y: this.gameHeight / 50

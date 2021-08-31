@@ -4,10 +4,12 @@ export class Player{
     constructor(game){
         this.hero = new Image();
         this.hero.src=document.getElementById("idlePlayerRight").src;
-        
         this.hero.width=80;
         this.hero.height=165;
+        this.hero.ratio=this.hero.height/this.hero.width;
         this.columns=5;
+        this.width=game.gameWidth/25;
+        this.height=this.width*this.hero.ratio;
         
         var c= game.playerProgress.getCookie("playerLives",false);
 
@@ -70,7 +72,7 @@ export class Player{
     }
     draw(ctx){
         var x = i * this.hero.width;
-        ctx.drawImage(this.hero,x,0,this.hero.width,this.hero.height,this.position.x,this.position.y,this.hero.width,this.hero.height);//draws player
+        ctx.drawImage(this.hero,x,0,this.hero.width,this.hero.height,this.position.x,this.position.y,this.width,this.height);//draws player
         for(var k=0;k<this.bullets.length;k++){
             ctx.drawImage(this.bullet,this.bullets[k].x,this.bullets[k].y,this.bullet.width,this.bullet.height);//draws bullets
         }
@@ -97,6 +99,9 @@ export class Player{
         
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
+
+        this.width=GameWidth/25;
+        this.height=this.width*this.hero.ratio;
        
         
         
@@ -122,9 +127,9 @@ export class Player{
                 var x=(k%game.map.columns)*game.map.tileWidth + this.offsetX;
                 var y=Math.floor(k/game.map.columns)*game.map.tileWidth ;  
                 
-                if(this.position.y+this.y_speed+this.hero.height>y+game.map.tileHeight/5 && this.Ydirection=="down" && this.position.x+this.hero.width>x && this.position.x<x+game.map.tileWidth){
+                if(this.position.y+this.y_speed+this.height>y+game.map.tileHeight/5 && this.Ydirection=="down" && this.position.x+this.width>x && this.position.x<x+game.map.tileWidth){
                     if(y-game.map.tileHeight>this.position.y){
-                        this.position.y=y+game.map.tileHeight/5-this.hero.height;
+                        this.position.y=y+game.map.tileHeight/5-this.height;
                         this.y_speed=0;
                     }
                     this.jumping=false;
@@ -142,10 +147,10 @@ export class Player{
                     }
                 }//checks side collision
                 
-                if(this.position.x+this.x_speed+this.hero.width>x && this.Xdirection=="right" &&  this.position.x<x && this.position.x> x-game.map.tileWidth){
+                if(this.position.x+this.x_speed+this.width>x && this.Xdirection=="right" &&  this.position.x<x && this.position.x> x-game.map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.map.tileHeight || this.position.y+game.map.tileHeight>y && this.position.y+game.map.tileHeight<y+game.map.tileHeight){
                         if(this.offsetX==0){
-                            this.position.x=x-this.hero.width;
+                            this.position.x=x-this.width;
                             this.x_speed=0;
                         }else{
                             this.x_speed=0;
@@ -210,13 +215,13 @@ export class Player{
                 }
             }else if(value!=0){//other collisions
                 
-                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && 
-                this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.height>y+game.interactiveObjects.height  && 
+                this.position.x+this.width>x && this.position.x<x+game.interactiveObjects.width){
                     if(y-game.interactiveObjects.height>this.position.y){               
                             hit=true;
                     }
                 }
-                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.hero.height>y+game.interactiveObjects.height  && this.position.x+this.hero.width>x && this.position.x<x+game.interactiveObjects.width){
+                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.height>y+game.interactiveObjects.height  && this.position.x+this.width>x && this.position.x<x+game.interactiveObjects.width){
                     if(y-game.interactiveObjects.height>this.position.y){
                         hit=true;
                     }
@@ -226,7 +231,7 @@ export class Player{
                         hit=true;
                     }
                 } 
-                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.hero.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
+                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
                     if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
                         hit=true;    
                     }
@@ -237,14 +242,14 @@ export class Player{
                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight && value==3 ){
                             if(game.interactiveObjects.enemies[eindex]==1){
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie("level1Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.bullets.splice(j,1);
                             }
                    }else if(this.bullets[j].dir==1 && this.bullets[j].x+this.bullet.width>x &&this.bullets[j].x<x+game.map.tileWidth &&
                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight && value==3 ){
                             if(game.interactiveObjects.enemies[eindex]==1){
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie("level1Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.bullets.splice(j,1);
 
                             }
@@ -259,21 +264,21 @@ export class Player{
                             if(game.interactiveObjects.coins[index]==1){//changes score if hit==true
                                 game.interactiveObjects.score++;
                                 game.interactiveObjects.coins[index] = 0;
-                                game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
-                                game.playerProgress.changeCookie("level1coins", game.interactiveObjects.coins);
+                                game.playerProgress.changeCookie(game.level+"score", game.interactiveObjects.score);
+                                game.playerProgress.changeCookie(game.level+"coins", game.interactiveObjects.coins);
                                 game.interactiveObjects.coinAudio.play();
                             }
                             break;
                         case 2:
                             if(game.interactiveObjects.checkpoints[cindex]==1){//marks checkpoint if hit==true
                                 game.interactiveObjects.checkpoints[cindex] = 0;
-                                game.playerProgress.changeCookie("level1Checkpoints", game.interactiveObjects.checkpoints);
+                                game.playerProgress.changeCookie(game.level+"Checkpoints", game.interactiveObjects.checkpoints);
                             }
                             break;
                         case 3:
                             if(game.interactiveObjects.enemies[eindex]==1){//kills enemie if hit==true
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie("level1Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.hero.lives--;
                                 this.playerRespawn(game);
                                 if(this.hero.lives<=0){
@@ -284,10 +289,19 @@ export class Player{
                         case 6:
                             if(game.interactiveObjects.hearts[hindex]==1){//kills enemie if hit==true
                                 game.interactiveObjects.hearts[hindex]=0;
-                                game.playerProgress.changeCookie("level1Hearts", game.interactiveObjects.hearts);
+                                game.playerProgress.changeCookie(game.level+"Hearts", game.interactiveObjects.hearts);
                                 this.hero.lives++;
         
                             }
+                            break;
+                        case 7:
+                            this.x_speed=0;
+                            this.moving=false;
+                            game.interactiveObjects.mailBox.src=document.getElementById(game.interactiveObjects.mailBox.open).src;
+                            game.gameState=6;
+                            game.playerProgress.changeCookie(game.level+"finished",1);
+                            var timeout;
+                            timeout=setTimeout(function(){window.location="../Map/map.html"},2000);
                             break;
                          
                         } 
@@ -315,16 +329,16 @@ export class Player{
         if(this.offsetX>=0 ){//moves map and player depending on the pos of the map and the player
             this.offsetX=0;
             this.position.x+=this.x_speed;
-        }else if(this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
-            this.offsetX=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2;
+        }else if(this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.width/2){
+            this.offsetX=-game.map.maxMapWidth+this.gameWidth+this.width/2;
             this.position.x+=this.x_speed;
         }
-        if(this.position.x>this.gameWidth/2-this.hero.width/2 && this.offsetX>=0){
+        if(this.position.x>this.gameWidth/2-this.width/2 && this.offsetX>=0){
             this.offsetX-=this.x_speed;
-        }else if(this.position.x<this.gameWidth/2-this.hero.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.hero.width/2){
+        }else if(this.position.x<this.gameWidth/2-this.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.width/2){
             this.offsetX-=this.x_speed;
         }
-        if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.hero.width/2 && this.offsetX<0 ){
+        if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.width/2 && this.offsetX<0 ){
             this.offsetX-=this.x_speed;
         }
 
@@ -380,7 +394,7 @@ export class Player{
         }
 
        
-        if(this.position.y >GameHeight){//checks if player fell in the water
+        if(this.position.y >3*GameHeight){//checks if player fell in the water
             this.hero.lives--;
             this.playerRespawn(game);
             if(this.hero.lives<=0){
@@ -388,8 +402,8 @@ export class Player{
             }
         }
 
-        if(this.position.x+this.hero.width>GameWidth){//limites how far the player can go
-            this.position.x = GameWidth-this.hero.width;
+        if(this.position.x+this.width>GameWidth){//limites how far the player can go
+            this.position.x = GameWidth-this.width;
         }
         if(this.position.y<0){
             this.position.y=0;
@@ -409,7 +423,7 @@ export class Player{
         
         this.x_speed=0;
         this.y_speed=0;
-        var c= game.playerProgress.getCookie("level1Checkpoints",false);
+        var c= game.playerProgress.getCookie(game.level+"Checkpoints",false);
         var checkpoints=c[2].split(",");
         var k=0;
         var eindex=0;
@@ -438,7 +452,7 @@ export class Player{
 
             if(value==2 && eindex==k){
                 
-                var y = Math.floor(j / game.interactiveObjects.columns) * game.interactiveObjects.height-this.hero.height;
+                var y = Math.floor(j / game.interactiveObjects.columns) * game.interactiveObjects.height-this.height;
                 var x = (j % game.interactiveObjects.columns) * game.interactiveObjects.width;
                 this.offsetX=this.gameWidth/2-x;
                 this.position.y=y;
@@ -557,7 +571,7 @@ export class Player{
                 var y = Math.floor(k / game.interactiveObjects.columns) * game.interactiveObjects.height;
                 var x = (k % game.interactiveObjects.columns) * game.interactiveObjects.width+this.offsetX;
                 
-                if(this.position.x>x-this.hero.width && this.position.x<x+game.interactiveObjects.width){
+                if(this.position.x>x-this.width && this.position.x<x+game.interactiveObjects.width){
                     if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
                         hit=true;
                     }
@@ -569,7 +583,7 @@ export class Player{
                         case 4:
                             if(game.interactiveObjects.trashChests[tindex]==1){
                                 game.interactiveObjects.score+=5;    
-                                game.playerProgress.changeCookie("level1score", game.interactiveObjects.score);
+                                game.playerProgress.changeCookie(game.level+"score", game.interactiveObjects.score);
                                 game.interactiveObjects.coinAudio.play();
                                 game.interactiveObjects.trashChests[tindex]=0;
                             }
@@ -580,6 +594,7 @@ export class Player{
                                 this.bulletAmmo+=2;
                             }
                             break;
+                        
                         } 
                 }
 

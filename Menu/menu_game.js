@@ -86,6 +86,11 @@ export class Game {
             x:gameWidth/2-this.aboutPage.width/2,
             y:gameHeight/2-this.aboutPage.height/2
         }
+        this.menu.input.style.height = gameHeight /25+ "px";
+        this.menu.input.style.width = gameWidth / 5 + "px";
+        this.menu.input.style.left = gameWidth / 2 - this.menu.input.offsetWidth / 2 + "px";
+        this.menu.input.style.top = this.menu.newGameButton.position.y + this.menu.newGameButton.height * 1.5 + "px";
+        
     }
 
     draw(ctx) {

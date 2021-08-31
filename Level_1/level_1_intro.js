@@ -5,10 +5,10 @@ export class Intro{
         this.intro=new Image();
         this.intro.src=document.getElementById("intro").src;
         this.ratio=this.intro.naturalHeight/this.intro.naturalWidth;
-        this.width=game.gameWidth/2;
+        this.width=game.gameWidth/1.5;
         this.height=this.width*this.ratio;
         this.position={
-            x:game.gameWidth/4,
+            x:game.gameWidth/2-this.width/2,
             y:game.gameHeight/10
         }
 
@@ -27,19 +27,17 @@ export class Intro{
     update(deltaTime, GameWidth, GameHeight){
         this.gameWidth=GameWidth;
         this.gameHeight=GameHeight;
-        this.width=GameWidth/2;
+        this.width=GameWidth/1.5;
         this.height=this.width*this.ratio;
         this.position={
-            x:GameWidth/4,
+            x:GameWidth/2-this.width/2,
             y:GameHeight/10
         }
     }
     draw(ctx){
         
             ctx.drawImage(this.intro,this.position.x,this.position.y,this.width,this.height);
-            ctx.font="50px Arial";
-            ctx.textAlign="center";
-            ctx.fillText("Press enter to continue",this.gameWidth/2,this.gameHeight/2);
+            
         
     }
 }

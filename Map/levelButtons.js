@@ -9,6 +9,8 @@ export class levelButtons{
         this.levelLockedUp="levelLocked";
         this.levelLockedDown="levelLockedDown";
         this.lockedAnimation=false;
+
+        
     
         
         this.buttonlvl1 =  new Image();
@@ -115,11 +117,22 @@ export class levelButtons{
             this.buttonlvl5,
             this.buttonlvl6
         ];
+        var c;
+        for(var i=1;i<7;i++){
+
+            if(i>1){
+                if(i<6 && c[2]==1){
+                    game.playerProgress.changeCookie("level"+i+"locked",1);
+                }
+            }
+            c=game.playerProgress.getCookie("level"+i+"finished",false);
+        }
         this.buttons.forEach((object)=>{
             if(object.locked==0){
                 object.src=document.getElementById(this.levelLockedUp).src;
             }
         });
+
 
     }
 
@@ -129,24 +142,24 @@ export class levelButtons{
         this.buttons.forEach((object)=>{
             object.position.x=map.width/object.relativePositionX +map.offsetX;
             object.position.y=map.height/object.relativePositionY+GameHeight/10;
-            object.height=this.gameWidth/20/this.ratio;
-            object.width=this.gameWidth/20/this.ratio;
+            object.height=GameWidth/20;
+            object.width=GameWidth/20;
             
         });
-
+        
         var c= game.playerProgress.getCookie("soundVolume",false);
         this.buttonAudio.volume=c[2];
-             
+        
     }
     
     draw(ctx){
         this.buttons.forEach((object)=>{
-            ctx.drawImage(object,object.position.x,object.position.y,object.width,object.width);
+            
+                ctx.drawImage(object,object.position.x,object.position.y,object.width,object.width);
+            
+
         });
-        if(this.lockedAnimation==true){
-            ctx.font="30px Arial";
-            ctx.strokeText("hello",200,200,20,20);
-        }
+        
         
         
         

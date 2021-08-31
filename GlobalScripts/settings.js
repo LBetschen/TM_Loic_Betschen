@@ -5,13 +5,14 @@ export class Settings{
         this.gameState = game.gamestate;
         this.constGamewidth = game.gameWidth;
 
-        this.ratio = this.gameWidth / game.gameWidth;
+        
 
 
         this.settingsPage = new Image();
         this.settingsPage.src = document.getElementById("settingsPage").src;
-        this.settingsPage.height = this.settingsPage.naturalHeight*1.5 /  this.ratio;
-        this.settingsPage.width = this.settingsPage.naturalWidth *1.5/  this.ratio;
+        this.settingsPage.ratio=this.settingsPage.naturalHeight/this.settingsPage.naturalWidth;
+        this.settingsPage.height = this.gameWidth/2.2 ;
+        this.settingsPage.width = this.settingsPage.height/this.settingsPage.ratio ;
         this.settingsPage.position = {
             x: this.gameWidth /2-this.settingsPage.width/2,
             y: this.gameHeight /2-this.settingsPage.height/2
@@ -22,11 +23,11 @@ export class Settings{
         this.musicButton.up = "musicButton";
         this.musicButton.mutedUp = "mutedButton";
         this.musicButton.src = document.getElementById(this.musicButton.up).src;
-        this.musicButton.height = this.musicButton.naturalHeight / 2 / this.ratio;
-        this.musicButton.width = this.musicButton.naturalWidth / 2 / this.ratio;
+        this.musicButton.height = this.gameWidth/20 ;
+        this.musicButton.width = this.gameWidth/20  ;
         this.musicButton.position = {
-            x: this.settingsPage.position.x + this.musicButton.width + 10,
-            y: this.settingsPage.position.y +this.musicButton.height*2.05
+            x: this.settingsPage.position.x + this.musicButton.width ,
+            y: this.settingsPage.position.y +this.musicButton.height*2.2
         }
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.25;
@@ -37,11 +38,11 @@ export class Settings{
         this.soundButton.up = "soundButton";
         this.soundButton.mutedUp = "soundMuted";
         this.soundButton.src = document.getElementById(this.soundButton.up).src;
-        this.soundButton.height = this.soundButton.naturalHeight / 2 / this.ratio;
-        this.soundButton.width = this.soundButton.naturalWidth / 2 / this.ratio;
+        this.soundButton.height = this.gameWidth/20 ;
+        this.soundButton.width = this.gameWidth/20  ;
         this.soundButton.position = {
-            x: this.settingsPage.position.x + this.musicButton.width + 10,
-            y: this.musicButton.position.y +this.soundButton.height*1.75
+            x: this.settingsPage.position.x + this.musicButton.width ,
+            y: this.musicButton.position.y +this.soundButton.height*1.9
         }
 
 
@@ -49,24 +50,16 @@ export class Settings{
         this.saveSettings.up = "saveSettings";
         this.saveSettings.down = "saveSettingsDown";
         this.saveSettings.src = document.getElementById(this.saveSettings.up).src;
-        this.saveSettings.height = this.saveSettings.naturalHeight / 2 / this.ratio;
-        this.saveSettings.width = this.saveSettings.naturalWidth / 2 / this.ratio;
+        this.saveSettings.ratio=this.saveSettings.naturalHeight/this.saveSettings.naturalWidth;
+        this.saveSettings.height = this.gameWidth/20  ;
+        this.saveSettings.width = this.saveSettings.height /this.saveSettings.ratio ;
         this.saveSettings.position = {
             x: this.gameWidth /2-this.saveSettings.width/2,
-            y: this.gameHeight /1.3
+            y: this.gameHeight /1.4
         }
 
 
-        this.creditsButton = new Image();
-        this.creditsButton.up = "creditsButton";
-        this.creditsButton.down = "creditsButtonDown";
-        this.creditsButton.src = document.getElementById(this.creditsButton.up).src;
-        this.creditsButton.height = this.creditsButton.naturalHeight / 2 / this.ratio;
-        this.creditsButton.width = this.creditsButton.naturalWidth / 2 / this.ratio;
-        this.creditsButton.position = {
-            x: this.gameWidth / 2-this.creditsButton.width/2,
-            y: this.gameHeight / 1.6
-        }
+        
 
         
         this.musicSwitch = new Image();
@@ -76,8 +69,9 @@ export class Settings{
         this.musicSwitch.offDown="switchOffDown";
          
         this.musicSwitch.src = document.getElementById(this.musicSwitch.onUp).src;
-        this.musicSwitch.height = this.musicSwitch.naturalHeight / 3 / this.ratio;
-        this.musicSwitch.width = this.musicSwitch.naturalWidth / 3 / this.ratio;
+        this.musicSwitch.ratio=this.musicSwitch.naturalHeight/this.musicSwitch.naturalWidth;
+        this.musicSwitch.height = this.gameWidth/30  ;
+        this.musicSwitch.width = this.musicSwitch.height / this.musicSwitch.ratio  ;
         this.musicSwitch.position = {
             x: this.musicButton.position.x+this.gameWidth/15,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicSwitch.height/2
@@ -91,20 +85,23 @@ export class Settings{
         this.soundSwitch.offDown="switchOffDown";
         
         this.soundSwitch.src = document.getElementById(this.soundSwitch.onUp).src;
-        this.soundSwitch.height = this.soundSwitch.naturalHeight / 3 / this.ratio;
-        this.soundSwitch.width = this.soundSwitch.naturalWidth / 3 / this.ratio;
+        this.soundSwitch.height = this.soundSwitch.naturalHeight / 3  ;
+        this.soundSwitch.ratio=this.soundSwitch.naturalHeight/this.soundSwitch.naturalWidth;
+        this.soundSwitch.height = this.gameWidth/30  ;
+        this.soundSwitch.width = this.soundSwitch.height / this.soundSwitch.ratio  ;
         this.soundSwitch.position = {
             x: this.soundButton.position.x+this.gameWidth/15,
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundSwitch.height/2
         }
+       
         
 
         this.musicScroll = new Image();
         this.musicScroll.up = "scrollUp";
         this.musicScroll.down = "scrollDown";
         this.musicScroll.src = document.getElementById(this.musicScroll.up).src;
-        this.musicScroll.height = this.musicScroll.naturalHeight / 3 / this.ratio;
-        this.musicScroll.width = this.musicScroll.naturalWidth / 3 / this.ratio;
+        this.musicScroll.height = this.gameWidth/30 ;
+        this.musicScroll.width = this.gameWidth/30 ;
         this.musicScroll.drag=false;
         this.musicScroll.onScroll=false;
         
@@ -136,8 +133,8 @@ export class Settings{
         this.soundScroll.up = "scrollUp";
         this.soundScroll.down = "scrollDown";
         this.soundScroll.src = document.getElementById(this.soundScroll.up).src;
-        this.soundScroll.height = this.soundScroll.naturalHeight / 3 / this.ratio;
-        this.soundScroll.width = this.soundScroll.naturalWidth / 3 / this.ratio
+        this.soundScroll.height = this.gameWidth/30 ;
+        this.soundScroll.width = this.gameWidth/30 ;
         this.soundScroll.drag=false;
         this.soundScroll.onScroll=false;
 
@@ -175,7 +172,6 @@ export class Settings{
             this.saveSettings,
             this.musicSwitch,
             this.soundSwitch,
-            this.creditsButton,
             this.musicScroll,
             this.soundScroll
         ]
@@ -184,7 +180,7 @@ export class Settings{
     update(deltaTime, GameWidth, GameHeight, gameState, game) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
-        this.ratio = this.constGamewidth / this.gameWidth;
+         
         this.gameState=gameState;
 
         
@@ -195,20 +191,17 @@ export class Settings{
         }
         this.musicButton.position = {
             x: this.settingsPage.position.x + this.musicButton.width + 10,
-            y: this.settingsPage.position.y +this.musicButton.height*2.05
+            y: this.settingsPage.position.y +this.musicButton.height*2.2
         }
         this.soundButton.position = {
             x: this.settingsPage.position.x + this.musicButton.width + 10,
-            y: this.musicButton.position.y +this.soundButton.height*1.75
+            y: this.musicButton.position.y +this.soundButton.height*1.9
         }
         this.saveSettings.position = {
             x: this.gameWidth /2-this.saveSettings.width/2,
-            y: this.gameHeight /1.3
+            y: this.settingsPage.position.y+this.settingsPage.height*0.7
         }
-        this.creditsButton.position = {
-            x: this.gameWidth / 2-this.creditsButton.width/2,
-            y: this.gameHeight / 1.6
-        }
+        
         this.musicSwitch.position = {
             x: this.musicButton.position.x+this.gameWidth/15,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicSwitch.height/2
@@ -227,24 +220,23 @@ export class Settings{
         }
         
 
-        this.settingsPage.height = this.settingsPage.naturalHeight*1.5 /  this.ratio;
-        this.settingsPage.width = this.settingsPage.naturalWidth *1.5/  this.ratio;
-        this.musicButton.height = this.musicButton.naturalHeight / 2 / this.ratio;
-        this.musicButton.width = this.musicButton.naturalWidth / 2 / this.ratio;
-        this.soundButton.height = this.soundButton.naturalHeight / 2 / this.ratio;
-        this.soundButton.width = this.soundButton.naturalWidth / 2 / this.ratio;
-        this.saveSettings.height = this.saveSettings.naturalHeight / 2 / this.ratio;
-        this.saveSettings.width = this.saveSettings.naturalWidth / 2 / this.ratio;
-        this.musicSwitch.height = this.musicSwitch.naturalHeight / 3 / this.ratio;
-        this.musicSwitch.width = this.musicSwitch.naturalWidth / 3 / this.ratio;
-        this.soundSwitch.height = this.soundSwitch.naturalHeight / 3 / this.ratio;
-        this.soundSwitch.width = this.soundSwitch.naturalWidth / 3 / this.ratio;
-        this.creditsButton.height = this.creditsButton.naturalHeight / 2 / this.ratio;
-        this.creditsButton.width = this.creditsButton.naturalWidth / 2 / this.ratio;
-        this.musicScroll.height = this.musicScroll.naturalHeight / 3 / this.ratio;
-        this.musicScroll.width = this.musicScroll.naturalWidth / 3 / this.ratio;
-        this.soundScroll.height = this.soundScroll.naturalHeight / 3 / this.ratio;
-        this.soundScroll.width = this.soundScroll.naturalWidth / 3 / this.ratio;
+        this.settingsPage.height = GameWidth/2.2 ;
+        this.settingsPage.width = this.settingsPage.height/this.settingsPage.ratio ;
+        this.musicButton.height = GameWidth/20  ;
+        this.musicButton.width = GameWidth/20 ;
+        this.soundButton.height = GameWidth/20 ;
+        this.soundButton.width = GameWidth/20  ;
+        this.saveSettings.height = GameWidth/20  ;
+        this.saveSettings.width = this.saveSettings.height /this.saveSettings.ratio ;
+        this.musicSwitch.height = GameWidth/30  ;
+        this.musicSwitch.width = this.musicSwitch.height / this.musicSwitch.ratio  ;
+        this.soundSwitch.height = GameWidth/30  ;
+        this.soundSwitch.width = this.soundSwitch.height / this.soundSwitch.ratio  ;
+        
+        this.musicScroll.height = GameWidth/30 ;
+        this.musicScroll.width = GameWidth/30 ;
+        this.soundScroll.height = GameWidth/30 ;
+        this.soundScroll.width = GameWidth/30 ;
         
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.25;
@@ -304,12 +296,9 @@ export class Settings{
                             }
                             break;
                         case 5:
-                            this.creditsButton.src=document.getElementById(this.creditsButton.down).src;
-                            break;
-                        case 6:
                             this.musicScroll.src=document.getElementById(this.musicScroll.down).src;
                             break;
-                        case 7:
+                        case 6:
                             this.soundScroll.src=document.getElementById(this.soundScroll.down).src;
                             break;
                     }               
@@ -337,12 +326,9 @@ export class Settings{
                         }
                         break;
                     case 5:
-                        this.creditsButton.src=document.getElementById(this.creditsButton.up).src;
-                        break;
-                    case 6:
                         this.musicScroll.src=document.getElementById(this.musicScroll.up).src;
                         break;
-                    case 7:
+                    case 6:
                         this.soundScroll.src=document.getElementById(this.soundScroll.up).src                     
                         break;
                 }          
@@ -403,8 +389,7 @@ export class Settings{
                             break;
                         case 6:
                             break;
-                        case 7:         
-                            break;
+                        
                     }
                 }           
             }

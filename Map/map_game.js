@@ -1,4 +1,3 @@
-import { PauseScreen } from "../GlobalScripts/PauseScreen.js";
 import { Input } from "../GlobalScripts/Input.js";
 import { Map } from "./map.js";
 import { levelButtons } from "./levelButtons.js";
@@ -32,7 +31,6 @@ export class MapGame {
         this.playerProgress.getSavedPlayer(this);
         this.map = new Map(this);
         this.settings=new Settings(this);
-        this.PauseScreen = new PauseScreen(this);
         this.levelButtons = new levelButtons(this);
         
         new Input(this);
@@ -43,11 +41,13 @@ export class MapGame {
         this.audio.play();
     }
 
-    update(deltaTime, gameWidth, gameHeight) {
+    update(deltaTime, gameWidth, gameHeight,FrameOffsetX,FrameOffsetY) {
         this.map.update(deltaTime, gameWidth, gameHeight,this);
         this.levelButtons.update(deltaTime, gameWidth, gameHeight, this.map,this);
         this.settings.update(deltaTime, gameWidth, gameHeight, this.gameState,this)
         this.audio.play();
+        this.frameOffsetX=parseInt(FrameOffsetX);
+        this.frameOffsetY=parseInt(FrameOffsetY);
     }
 
     draw(ctx) {
