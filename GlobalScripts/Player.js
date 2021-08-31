@@ -38,7 +38,7 @@ export class Player{
         this.bullet.src=document.getElementById("fireball").src;
         this.bullet.height=40;
         this.bullet.width=40;
-        this.bullet.speed=12;
+        this.bullet.speed=1;
         this.bullets=[];
         this.bulletAmmo=5;
 
@@ -49,7 +49,7 @@ export class Player{
         this.offsetY=0;
 
 
-        this.x_maxSpeed=this.gameWidth/140;
+        this.x_maxSpeed=1;
         this.x_speed = 0;
         this.y_speed =0;
         
@@ -106,14 +106,14 @@ export class Player{
         
         
         
-        this.x_maxSpeed=GameWidth/200;
-        this.y_speed+=GameHeight/1000;
+        this.x_maxSpeed=GameWidth/2500;
+        this.y_speed+=GameHeight/10000;
         
         for(var k=0;k<this.bullets.length;k++){//moves bullets 
             if(this.offsetX==0 ){
-                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir;
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir*deltaTime;
             }else{
-                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir-this.x_speed;
+                this.bullets[k].x+=this.bullet.speed*this.bullets[k].dir*deltaTime-this.x_speed*deltaTime;
             }
         }
         
@@ -328,25 +328,25 @@ export class Player{
            
         if(this.offsetX>=0 ){//moves map and player depending on the pos of the map and the player
             this.offsetX=0;
-            this.position.x+=this.x_speed;
+            this.position.x+=this.x_speed*deltaTime;
         }else if(this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.width/2){
             this.offsetX=-game.map.maxMapWidth+this.gameWidth+this.width/2;
-            this.position.x+=this.x_speed;
+            this.position.x+=this.x_speed*deltaTime;
         }
         if(this.position.x>this.gameWidth/2-this.width/2 && this.offsetX>=0){
-            this.offsetX-=this.x_speed;
+            this.offsetX-=this.x_speed*deltaTime;
         }else if(this.position.x<this.gameWidth/2-this.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.width/2){
-            this.offsetX-=this.x_speed;
+            this.offsetX-=this.x_speed*deltaTime;
         }
         if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.width/2 && this.offsetX<0 ){
-            this.offsetX-=this.x_speed;
+            this.offsetX-=this.x_speed*deltaTime;
         }
 
            
            
         
         
-        this.position.y+=this.y_speed;
+        this.position.y+=this.y_speed*deltaTime;
         this.x_speed*=this.friction;
 
 
@@ -482,7 +482,7 @@ export class Player{
     jump(GameHeight){
         this.Ydirection="up"
         if(this.jumping==false){
-            this.y_speed-=this.gameHeight/50; 
+            this.y_speed-=this.gameHeight/750; 
             this.jumping=true;
             i=0;
             this.jumpAudio.play();
@@ -490,7 +490,7 @@ export class Player{
             
             
         }else if(this.jumping==true && this.doubleJump==false){
-            this.y_speed-=this.gameHeight/50; 
+            this.y_speed-=this.gameHeight/750; 
             this.doubleJump=true;
             
             this.doubleJumpAudio.play();
@@ -507,14 +507,14 @@ export class Player{
     stopRight(){
         this.controller.right=false;
         if(this.controller.left==false){
-            this.friction=0.9; 
+            this.friction=0.87; 
         }
         
     }
     stopLeft(){
         this.controller.left=false;
         if(this.controller.right==false){
-            this.friction=0.9; 
+            this.friction=0.87; 
         }
     }
 
