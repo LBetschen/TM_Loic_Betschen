@@ -1,5 +1,6 @@
 var i=1;
 var t;
+var dk=1;
 export class Player{
     constructor(game){
         this.hero = new Image();
@@ -25,8 +26,8 @@ export class Player{
         this.gameHeight=game.gameHeight;
 
         this.position={
-            x: 200,
-            y: 0
+            x: this.gameWidth/8,
+            y: this.gameHeight/12*11-this.height
         }
         
         this.controller={
@@ -127,7 +128,7 @@ export class Player{
                 var x=(k%game.map.columns)*game.map.tileWidth + this.offsetX;
                 var y=Math.floor(k/game.map.columns)*game.map.tileWidth ;  
                 
-                if(this.position.y+this.y_speed+this.height>y+game.map.tileHeight/5 && this.Ydirection=="down" && this.position.x+this.width>x && this.position.x<x+game.map.tileWidth){
+                if(this.position.y+this.y_speed+this.height>y+game.map.tileHeight/5 && this.Ydirection=="down" && this.position.x+this.width/1.2>x && this.position.x+this.width/10<x+game.map.tileWidth){
                     if(y-game.map.tileHeight>this.position.y){
                         this.position.y=y+game.map.tileHeight/5-this.height;
                         this.y_speed=0;
@@ -136,6 +137,15 @@ export class Player{
                     this.doubleJump=false;
                 }//checks ground collision 
                 
+                if( this.Ydirection=="up" && this.position.y<y+game.map.tileHeight&&this.position.y>y&&this.position.x+this.width/1.2>x && this.position.x+this.width/10<x+game.map.tileWidth){
+                    
+                        this.position.y=y+game.map.tileHeight;
+                        this.y_speed=0;
+                    
+                    
+                        
+                }//checks head collision 
+
                 if(this.position.x+this.x_speed<x+game.map.tileWidth && this.Xdirection=="left" && this.position.x>x && this.position.x< x+game.map.tileWidth){
                     if(this.position.y>y && this.position.y<y+game.map.tileHeight || this.position.y+game.map.tileHeight>y && this.position.y+game.map.tileHeight<y+game.map.tileHeight){
                         if(this.offsetX==0){
@@ -144,7 +154,9 @@ export class Player{
                         }else{
                             this.x_speed=0;
                         }
+
                     }
+                    
                 }//checks side collision
                 
                 if(this.position.x+this.x_speed+this.width>x && this.Xdirection=="right" &&  this.position.x<x && this.position.x> x-game.map.tileWidth){
@@ -155,6 +167,7 @@ export class Player{
                         }else{
                             this.x_speed=0;
                         }
+
                     }
                 }//checks side collision
 
@@ -612,6 +625,14 @@ export class Player{
         }
 
     }
+    endAnimation(GameWidth,GameHeight,ctx){
+        var shade=dk/100;
+        ctx.fillStyle="rgba(0,0,0,"+shade+")";
+        ctx.fillRect(0,0,GameWidth,GameHeight);
+        dk++;
+    }
+
+    
 
     
 }

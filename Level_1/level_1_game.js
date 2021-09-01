@@ -20,7 +20,7 @@ const GAMESTATE = {
 }
 
 export class level1Game {
-    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
@@ -30,7 +30,7 @@ export class level1Game {
 
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound3").src;
-        this.level="level1";
+        this.level=Level;
         
     }
 
@@ -97,6 +97,7 @@ export class level1Game {
     }
 
     draw(ctx,GameWidth,GameHeight) {
+       
         this.background.draw(ctx,GameWidth,GameHeight);
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
@@ -126,6 +127,8 @@ export class level1Game {
                 break;
             case 6:
                 this.player.draw(ctx);
+                this.player.endAnimation(GameWidth,GameHeight,ctx);
+
                 break;
         }
         

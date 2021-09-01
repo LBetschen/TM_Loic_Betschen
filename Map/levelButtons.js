@@ -37,8 +37,8 @@ export class levelButtons{
         this.buttonlvl2.target="../Level_2/level_2.html";
         this.buttonlvl2.height=this.gameWidth/20;
         this.buttonlvl2.width=this.gameWidth/20;
-        this.buttonlvl2.relativePositionX=1.85;
-        this.buttonlvl2.relativePositionY=4.5;
+        this.buttonlvl2.relativePositionX=4;
+        this.buttonlvl2.relativePositionY=1.75;
         this.buttonlvl2.position={
             x:this.gameWidth/this.buttonlvl2.relativePositionX,
             y:this.gameHeight/this.buttonlvl2.relativePositionY
@@ -52,8 +52,8 @@ export class levelButtons{
         this.buttonlvl3.target="../Level_3/level_3.html";
         this.buttonlvl3.height=this.gameWidth/20;
         this.buttonlvl3.width=this.gameWidth/20;
-        this.buttonlvl3.relativePositionX=1.4;
-        this.buttonlvl3.relativePositionY=4.5;
+        this.buttonlvl3.relativePositionX=1.95;
+        this.buttonlvl3.relativePositionY=2;
         this.buttonlvl3.position={
             x:this.gameWidth/this.buttonlvl3.relativePositionX,
             y:this.gameHeight/this.buttonlvl3.relativePositionY
@@ -68,8 +68,8 @@ export class levelButtons{
         this.buttonlvl4.target="../Level_4/level_4.html";
         this.buttonlvl4.height=this.gameWidth/20;
         this.buttonlvl4.width=this.gameWidth/20;
-        this.buttonlvl4.relativePositionX=4;
-        this.buttonlvl4.relativePositionY=1.75;
+        this.buttonlvl4.relativePositionX=1.85;
+        this.buttonlvl4.relativePositionY=4.5;
         this.buttonlvl4.position={
             x:this.gameWidth/this.buttonlvl4.relativePositionX,
             y:this.gameHeight/this.buttonlvl4.relativePositionY
@@ -84,8 +84,8 @@ export class levelButtons{
         this.buttonlvl5.target="../Level_5/level_5.html";
         this.buttonlvl5.height=this.gameWidth/20;
         this.buttonlvl5.width=this.gameWidth/20;
-        this.buttonlvl5.relativePositionX=1.95;
-        this.buttonlvl5.relativePositionY=2;
+        this.buttonlvl5.relativePositionX=1.4;
+        this.buttonlvl5.relativePositionY=4.5;
         this.buttonlvl5.position={
             x:this.gameWidth/this.buttonlvl5.relativePositionX,
             y:this.gameHeight/this.buttonlvl5.relativePositionY
