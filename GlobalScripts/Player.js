@@ -503,7 +503,7 @@ export class Player{
             
             
         }else if(this.jumping==true && this.doubleJump==false){
-            this.y_speed-=this.gameHeight/750; 
+            this.y_speed-=this.gameHeight/800/2; 
             this.doubleJump=true;
             
             this.doubleJumpAudio.play();
@@ -520,14 +520,14 @@ export class Player{
     stopRight(){
         this.controller.right=false;
         if(this.controller.left==false){
-            this.friction=0.87; 
+            this.friction=0.8; 
         }
         
     }
     stopLeft(){
         this.controller.left=false;
         if(this.controller.right==false){
-            this.friction=0.87; 
+            this.friction=0.8; 
         }
     }
 
@@ -544,7 +544,7 @@ export class Player{
     
             }else{
                 direction=1;
-                x_bullet=this.position.x+this.hero.width;
+                x_bullet=this.position.x+this.width;
             }
             this.fireball={
                 x:x_bullet,
@@ -553,10 +553,9 @@ export class Player{
     
             }
             this.bullets.push(this.fireball);
-            
+            console.log(this.bullets[0]);
             this.bulletAmmo--;
         }
-
         
 
     }

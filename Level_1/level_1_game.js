@@ -28,8 +28,7 @@ export class level1Game {
         this.frameOffsetY=parseInt(FrameOffsetY);
         
 
-        this.audio = new Audio();//audio for the menu
-        this.audio.src = document.getElementById("backgroundSound3").src;
+        
         this.level=Level;
         
     }
@@ -58,9 +57,7 @@ export class level1Game {
         this.intro.start(this);
 
         
-        var c=this.playerProgress.getCookie("musicVolume",false);
-        this.audio.volume=c[2];
-        this.audio.play();
+        
 
 
     }
