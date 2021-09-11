@@ -1,6 +1,30 @@
 var j=1;
 export class Map{
     constructor(game,player){
+        this.gameWidth=game.gameWidth;
+        this.gameHeight=game.gameHeight;
+
+        this.back=new Image();
+        this.back.src=document.getElementById("background").src;
+        this.back.ratio=this.back.naturalHeight/this.back.naturalWidth;
+        this.back.width=this.gameWidth;
+        this.back.height=this.back.width*this.back.ratio;
+        this.back.position={
+            x:0,
+            y:game.gameHeight-this.back.height
+        }
+
+        this.tuto=new Image();
+        this.tuto.src=document.getElementById("tuto").src;
+        this.tuto.ratio=this.tuto.naturalWidth/this.tuto.naturalHeight;
+        this.tuto.width=game.gameWidth/3;
+        this.tuto.height=this.tuto.width/this.tuto.ratio;
+        this.tuto.position={
+            x:game.gameWidth/20+game.player.offsetX,
+            y:game.gameHeight/5
+        }
+        
+
         this.tileMap=new Image();
         this.tileMap.src=document.getElementById("map").src;
         this.tileMap.size={
@@ -44,12 +68,27 @@ export class Map{
         this.tileWidth=GameHeight/12;
         this.tileHeight=GameHeight/12;
 
+        this.back.width=GameWidth;
+        this.back.height=this.back.width*this.back.ratio;
+        this.back.position={
+            x:0,
+            y:GameHeight-this.back.height
+        }
+        this.tuto.width=GameWidth/3;
+        this.tuto.height=this.tuto.width/this.tuto.ratio;
+        this.tuto.position={
+            x:GameWidth/20+game.player.offsetX,
+            y:GameHeight/5
+        }
+
 
     }
 
     draw(ctx,game){
             
-       
+            ctx.drawImage(this.back,this.back.position.x,this.back.position.y,this.back.width,this.back.height);
+            ctx.drawImage(this.tuto,this.tuto.position.x,this.tuto.position.y,this.tuto.width,this.tuto.height);
+
             for(var i = 0;i<this.map.length;i++){
                 var value=this.map[i];
                 
@@ -87,6 +126,8 @@ export class Map{
                 
                 
             }
+            
+
 
         
         

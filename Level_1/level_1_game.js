@@ -5,7 +5,6 @@ import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 import { Settings } from "../GlobalScripts/settings.js";
 import { Map } from "../GlobalScripts/map.js";
-import { Background } from "./level_1_background.js";
 import { GameOver } from "../GlobalScripts/GameOver.js";
 import { Intro } from "./level_1_intro.js";
 
@@ -45,7 +44,6 @@ export class level1Game {
         this.gameState = GAMESTATE.RUNNING;
         this.buttons = new LevelButtons(this);
         this.map=new Map(this,this.player);
-        this.background = new Background(this);
         this.gameOver = new GameOver(this);
         this.intro=new Intro(this);
      
@@ -68,7 +66,6 @@ export class level1Game {
 
         switch (this.gameState){
             case 0:
-                this.background.update(deltaTime,GameWidth,GameHeight,this);
                 this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
                 this.map.update(deltaTime, GameWidth, GameHeight,this);
                 this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
@@ -95,7 +92,6 @@ export class level1Game {
 
     draw(ctx,GameWidth,GameHeight) {
        
-        this.background.draw(ctx,GameWidth,GameHeight);
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
 

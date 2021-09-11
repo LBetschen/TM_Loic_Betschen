@@ -11,6 +11,7 @@ export class Intro{
             x:game.gameWidth/2-this.width/2,
             y:game.gameHeight/10
         }
+        
 
         document.addEventListener("keydown",(event)=>{
             switch (event.keyCode){
