@@ -8,11 +8,9 @@ export class Input{
                     break;
                 case 65:
                     game.player.moveLeft();
-                    game.background.moveLeft();
                     break;
                 case 68:
                     game.player.moveRight();
-                    game.background.moveRight();
                     break;
                 case 32:
                     game.player.fire();
@@ -22,11 +20,10 @@ export class Input{
                     break;
                 case 37:
                     game.player.moveLeft();
-                    game.background.moveLeft();
+                    
                     break;
                 case 39:
                     game.player.moveRight();
-                    game.background.moveRight();
                     break;
                 case 38:
                     game.player.jump(game.GameHeight);
@@ -43,12 +40,10 @@ export class Input{
             switch (event.keyCode){
                 case 65:
                     game.player.stopLeft();
-                    game.background.stopLeft();
                     break;
 
                 case 68:                   
                     game.player.stopRight();
-                    game.background.stopRight();
                     break;    
                 case 37:
                     game.player.stopLeft();
@@ -57,7 +52,6 @@ export class Input{
 
                 case 39:                   
                     game.player.stopRight();
-                    game.background.stopRight();
                     break;                                   
             }
         });      

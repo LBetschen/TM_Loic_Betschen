@@ -28,15 +28,17 @@ export class Game {
 
         this.aboutPage=new Image();
         this.aboutPage.src=document.getElementById("aboutText").src;
-        this.aboutPage.height=this.aboutPage.naturalHeight;
-        this.aboutPage.width=this.aboutPage.naturalWidth;
+        this.aboutPage.ratio=this.aboutPage.naturalHeight/this.aboutPage.naturalWidth;
+        this.aboutPage.height=gameHeight/1.2;
+        this.aboutPage.width=this.aboutPage.height/this.aboutPage.ratio;
         this.aboutPage.position={
-            x:this.gameWidth/2-this.aboutPage.width/2,
-            y:this.gameHeight/2-this.aboutPage.width/2
+            x:gameWidth/2-this.aboutPage.width/2,
+            y:gameHeight/2-this.aboutPage.height/2
         }
 
 
     }
+    
 
     start() {
      
@@ -80,8 +82,8 @@ export class Game {
             this.menu.input.style.display="none"; 
          }
 
-        this.aboutPage.height=this.aboutPage.naturalHeight*1.5;
-        this.aboutPage.width=this.aboutPage.naturalWidth*1.5;
+        this.aboutPage.height=gameHeight/1.2;
+        this.aboutPage.width=this.aboutPage.height/this.aboutPage.ratio;
         this.aboutPage.position={
             x:gameWidth/2-this.aboutPage.width/2,
             y:gameHeight/2-this.aboutPage.height/2
