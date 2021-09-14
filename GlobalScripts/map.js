@@ -101,7 +101,10 @@ export class Map{
                         var y=Math.floor(i/this.columns)*this.tileWidth ;
     
                         ctx.drawImage(this.tileMap,source_x,source_y,this.tileMap.size.width,this.tileMap.size.height,x,y,this.tileWidth,this.tileWidth);
-                    }
+
+                        //ctx.clearRect(x, y, width, height);
+
+                        }
                     
                     if(value==30){
                         var source_x=(j%this.waterFall.size.columns)*this.waterFall.size.width;

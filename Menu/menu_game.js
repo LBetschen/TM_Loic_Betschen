@@ -60,7 +60,6 @@ export class Game {
         this.audio.play();
         var c = this.playerProgress.getCookie("musicVolume",false);
         this.audio.volume=parseInt(c[2]);
-        console.log(c);
         this.audio.play();
         
 

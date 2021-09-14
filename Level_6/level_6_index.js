@@ -48,3 +48,4 @@ function gameLoop(timestamp){
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
+

@@ -91,6 +91,9 @@ export class level1Game {
     }
 
     draw(ctx,GameWidth,GameHeight) {
+
+
+        
        
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
