@@ -79,7 +79,6 @@ export class PlayerProgress {
 
         if (document.cookie.length == 0 ) {
             game.savedGame = true;
-            
             for (var i = 0; i < this.newPlayerVariables.length; i++) { 
                     document.cookie = this.newPlayerVariables[i] + "=" +this.newPlayerProgress[i] + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
             }
@@ -93,7 +92,6 @@ export class PlayerProgress {
 
     updatePlayerVariables() {
         var cookies = document.cookie.split("; ");
-        
         for (var i = 0; i < cookies.length; i++) {
             var variables = cookies[i].split("=");
             this.playerVariables[i] = variables[0];//updates this.newPlayerVariables so that variables in this.newPlayerVariables are at the same index as the variables in the cookies
