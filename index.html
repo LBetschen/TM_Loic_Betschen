@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game</title>
-    <style>
-      body {
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+</head>
+<style>
+  body {
         margin: 0px;
       }
       canvas {
@@ -45,11 +46,13 @@
       div{
         display: none;
       }
-    </style>
+</style>
+<body>
     
-  </head>
-  <body>
-    <img id="aboutButton" src="./Assets/GUI/About.png" />
+    
+    
+
+  <img id="aboutButton" src="./Assets/GUI/About.png" />
     <img id="aboutButtonDown" src="./Assets/GUI/AboutDown.png" />
     <img id="aboutText" src="./Assets/AboutPage.png">
     <img id="settingsButton" src="./Assets/GUI/SettingsButton.png" />
@@ -99,8 +102,7 @@
       list="playerNames"
       autocomplete="off"
     />
-
+    <script type="module" src="./Menu/menu_index.js"></script>
     
-    <script type="module" src="./Menu/menu_index.js">
-  </body>
+</body>
 </html>
