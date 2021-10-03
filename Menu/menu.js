@@ -56,6 +56,16 @@ export class Menu {
             y: this.gameHeight / 50
         }
 
+        this.title = new Image();
+        this.title.src = document.getElementById("title").src;
+        this.title.ratio=this.title.naturalHeight/this.title.naturalWidth;
+        this.title.height = this.gameWidth / 1;
+        this.title.width = this.title.height *this.title.ratio;
+        this.title.position = {
+            x: this.gameWidth / 2 - this.title.width / 2,
+            y: 0
+        }
+
         
 
         this.gameButtons = [
@@ -109,6 +119,13 @@ export class Menu {
         this.newGameButton.width = this.newGameButton.height/this.newGameButton.ratio;
         this.resumeGame.height =GameWidth / 30;
         this.resumeGame.width = this.resumeGame.height /this.resumeGame.ratio;
+
+        this.title.height = GameWidth / 1.5;
+        this.title.width = this.title.height *this.title.ratio;
+        this.title.position = {
+            x: GameWidth / 2 - this.title.width / 2,
+            y: 0
+        }
         
         this.input.style.height = GameHeight /25+ "px";
         this.input.style.width = GameWidth / 5 + "px";
@@ -128,7 +145,8 @@ export class Menu {
             ctx.drawImage(this.resumeGame, this.resumeGame.position.x, this.resumeGame.position.y, this.resumeGame.width, this.resumeGame.height);
             this.input.style.left = game.gameWidth / 2 - this.input.offsetWidth / 2 + "px";
             this.input.style.top = this.resumeGame.position.y + this.newGameButton.height * 1.5 + "px";
-        }
+        } 
+        ctx.drawImage(this.title,this.title.position.x,this.title.position.y,this.title.width,this.title.height);
         
     }
 
