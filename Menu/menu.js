@@ -59,11 +59,11 @@ export class Menu {
         this.title = new Image();
         this.title.src = document.getElementById("title").src;
         this.title.ratio=this.title.naturalHeight/this.title.naturalWidth;
-        this.title.height = this.gameWidth / 1;
-        this.title.width = this.title.height *this.title.ratio;
+        this.title.height = this.gameWidth / 8;
+        this.title.width = this.title.height /this.title.ratio;
         this.title.position = {
             x: this.gameWidth / 2 - this.title.width / 2,
-            y: 0
+            y: this.gameHeight/50
         }
 
         
@@ -120,11 +120,11 @@ export class Menu {
         this.resumeGame.height =GameWidth / 30;
         this.resumeGame.width = this.resumeGame.height /this.resumeGame.ratio;
 
-        this.title.height = GameWidth / 1.5;
-        this.title.width = this.title.height *this.title.ratio;
+        this.title.height = GameWidth / 8;
+        this.title.width = this.title.height /this.title.ratio;
         this.title.position = {
             x: GameWidth / 2 - this.title.width / 2,
-            y: 0
+            y: GameHeight/50
         }
         
         this.input.style.height = GameHeight /25+ "px";
@@ -173,11 +173,11 @@ export class Menu {
         
         var c = game.playerProgress.getCookie(name, false);//gets the index of name in array info
         
-        if (c[2] == 0 ) {
-            this.input.value = "PLAYER NAME";
-        } else {
-
+        if (c[2] != 0 ) {
             this.input.value = c[2];
-        }
+        } 
+
+            
+        
     }
 }
