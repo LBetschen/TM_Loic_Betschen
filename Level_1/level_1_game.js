@@ -64,10 +64,10 @@ export class level1Game {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
 
+        this.map.update(deltaTime, GameWidth, GameHeight,this);
         switch (this.gameState){
             case 0:
                 this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
-                this.map.update(deltaTime, GameWidth, GameHeight,this);
                 this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
                 break;
             case 1:

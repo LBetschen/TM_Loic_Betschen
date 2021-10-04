@@ -46,8 +46,8 @@ function gameLoop(timestamp){
     let frameOffsetX=canvas.style.left;
     let frameOffsetY=canvas.style.top;
    
-    level1game.update(deltaTime,GameWidth,GameHeight,ctx,frameOffsetX,frameOffsetY);
     level1game.draw(ctx,GameWidth,GameHeight);    
+    level1game.update(deltaTime,GameWidth,GameHeight,ctx,frameOffsetX,frameOffsetY);
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);

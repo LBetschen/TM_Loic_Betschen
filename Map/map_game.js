@@ -4,11 +4,12 @@ import { levelButtons } from "./levelButtons.js";
 import { Settings } from "../GlobalScripts/settings.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 
-
+var dk=1;
 const GAMESTATE = {
     RUNNING: 0,
     PAUSED: 1,
     SETTINGS:2,
+    LEVELANIMATION:3
 }
 
 export class MapGame {
@@ -26,14 +27,14 @@ export class MapGame {
         this.audio.src = document.getElementById("backgroundSound2").src;
     }
 
-    start() {
+    start(ctx) {
         this.playerProgress=new PlayerProgress(this);
         this.playerProgress.getSavedPlayer(this);
         this.map = new Map(this);
         this.settings=new Settings(this);
         this.levelButtons = new levelButtons(this);
         
-        new Input(this);
+        new Input(this,ctx);
         
         this.gameState=GAMESTATE.RUNNING;
         var c=this.playerProgress.getCookie("musicVolume",false);
@@ -48,12 +49,17 @@ export class MapGame {
         this.audio.play();
         this.frameOffsetX=parseInt(FrameOffsetX);
         this.frameOffsetY=parseInt(FrameOffsetY);
+        this.gameWidth = gameWidth;
+        this.gameHeight = gameHeight;
     }
-
+    
     draw(ctx) {
         this.map.draw(ctx);
         this.levelButtons.draw(ctx);
         this.settings.draw(ctx, this.gameState, this);
+        if(this.gameState==3){
+            this.levelAnimation(this.gameWidth,this.gameHeight,ctx);
+        }
         
     }
 
@@ -70,13 +76,20 @@ export class MapGame {
 
     }
 
-    toggleClick(mouseX, mouseY) {
+    toggleClick(mouseX, mouseY,ctx) {
         if(this.gameState==0){
-            this.levelButtons.toggleLevels(mouseX, mouseY);
+            this.levelButtons.toggleLevels(mouseX, mouseY,this,ctx);
             
         }else{
             this.settings.toggleButtonClick(this,mouseX,mouseY);
         }
         this.map.toggleClick(mouseX, mouseY,this);
+    }
+
+    levelAnimation(GameWidth,GameHeight,ctx){
+        var shade=dk/100;
+        ctx.fillStyle="rgba(0,0,0,"+shade+")";
+        ctx.fillRect(0,0,GameWidth,GameHeight);
+        dk++;
     }
 }

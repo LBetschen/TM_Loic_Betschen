@@ -118,6 +118,8 @@ export class level1Game {
             case 6:
                 this.player.draw(ctx);
                 break;
+            case 7:
+                this.levelAnimation(ctx);
         }
         
     }

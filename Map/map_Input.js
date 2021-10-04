@@ -1,5 +1,5 @@
 export class MapInput{
-    constructor(game){  
+    constructor(game,ctx){  
         document.addEventListener("keydown",(event)=>{
 
         });
@@ -7,7 +7,7 @@ export class MapInput{
         document.addEventListener("click",(event)=>{
             let mouseX=event.clientX-game.frameOffsetX;
             let mouseY=event.clientY-game.frameOffsetY;
-                game.toggleClick(mouseX,mouseY);
+                game.toggleClick(mouseX,mouseY,ctx);
         });
 
         document.addEventListener("mousemove",(event)=>{

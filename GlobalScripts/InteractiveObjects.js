@@ -9,8 +9,8 @@ export class InteractiveObjects {
         this.coinSheet.size={
             columns:16,
             lignes:1,
-            width:256,
-            height:256
+            width:840,
+            height:859
         }
         this.coinHeight=this.height*0.75;
         this.coinWidth=this.width*0.75;
@@ -80,7 +80,7 @@ export class InteractiveObjects {
 
     start(ctx, game) {
 
-        this.coinAnimation(ctx);
+        //this.coinAnimation(ctx);
         this.readFiles();
         //getting all the saved progress
         this.cScore = game.playerProgress.getCookie(game.level+"score",false);
@@ -135,13 +135,11 @@ export class InteractiveObjects {
             switch (value){
                 case 1:
                     if (this.coins[coinsIndex] == 1) {
-        
-                        var source_x=(i%this.coinSheet.size.columns)*this.coinSheet.size.width;
-                        var source_y=0;
+
                         var x = (j % this.columns) * this.width + game.player.offsetX;
                         var y = Math.floor(j / this.columns) * this.width;
                        
-                        ctx.drawImage(this.coinSheet,source_x,source_y,this.coinSheet.size.width,this.coinSheet.size.height,x,y,this.coinWidth,this.coinHeight);
+                        ctx.drawImage(this.coinSheet,x,y,this.coinWidth,this.coinHeight);
                     }
                     coinsIndex++;
                     break;

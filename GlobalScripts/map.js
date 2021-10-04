@@ -100,7 +100,7 @@ export class Map{
                         var x=(i%this.columns)*this.tileWidth + game.player.offsetX;
                         var y=Math.floor(i/this.columns)*this.tileWidth ;
     
-                        ctx.drawImage(this.tileMap,source_x,source_y,this.tileMap.size.width,this.tileMap.size.height,x,y,this.tileWidth,this.tileWidth);
+                        ctx.drawImage(this.tileMap,source_x,source_y,this.tileMap.size.width,this.tileMap.size.height-1,x,y,this.tileWidth,this.tileWidth);
 
                         //ctx.clearRect(x, y, width, height);
 

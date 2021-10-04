@@ -164,7 +164,7 @@ export class levelButtons{
         
         
     }
-l
+
     toggleButton(mouseX,mouseY){
 
         this.buttons.forEach((object)=>{
@@ -196,7 +196,7 @@ l
             });
         }
         
-        toggleLevels(mouseX,mouseY){
+        toggleLevels(mouseX,mouseY,game,ctx,){
             
             this.buttons.forEach((object)=>{
                 if(mouseX>=object.position.x && 
@@ -205,7 +205,11 @@ l
                     mouseY <= object.position.y+object.height)
                     {   
                         if(object.locked==1){
-                        window.location=object.target;
+                            var timeout;
+                            game.gameState=3;
+                            
+                            timeout=setTimeout(function(){window.location=object.target;},2000);
+                        
                         }else{
                             this.lockedAnimation=true;
                         }

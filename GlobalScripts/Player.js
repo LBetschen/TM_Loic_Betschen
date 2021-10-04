@@ -198,6 +198,8 @@ export class Player{
         var index=0;
         var eindex=0;
         var hindex=0;
+        var tindex=0;
+        var pindex=0;
         var hit=false;
         for(var k=0;k<game.interactiveObjects.coinMap.length;k++){//checks if player and bullets are colliding with interactive objects(coins,enemies,chests,checkpoints)
             var value = game.interactiveObjects.coinMap[k];
@@ -214,19 +216,22 @@ export class Player{
             if(value==4 || value==5){//collision with chests to display text
                 if(value==4 || value==5){
                 
-                    if(this.position.x>x-this.hero.width && this.position.x<x+game.interactiveObjects.width){
-                        if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
+                    if(x+game.interactiveObjects.trashChest.width>this.position.x && x<this.position.x+this.width
+                        && y+game.interactiveObjects.trashChest.height>this.position.y && y<this.position.y+this.height){
                             hit=true;
-                        }
                     }
                     ctx.font="20px Arial";
                     if(hit==true){
                         switch (value){
                             case 4:
-                                ctx.fillText("Press E to open",x,y-100);
+                                if(game.interactiveObjects.trashChests[tindex]==1){
+                                    ctx.fillText("Press E to open",x,y-100);
+                                }
                                 break;
                             case 5:
-                                ctx.fillText("Press E to open",x,y-100);
+                                if(game.interactiveObjects.powerChests[pindex]==1){
+                                    ctx.fillText("Press E to open",x,y-100);
+                                }
                                 break;
                             } 
                     }
@@ -235,27 +240,13 @@ export class Player{
                 }
             }else if(value!=0){//other collisions
                 
-                if(this.Ydirection=="down" && this.position.y+this.y_speed+this.height>y+game.interactiveObjects.height  && 
-                this.position.x+this.width>x && this.position.x<x+game.interactiveObjects.width){
-                    if(y-game.interactiveObjects.height>this.position.y){               
-                            hit=true;
-                    }
-                }
-                if(this.Ydirection=="up" && this.position.y+this.y_speed+this.height>y+game.interactiveObjects.height  && this.position.x+this.width>x && this.position.x<x+game.interactiveObjects.width){
-                    if(y-game.interactiveObjects.height>this.position.y){
+                     
+
+
+                if(x+game.interactiveObjects.width>this.position.x+this.width*0.3 && x<this.position.x+this.width*0.7
+                    && y+game.interactiveObjects.height*0.75>this.position.y && y<this.position.y+this.height){
                         hit=true;
-                    }
                 }
-                if(this.Xdirection=="left" && this.position.x+this.x_speed<x+game.interactiveObjects.width && this.position.x>x && this.position.x< x+game.interactiveObjects.width){
-                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){              
-                        hit=true;
-                    }
-                } 
-                if(this.Xdirection=="right" && this.position.x+this.x_speed+this.width>x  &&  this.position.x<x && this.position.x> x-game.interactiveObjects.width){
-                    if(this.position.y>y && this.position.y<y+game.interactiveObjects.height || this.position.y+game.interactiveObjects.height>y && this.position.y+game.interactiveObjects.height<y+game.interactiveObjects.height){
-                        hit=true;    
-                    }
-                }              
                 for(var j=0;j<this.bullets.length;j++){//bullet collisions with enemies
        
                     if(this.bullets[j].dir==-1 && this.bullets[j].x<x+game.map.tileWidth && x<this.bullets[j].x &&
@@ -336,6 +327,12 @@ export class Player{
                         break;
                     case 3:
                         eindex++;
+                        break;
+                    case 4:
+                        tindex++;
+                        break;
+                    case 5:
+                        pindex++;
                         break;
                     case 6:
                         hindex++;
