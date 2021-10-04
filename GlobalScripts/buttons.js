@@ -93,7 +93,8 @@ export class LevelButtons{
         ctx.font = "50px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
-        ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
+
+        //ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
         this.buttons.forEach((object)=>{
            
             ctx.drawImage(object,object.position.x,object.position.y,object.width,object.height);

@@ -5,7 +5,7 @@ import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 import { Settings } from "../GlobalScripts/settings.js";
 import { Map } from "../GlobalScripts/map.js";
-import { GameOver } from "../GlobalScripts/GameOver.js";
+
 import { Intro } from "./level_1_intro.js";
 
 const GAMESTATE = {
@@ -44,7 +44,7 @@ export class level1Game {
         this.gameState = GAMESTATE.RUNNING;
         this.buttons = new LevelButtons(this);
         this.map=new Map(this,this.player);
-        this.gameOver = new GameOver(this);
+        
         this.intro=new Intro(this);
      
         new Input(this);
@@ -79,7 +79,6 @@ export class level1Game {
             case 3:
                 break;
             case 4:
-                this.gameOver.update(deltaTime, GameWidth, GameHeight);
                 this.buttons.update(deltaTime, GameWidth, GameHeight);
                 break;
             case 5:
@@ -105,6 +104,7 @@ export class level1Game {
             case 1:
                 this.player.draw(ctx);
                 this.buttons.draw(ctx);
+                ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
                 break;
             case 2:
                 this.player.draw(ctx);
@@ -115,8 +115,10 @@ export class level1Game {
                 break;
             case 4:
                 this.player.draw(ctx);
-                this.gameOver.draw(ctx);
                 this.buttons.draw(ctx);
+                ctx.fillText("Game Over", this.gameWidth / 2, this.gameHeight / 4)
+                
+                
                 break;
             case 5:
                 this.intro.draw(ctx);
@@ -177,6 +179,7 @@ export class level1Game {
                 break;
         }
     }
+    
     
 
 
