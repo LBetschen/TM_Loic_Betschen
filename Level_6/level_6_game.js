@@ -29,6 +29,8 @@ export class level1Game {
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound3").src;
         this.level="level6";
+
+    
         
     }
 
