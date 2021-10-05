@@ -36,6 +36,9 @@ export class Game {
             y:gameHeight/2-this.aboutPage.height/2
         }
 
+        this.buttonAudio=new Audio();
+        this.buttonAudio.src=document.getElementById("buttonAudio").src;
+
 
     }
     
@@ -111,8 +114,13 @@ export class Game {
                 mouseY >= object.position.y &&
                 mouseY <= object.position.y + object.height) {
                 object.src = document.getElementById(object.down).src;
+                if(!object.audioPlaying){
+                    this.buttonAudio.play();
+                    object.audioPlaying=true;
+                }
             } else {
                 object.src = document.getElementById(object.up).src;
+                object.audioPlaying=false;
             }
         });
         this.settings.toggleSettingButtons(this, mouseX, mouseY);

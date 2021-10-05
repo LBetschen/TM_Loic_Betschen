@@ -9,6 +9,7 @@ export class Menu {
         this.aboutButton = new Image();
         this.aboutButton.down = "aboutButtonDown";
         this.aboutButton.up = "aboutButton";
+        this.aboutButton.audioPlaying=false;
         this.aboutButton.src = document.getElementById(this.aboutButton.up).src;
         this.aboutButton.height = this.gameWidth / 20;
         this.aboutButton.width = this.gameWidth / 20;
@@ -21,6 +22,7 @@ export class Menu {
         this.settingsButton = new Image();
         this.settingsButton.down = "settingsButtonDown";
         this.settingsButton.up = "settingsButton";
+        this.settingsButton.audioPlaying=false;
         this.settingsButton.src = document.getElementById(this.settingsButton.up).src;
         this.settingsButton.height = this.gameWidth / 20 ;
         this.settingsButton.width = this.gameWidth / 20;
@@ -32,6 +34,7 @@ export class Menu {
         this.newGameButton = new Image();
         this.newGameButton.down = "newGameDown";
         this.newGameButton.up = "newGameButton";
+        this.newGameButton.audioPlaying=false;
         this.newGameButton.src = document.getElementById(this.newGameButton.up).src;
         this.newGameButton.ratio = this.newGameButton.naturalHeight / this.newGameButton.naturalWidth;
         this.newGameButton.height = this.gameWidth/30;
@@ -47,6 +50,7 @@ export class Menu {
         this.resumeGame = new Image();
         this.resumeGame.down = "resumeGameDown";
         this.resumeGame.up = "resumeGame";
+        this.resumeGame.audioPlaying=false;
         this.resumeGame.src = document.getElementById(this.resumeGame.up).src;
         this.resumeGame.ratio=this.resumeGame.naturalHeight/this.resumeGame.naturalWidth;
         this.resumeGame.height = this.gameWidth / 30;

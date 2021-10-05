@@ -3,10 +3,13 @@ export class LevelButtons{
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
 
+        this.buttonAudio=new Audio();
+        this.buttonAudio.src=document.getElementById("buttonAudio").src;
 
         this.returnButton =  new Image();
         this.returnButton.up="returnButton";
         this.returnButton.down="returnButtonDown";
+        this.returnButton.audioPlaying=false;
         this.returnButton.src = document.getElementById(this.returnButton.up).src;
         this.returnButton.height=this.gameWidth / 20;
         this.returnButton.width=this.gameWidth  / 20;
@@ -18,6 +21,7 @@ export class LevelButtons{
         this.reloadButton =  new Image();
         this.reloadButton.up="reloadButton";
         this.reloadButton.down="reloadButtonDown";
+        this.reloadButton.audioPlaying=false;
         this.reloadButton.src = document.getElementById(this.reloadButton.up).src;
         this.reloadButton.height=this.gameWidth / 20;
         this.reloadButton.width=this.gameWidth / 20;
@@ -29,6 +33,7 @@ export class LevelButtons{
         this.settingsButton = new Image();
         this.settingsButton.down = "settingsButtonDown";
         this.settingsButton.up = "settingsButton";
+        this.settingsButton.audioPlaying=false;
         this.settingsButton.src = document.getElementById(this.settingsButton.up).src;
         this.settingsButton.height = this.gameWidth / 20 ;
         this.settingsButton.width = this.gameWidth / 20;
@@ -46,7 +51,7 @@ export class LevelButtons{
         
     }
 
-    update(deltaTime,GameWidth,GameHeight){
+    update(deltaTime,GameWidth,GameHeight,game){
         this.reloadButton.position={
             x: this.gameWidth / 2-this.reloadButton.width/2,
             y: this.gameHeight / 2 - this.reloadButton.width/2
@@ -68,6 +73,9 @@ export class LevelButtons{
         }
         this.settingsButton.height = GameWidth / 20 ;
         this.settingsButton.width = GameWidth / 20;
+
+        var c= game.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
         
     }
 
@@ -81,8 +89,13 @@ export class LevelButtons{
                 { 
                    
                     object.src=document.getElementById(object.down).src;
+                    if(!object.audioPlaying){
+                        this.buttonAudio.play();
+                        object.audioPlaying=true;
+                    }
                 }else{
                     object.src = document.getElementById(object.up).src;
+                    object.audioPlaying=false;
                 }
         });
     }
