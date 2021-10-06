@@ -25,7 +25,8 @@ export class level1Game {
         this.gameState = GAMESTATE;
         this.frameOffsetX=parseInt(FrameOffsetX);
         this.frameOffsetY=parseInt(FrameOffsetY);
-        
+        this.audio=new Audio();
+        this.audio.src=document.getElementById("gameMusic").src;
 
         
         this.level=Level;
@@ -54,6 +55,9 @@ export class level1Game {
        
         this.intro.start(this);
 
+        var c=this.playerProgress.getCookie("musicVolume",false);
+        this.audio.volume=c[2];
+        this.audio.play();
         
         
 
@@ -63,7 +67,8 @@ export class level1Game {
     update(deltaTime, GameWidth, GameHeight,ctx) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
-
+        this.audio.play();
+        
         this.map.update(deltaTime, GameWidth, GameHeight,this);
         switch (this.gameState){
             case 0:
@@ -87,6 +92,7 @@ export class level1Game {
             case 6:
                 break;
         }
+        
     }
 
     draw(ctx,GameWidth,GameHeight) {

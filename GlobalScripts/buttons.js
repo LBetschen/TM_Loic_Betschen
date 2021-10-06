@@ -2,9 +2,21 @@ export class LevelButtons{
     constructor(game){
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
-
+        
         this.buttonAudio=new Audio();
         this.buttonAudio.src=document.getElementById("buttonAudio").src;
+        
+        this.reloadButton =  new Image();
+        this.reloadButton.up="reloadButton";
+        this.reloadButton.down="reloadButtonDown";
+        this.reloadButton.audioPlaying=false;
+        this.reloadButton.src = document.getElementById(this.reloadButton.up).src;
+        this.reloadButton.height=this.gameWidth / 20;
+        this.reloadButton.width=this.gameWidth / 20;
+        this.reloadButton.position={
+            x: this.gameWidth / 2-this.reloadButton.width/2,
+            y: this.gameHeight / 2 - this.reloadButton.width/2
+        }
 
         this.returnButton =  new Image();
         this.returnButton.up="returnButton";
@@ -14,21 +26,10 @@ export class LevelButtons{
         this.returnButton.height=this.gameWidth / 20;
         this.returnButton.width=this.gameWidth  / 20;
         this.returnButton.position={
-            x:this.gameWidth/25,
-            y:this.gameHeight/20
+            x:this.reloadButton.position.x- this.returnButton.width*2,
+            y:this.gameHeight/2- this.returnButton.width/2
         }
 
-        this.reloadButton =  new Image();
-        this.reloadButton.up="reloadButton";
-        this.reloadButton.down="reloadButtonDown";
-        this.reloadButton.audioPlaying=false;
-        this.reloadButton.src = document.getElementById(this.reloadButton.up).src;
-        this.reloadButton.height=this.gameWidth / 20;
-        this.reloadButton.width=this.gameWidth / 20;
-        this.reloadButton.position={
-            x: this.gameWidth / 1.15,
-            y: this.gameHeight / 20
-        }
 
         this.settingsButton = new Image();
         this.settingsButton.down = "settingsButtonDown";
@@ -38,8 +39,8 @@ export class LevelButtons{
         this.settingsButton.height = this.gameWidth / 20 ;
         this.settingsButton.width = this.gameWidth / 20;
         this.settingsButton.position = {
-            x: this.gameWidth / 1.07,
-            y: this.gameHeight / 20
+            x: this.reloadButton.position.x +this.settingsButton.width*2,
+            y: this.gameHeight / 2- this.settingsButton.width/2
         }
         this.settingsButton.audio=false;
 

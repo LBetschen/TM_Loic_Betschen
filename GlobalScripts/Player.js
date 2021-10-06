@@ -243,10 +243,14 @@ export class Player{
                      
 
 
-                if(x+game.interactiveObjects.width>this.position.x+this.width*0.3 && x<this.position.x+this.width*0.7
-                    && y+game.interactiveObjects.height*0.75>this.position.y && y<this.position.y+this.height){
+                if(
+                    x+game.interactiveObjects.width>this.position.x+this.width*0.3 
+                    && x<this.position.x+this.width*0.7
+                    && y+game.interactiveObjects.height*0.75>this.position.y 
+                    && y<this.position.y+this.height){
                         hit=true;
                 }
+
                 for(var j=0;j<this.bullets.length;j++){//bullet collisions with enemies
        
                     if(this.bullets[j].dir==-1 && this.bullets[j].x<x+game.map.tileWidth && x<this.bullets[j].x &&
