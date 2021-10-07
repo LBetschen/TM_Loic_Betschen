@@ -62,8 +62,10 @@ export class Game {
 
         this.audio.play();
         var c = this.playerProgress.getCookie("musicVolume",false);
-        this.audio.volume=parseInt(c[2]);
-        this.audio.play();
+        this.audio.volume=c[2];
+        
+        c = this.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
         
 
     }
@@ -94,6 +96,9 @@ export class Game {
         this.menu.input.style.width = gameWidth / 5 + "px";
         this.menu.input.style.left = gameWidth / 2 - this.menu.input.offsetWidth / 2 + "px";
         this.menu.input.style.top = this.menu.newGameButton.position.y + this.menu.newGameButton.height * 1.5 + "px";
+
+        var c = this.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
         
     }
 
@@ -108,22 +113,25 @@ export class Game {
 
 
     toggleButtons(mouseX, mouseY) {
-        this.buttonsDown.forEach((object) => {
-            if (mouseX >= object.position.x &&
-                mouseX <= object.position.x + object.width &&
-                mouseY >= object.position.y &&
-                mouseY <= object.position.y + object.height) {
-                object.src = document.getElementById(object.down).src;
-                if(!object.audioPlaying){
-                    this.buttonAudio.play();
-                    object.audioPlaying=true;
+        if(this.gameState!=3 && this.gameState!=2){
+            this.buttonsDown.forEach((object) => {
+                if (mouseX >= object.position.x &&
+                    mouseX <= object.position.x + object.width &&
+                    mouseY >= object.position.y &&
+                    mouseY <= object.position.y + object.height) {
+                    object.src = document.getElementById(object.down).src;
+                    if(!object.audioPlaying){
+                        this.buttonAudio.play();
+                        object.audioPlaying=true;
+                    }
+                } else {
+                    object.src = document.getElementById(object.up).src;
+                    object.audioPlaying=false;
                 }
-            } else {
-                object.src = document.getElementById(object.up).src;
-                object.audioPlaying=false;
-            }
-        });
+            });
+        }
         this.settings.toggleSettingButtons(this, mouseX, mouseY);
+       
 
     }
     toggleClick(mouseX, mouseY) {

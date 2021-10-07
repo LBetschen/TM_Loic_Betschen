@@ -15,7 +15,8 @@ const GAMESTATE = {
     ABOUT:3,
     GAMEOVER:4,
     INTRO:5,
-    END:6
+    END:6,
+    DEATH:7
 }
 
 export class level1Game {
@@ -133,6 +134,9 @@ export class level1Game {
                 this.player.draw(ctx);
                 this.player.endAnimation(GameWidth,GameHeight,ctx);
 
+                break;
+            case 7:
+                this.player.endAnimation(GameWidth,GameHeight,ctx);
                 break;
         }
         

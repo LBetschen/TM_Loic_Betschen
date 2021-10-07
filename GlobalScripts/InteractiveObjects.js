@@ -20,6 +20,21 @@ export class InteractiveObjects {
         this.coinAudio = new Audio();
         this.coinAudio.src = document.getElementById("coinAudio").src;
 
+        this.checkPointAudio = new Audio();
+        this.checkPointAudio.src = document.getElementById("coinAudio").src;
+
+        this.powerChestAudio = new Audio();
+        this.powerChestAudio.src = document.getElementById("coinAudio").src;
+
+        this.coinChestAudio = new Audio();
+        this.coinChestAudio.src = document.getElementById("coinAudio").src;
+
+        this.enemieDeathAudio = new Audio();
+        this.enemieDeathAudio.src = document.getElementById("coinAudio").src;
+        
+        this.heartAudio = new Audio();
+        this.heartAudio.src = document.getElementById("coinAudio").src;
+
         
 
         this.checkpoint=new Image();
@@ -33,23 +48,26 @@ export class InteractiveObjects {
         this.trashChest.open="trashcanOpen";
         this.trashChest.closed="trashcan";
         this.trashChest.src=document.getElementById(this.trashChest.closed).src;
+        this.trashChest.ratio=this.trashChest.naturalWidth/this.trashChest.naturalHeight;
         this.trashChest.height=this.height;
-        this.trashChest.width=this.trashChest.height*(this.trashChest.naturalWidth/this.trashChest.naturalHeight);
+        this.trashChest.width=this.trashChest.height*this.trashChest.ratio;
 
         this.powerChest=new Image();
         this.powerChest.open="recyclingOpen";
         this.powerChest.closed="recycling";
         this.powerChest.src=document.getElementById(this.powerChest.closed).src;
+        this.powerChest.ratio=this.powerChest.naturalWidth/this.powerChest.naturalHeight;
         this.powerChest.height=this.height;
-        this.powerChest.width=this.powerChest.height*(this.powerChest.naturalWidth/this.powerChest.naturalHeight);
+        this.powerChest.width=this.powerChest.height*this.powerChest.ratio;
 
 
         this.mailBox=new Image();
         this.mailBox.open="mailboxFull";
         this.mailBox.closed="mailboxEmpty";
         this.mailBox.src=document.getElementById(this.mailBox.closed).src;
+        this.mailBox.ratio=this.mailBox.naturalWidth/this.mailBox.naturalHeight;
         this.mailBox.height=this.height;
-        this.mailBox.width=this.mailBox.height*(this.mailBox.naturalWidth/this.mailBox.naturalHeight);
+        this.mailBox.width=this.mailBox.height*this.mailBox.ratio;
         
 
         this.enemie=new Image();
@@ -68,11 +86,52 @@ export class InteractiveObjects {
         
         this.heart=new Image();
         this.heart.src=document.getElementById("heart").src;
-        this.heart.height=80;
-        this.heart.width=80;
+        this.heart.ratio=this.heart.naturalWidth/this.heart.naturalHeight;
+        this.heart.height=this.height;
+        this.heart.width=this.heart.height*this.heart.ratio;
 
+        this.powerLeaf=new Image();      
+        this.powerLeaf.src=document.getElementById("leafball").src;
+        this.powerLeaf.ratio=this.powerLeaf.naturalWidth/this.powerLeaf.naturalHeight;
+        this.powerLeaf.height=this.height;
+        this.powerLeaf.width=this.powerLeaf.height*this.powerLeaf.ratio;
+
+        
         this.powerChests=[1];
         this.trashChests=[1];
+
+        this.heartCountHeight=game.gameHeight/25;
+        this.heartCountWidth=this.heartCountHeight/this.heart.ratio;
+        this.heartCountPosition={
+            x:game.gameWidth/50,
+            y:game.gameHeight/50
+        }
+
+        this.coinCountHeight=game.gameHeight/25;
+        this.coinCountWidth=this.coinCountHeight;
+        this.coinCountPosition={
+            x:this.heartCountPosition.x+game.gameWidth/15,
+            y:game.gameHeight/50
+        }
+
+        this.powerCountHeight=game.gameHeight/25;
+        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
+        this.powerCountPosition={
+            x:this.coinCountPosition.x+game.gameWidth/15,
+            y:game.gameHeight/50
+        }
+
+        this.countPositionY=2.5*game.gameHeight/50;
+
+        this.xCount=new Image();      
+        this.xCount.src=document.getElementById("xcount").src;
+        this.xCount.ratio=this.xCount.naturalWidth/this.xCount.naturalHeight;
+        this.xCount.height=game.gameHeight/50;
+        this.xCount.width=this.xCount.height*this.xCount.ratio;
+        this.xCount.position={
+            x:game.gameWidth/50,
+            y:this.heartCountPosition.y+this.heartCountHeight/2-this.xCount.height/2
+        }
 
     }
 
@@ -94,6 +153,12 @@ export class InteractiveObjects {
 
         c=game.playerProgress.getCookie("musicVolume",false);
         this.coinAudio.volume=c[2];
+        this.checkPointAudio.volume=c[2];
+        this.powerChestAudio.volume=c[2];
+        this.coinChestAudio.volume=c[2];
+        this.enemieDeathAudio.volume=c[2];
+        this.heartAudio.volume=c[2];
+
 
         c=game.playerProgress.getCookie(game.level+"Enemies",false);
         this.enemies=c[2].split(",");
@@ -108,6 +173,10 @@ export class InteractiveObjects {
         
         var c=game.playerProgress.getCookie("soundVolume",false);
         this.coinAudio.volume=c[2];
+        this.checkPointAudio.volume=c[2];
+        this.powerChestAudio.volume=c[2];
+        this.coinChestAudio.volume=c[2];
+        this.enemieDeathAudio.volume=c[2];
         this.width=GameHeight/12;
         this.height=GameHeight/12;
 
@@ -119,6 +188,36 @@ export class InteractiveObjects {
         this.checkpoint.width=this.width;
         this.coinHeight=this.height*0.75;
         this.coinWidth=this.width*0.75;
+
+        this.heartCountHeight=game.gameHeight/25;
+        this.heartCountWidth=this.heartCountHeight/this.heart.ratio;
+        this.heartCountPosition={
+            x:game.gameWidth/50,
+            y:game.gameHeight/50
+        }
+
+        this.coinCountHeight=game.gameHeight/25;
+        this.coinCountWidth=this.coinCountHeight;
+        this.coinCountPosition={
+            x:this.heartCountPosition.x+game.gameWidth/15,
+            y:game.gameHeight/50
+        }
+
+        this.powerCountHeight=game.gameHeight/25;
+        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
+        this.powerCountPosition={
+            x:this.coinCountPosition.x+game.gameWidth/15,
+            y:game.gameHeight/50
+        }
+
+        this.countPositionY=2.5*game.gameHeight/50;
+
+        this.xCount.height=game.gameHeight/50;
+        this.xCount.width=this.xCount.height*this.xCount.ratio;
+        this.xCount.position={
+            x:game.gameWidth/50,
+            y:this.heartCountPosition.y+this.heartCountHeight/2-this.xCount.height/2
+        }
 
     }
 
@@ -231,35 +330,28 @@ export class InteractiveObjects {
                 this.enemie.distance+=3;
             }
 
-        ctx.font = "50px Arial";
+        ctx.font = game.gameWidth/50+"px Arial";
         ctx.fillStyle = "black";
 
-        ctx.fillText(this.score, 100, 75);
-        ctx.drawImage(this.coinSheet,0,0,this.coinSheet.size.width,this.coinSheet.size.height,25,25,this.coinWidth,this.coinHeight);
+        ctx.fillText(this.score, this.coinCountPosition.x+game.gameWidth/25, this.countPositionY);
+        ctx.drawImage(this.xCount,this.coinCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
+        ctx.drawImage(this.coinSheet,this.coinCountPosition.x,this.coinCountPosition.y,this.coinCountWidth,this.coinCountHeight);
 
-        ctx.font = "50px Arial";
-        ctx.fillStyle = "black";
+        
 
-        ctx.fillText(game.player.hero.lives, 300, 75);
-        ctx.drawImage(this.heart,200,25,this.heart.width,this.heart.height);
+        ctx.fillText(game.player.hero.lives, this.heartCountPosition.x+game.gameWidth/25, this.countPositionY);
+        ctx.drawImage(this.xCount,this.heartCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
+        ctx.drawImage(this.heart,this.heartCountPosition.x,this.heartCountPosition.y,this.heartCountWidth,this.heartCountHeight);
+        
 
-        ctx.fillText(game.player.bulletAmmo, 400, 75);
-        //ctx.drawImage(this.heart,200,25,this.heart.width,this.heart.height);
+        ctx.fillText(game.player.bulletAmmo, this.powerCountPosition.x+game.gameWidth/25,this.countPositionY);
+        ctx.drawImage(this.xCount,this.powerCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
+        ctx.drawImage(this.powerLeaf,this.powerCountPosition.x,this.powerCountPosition.y,this.powerCountWidth,this.powerCountHeight);
 
 
     }
 
-    coinAnimation(ctx) {
-        let t;
-        t = setInterval(function () {
-
-            if (i > 15) {
-                i = 1;
-            } else {
-                i++;
-            }
-        }, 100);
-    }
+    
     
 
     readFiles() {
