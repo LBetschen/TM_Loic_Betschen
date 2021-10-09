@@ -139,52 +139,51 @@ export class Player{
                 
                 var x=(k%game.map.columns)*game.map.tileWidth + this.offsetX;
                 var y=Math.floor(k/game.map.columns)*game.map.tileWidth+game.map.tileHeight/5 ;  
-
-
-                if(this.Ydirection=="down" && this.position.y+this.height+this.y_speed>y && this.position.y +this.height+this.y_speed<y+game.map.tileHeight && this.position.x+this.x_speed>x && this.position.x+this.x_speed<x+game.map.tileWidth ){
-                    
-                    this.position.y=y-this.height;
-                    this.y_speed=0;
-                    this.jumping=false;
-                    this.doubleJump=false;
-                }
-                if(this.Ydirection=="down" && this.position.y+this.height+this.y_speed>y && this.position.y +this.height+this.y_speed<y+game.map.tileHeight && this.position.x+this.width+this.x_speed>x && this.position.x+this.width+this.x_speed<x+game.map.tileWidth ){
-                    this.position.y=y-this.height;
-                    this.y_speed=0;
-                    this.jumping=false;
-                    this.doubleJump=false;
-                }
-                if(this.Ydirection=="up" && this.position.y+this.y_speed>y && this.position.y +this.y_speed<y+game.map.tileHeight && this.position.x+this.width+this.x_speed+game.map.tileWidth/10>x && this.position.x+this.width+this.x_speed+game.map.tileWidth/10<x+game.map.tileWidth ){
-                    this.position.y=y+game.map.tileHeight;
-                    this.y_speed=0;
-                }
-                if(this.Ydirection=="up" && this.position.y+this.y_speed>y && this.position.y+this.y_speed <y+game.map.tileHeight && this.position.x+this.x_speed+game.map.tileWidth/10>x && this.position.x+this.x_speed+game.map.tileWidth/10<x+game.map.tileWidth ){
-                    this.position.y=y+game.map.tileHeight;
-                    this.y_speed=0;
-                }
-
-                if(this.Xdirection=="right" && this.position.y+this.y_speed+this.height>y && this.position.y +this.y_speed<y+game.map.tileHeight && this.position.x+this.width+this.x_speed>x && this.position.x+this.width+this.x_speed<x+game.map.tileWidth){
-                    if(this.offsetX==0){
-                        this.position.x=x-this.width;
-                        this.x_speed=0;
-                    }else{
-                        this.x_speed=0;
-                    }
-                    console.log("hit21");
-                    console.log(this.position,x,y);
-
-                }
+                var tileOffset=-(k%game.map.columns)*game.map.tileWidth+GameWidth/2+this.width/2;
                 
-            
-                if(this.Xdirection=="left" && this.position.y +this.height+this.y_speed-game.gameHeight/55>y && this.position.y+this.y_speed<y+ game.map.tileHeight && this.position.x+this.x_speed<x+game.map.tileWidth && this.position.x+this.x_speed>x){
-                    if(this.offsetX==0){
-                        this.position.x=x+game.map.tileWidth;
-                        this.x_speed=0;
-                    }else{
-                        this.x_speed=0;
+
+                if(y+game.map.tileHeight<this.position.y+this.height/2 && x+game.map.tileWidth>this.position.x && x<this.position.x+this.width){//if tile is above player
+                        if(this.position.y+this.y_speed>y && this.position.y+this.y_speed <y+game.map.tileHeight){
+                            this.position.y=y+game.map.tileHeight;
+                            this.y_speed=0;
+                        }
+                } 
+                if(y>this.position.y+this.height/2 && x+game.map.tileWidth>this.position.x && x<this.position.x+this.width){//if tile is under player
+                    if(this.position.y+this.height+this.y_speed>y && this.position.y +this.height+this.y_speed<y+game.map.tileHeight){
+                        this.position.y=y-this.height;
+                        this.y_speed=0;
+                        this.jumping=false;
+                        this.doubleJump=false;
                     }
-                   
+
                 }
+                if(x+game.map.tileWidth<this.position.x+this.width/2 && y<this.position.y+this.height&& y+game.map.tileHeight>this.position.y){//if the tile is on the left and not under nor above player
+                    if(this.position.x+this.x_speed<x+game.map.tileWidth){
+                        if(this.offsetX==0){
+                            this.position.x=x+game.map.tileWidth;
+                            this.x_speed=0;
+                        }else{
+                            this.offsetX=-((k%game.map.columns)*game.map.tileWidth)+this.gameWidth/2-game.map.tileWidth-this.width/2;
+                            this.x_speed=0;
+                            console.log(k);
+                        }
+                        
+                    }
+                }
+                if(x>this.position.x+this.width/2 && y<this.position.y+this.height&& y+game.map.tileHeight>this.position.y){//if the tile is on the right and not under nor above player
+                    if(this.position.x+this.width+this.x_speed>x && this.position.x+this.width+this.x_speed<x+game.map.tileWidth){
+                        if(this.offsetX==0){
+                            this.position.x=x-this.width;
+                            this.x_speed=0;
+                        }else{
+                            this.offsetX=(-(k%game.map.columns)*game.map.tileWidth)+this.gameWidth/2+this.width/2;
+                            this.x_speed=0;
+                            console.log(k);
+
+                        }
+                    }
+
+                } 
                 
                 
                 
