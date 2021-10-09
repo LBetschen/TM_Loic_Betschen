@@ -1,4 +1,4 @@
-import {level1Game} from "./level_6_game.js";
+import {level6Game} from "./level_6_game.js";
 let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
 
@@ -17,8 +17,11 @@ let frameOffsetY=canvas.style.top;
 let GAME_HEIGHT = canvas.height;
 let GAME_WIDTH = canvas.width;
 
-let level1game= new level1Game(GAME_WIDTH,GAME_HEIGHT,frameOffsetX,frameOffsetY);
-level1game.start();
+let Level="level6";
+
+let level6game= new level5Game(GAME_WIDTH,GAME_HEIGHT,frameOffsetX,frameOffsetY,Level);
+level6game.start();
+
 
 let lastTime=0;
 
@@ -43,9 +46,8 @@ function gameLoop(timestamp){
     let frameOffsetX=canvas.style.left;
     let frameOffsetY=canvas.style.top;
    
-    level1game.update(deltaTime,GameWidth,GameHeight,ctx,frameOffsetX,frameOffsetY);
-    level1game.draw(ctx,GameWidth,GameHeight);    
+    level6game.draw(ctx,GameWidth,GameHeight);    
+    level6game.update(deltaTime,GameWidth,GameHeight,ctx,frameOffsetX,frameOffsetY);
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
-

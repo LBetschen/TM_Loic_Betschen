@@ -59,7 +59,7 @@ export class Player{
         this.offsetY=0;
 
 
-        this.x_maxSpeed=1;
+        this.x_maxSpeed=game.gameWidth/3500;
         this.x_speed = 0;
         this.y_speed =0;
         
@@ -113,14 +113,15 @@ export class Player{
         this.gameHeight=GameHeight;
         this.gameWidth=GameWidth;
 
-        this.width=GameWidth/25;
+        this.width=GameHeight/20;
         this.height=this.width*this.hero.ratio;
+        
        
         
         
         
-        this.x_maxSpeed=GameWidth/2500;
-        this.y_speed+=GameHeight/10000;
+        this.x_maxSpeed=GameWidth/3500;
+        this.y_speed+=GameHeight/9000;
         
         for(var k=0;k<this.bullets.length;k++){//moves bullets 
             if(this.offsetX==0 ){
@@ -176,7 +177,7 @@ export class Player{
                             this.position.x=x-this.width;
                             this.x_speed=0;
                         }else{
-                            this.offsetX=(-(k%game.map.columns)*game.map.tileWidth)+this.gameWidth/2+this.width/2;
+                            this.offsetX=(-(k%game.map.columns)*game.map.tileWidth)+this.gameWidth/2+this.width/1.6;
                             this.x_speed=0;
                             console.log(k);
 
@@ -236,12 +237,12 @@ export class Player{
                         switch (value){
                             case 4:
                                 if(game.interactiveObjects.trashChests[tindex]==1){
-                                    ctx.fillText("Press E to open",x,y-100);
+                                    ctx.fillText("Press E to open",x,y-50);
                                 }
                                 break;
                             case 5:
                                 if(game.interactiveObjects.powerChests[pindex]==1){
-                                    ctx.fillText("Press E to open",x,y-100);
+                                    ctx.fillText("Press E to open",x,y-50);
                                 }
                                 break;
                             } 
@@ -458,7 +459,7 @@ export class Player{
         }    
 
        
-        if(this.x_speed>0.5 || this.x_speed<-0.5 ) {
+        if(this.x_speed>0.1 || this.x_speed<-0.1 ) {
                 this.moving=true;
         }else{
             this.moving=false;
@@ -583,7 +584,7 @@ export class Player{
             }
             this.fireball={
                 x:x_bullet,
-                y:this.position.y+this.hero.height/3,
+                y:this.position.y+this.height/5,
                 dir:direction
     
             }
