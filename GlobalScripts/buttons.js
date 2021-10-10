@@ -11,6 +11,7 @@ export class LevelButtons{
         this.reloadButton.down="reloadButtonDown";
         this.reloadButton.audioPlaying=false;
         this.reloadButton.src = document.getElementById(this.reloadButton.up).src;
+        
         this.reloadButton.height=this.gameWidth / 20;
         this.reloadButton.width=this.gameWidth / 20;
         this.reloadButton.position={
