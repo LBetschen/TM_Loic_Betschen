@@ -117,15 +117,15 @@ export class levelButtons{
             this.buttonlvl5,
             this.buttonlvl6
         ];
-        var c;
-        for(var i=1;i<7;i++){
-
-            if(i>1){
+        var c =game.playerProgress.getCookie("level1finished",false);
+        for(var i=2;i<7;i++){
+            
                 if(i<6 && c[2]==1){
                     game.playerProgress.changeCookie("level"+i+"locked",1);
                 }
-            }
+            
             c=game.playerProgress.getCookie("level"+i+"finished",false);
+            
         }
         this.buttons.forEach((object)=>{
             if(object.locked==0){
@@ -137,6 +137,8 @@ export class levelButtons{
     }
 
     update(deltaTime,GameWidth,GameHeight,map,game){
+
+
         this.ratio=this.gameWidth/map.width;
         
         this.buttons.forEach((object)=>{
@@ -149,6 +151,18 @@ export class levelButtons{
         
         var c= game.playerProgress.getCookie("soundVolume",false);
         this.buttonAudio.volume=c[2];
+
+        c =game.playerProgress.getCookie("level1finished",false);
+        for(var i=2;i<7;i++){
+            
+                if(i<6 && c[2]==1){
+                    game.playerProgress.changeCookie("level"+i+"locked",1);
+                }
+            
+            c=game.playerProgress.getCookie("level"+i+"finished",false);
+            
+        }
+        
         
     }
     

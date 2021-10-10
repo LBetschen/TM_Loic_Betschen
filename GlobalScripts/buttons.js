@@ -11,6 +11,7 @@ export class LevelButtons{
         this.reloadButton.down="reloadButtonDown";
         this.reloadButton.audioPlaying=false;
         this.reloadButton.src = document.getElementById(this.reloadButton.up).src;
+        
         this.reloadButton.height=this.gameWidth / 20;
         this.reloadButton.width=this.gameWidth / 20;
         this.reloadButton.position={
@@ -124,15 +125,15 @@ export class LevelButtons{
                    switch (i){
                        case 0:
                            //clears player progress and reloads page
-                            var c = game.playerProgress.getCookie(game.level+"score", true);//gets the index of name in array info
+                            var c = game.playerProgress.getCookie("level"+game.level+"score", true);//gets the index of name in array info
                             game.interactiveObjects.score=c[2];
-                            game.playerProgress.changeCookie(game.level+"score",c[2]);
-                            c=game.playerProgress.getCookie(game.level+"coins",true),
-                            game.playerProgress.changeCookie(game.level+"coins",c[2]);
-                            c=game.playerProgress.getCookie(game.level+"Checkpoints",true),
-                            game.playerProgress.changeCookie(game.level+"Checkpoints",c[2]);
-                            c=game.playerProgress.getCookie(game.level+"Enemies",true),
-                            game.playerProgress.changeCookie(game.level+"Enemies",c[2]);
+                            game.playerProgress.changeCookie("level"+game.level+"score",c[2]);
+                            c=game.playerProgress.getCookie("level"+game.level+"coins",true),
+                            game.playerProgress.changeCookie("level"+game.level+"coins",c[2]);
+                            c=game.playerProgress.getCookie("level"+game.level+"Checkpoints",true),
+                            game.playerProgress.changeCookie("level"+game.level+"Checkpoints",c[2]);
+                            c=game.playerProgress.getCookie("level"+game.level+"Enemies",true),
+                            game.playerProgress.changeCookie("level"+game.level+"Enemies",c[2]);
                             location.reload();
                             break;
                         case 1:

@@ -5,7 +5,8 @@ import { InteractiveObjects } from "../GlobalScripts/InteractiveObjects.js";
 import { PlayerProgress } from "../GlobalScripts/PlayerProgress.js";
 import { Settings } from "../GlobalScripts/settings.js";
 import { Map } from "../GlobalScripts/map.js";
-import { GameOver } from "../GlobalScripts/GameOver.js";
+
+
 
 const GAMESTATE = {
     RUNNING: 0,
@@ -14,21 +15,23 @@ const GAMESTATE = {
     ABOUT:3,
     GAMEOVER:4,
     INTRO:5,
-    END:6
+    END:6,
+    DEATH:7
 }
 
-export class level1Game {
-    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY) {
+export class level2Game {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level,nextLevel) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
         this.frameOffsetX=parseInt(FrameOffsetX);
         this.frameOffsetY=parseInt(FrameOffsetY);
-        
+        this.audio=new Audio();
+        this.audio.src=document.getElementById("gameMusic").src;
 
-        this.audio = new Audio();//audio for the menu
-        this.audio.src = document.getElementById("backgroundSound3").src;
-        this.level="level2";
+        
+        this.level=Level;
+        this.nextLevel=nextLevel;
         
     }
 
@@ -44,7 +47,8 @@ export class level1Game {
         this.gameState = GAMESTATE.RUNNING;
         this.buttons = new LevelButtons(this);
         this.map=new Map(this,this.player);
-        this.gameOver = new GameOver(this);
+        
+        
      
         new Input(this);
         this.interactiveObjects.start(ctx, this);
@@ -52,10 +56,11 @@ export class level1Game {
         this.player.start(this);
        
 
-        
         var c=this.playerProgress.getCookie("musicVolume",false);
         this.audio.volume=c[2];
         this.audio.play();
+        
+        
 
 
     }
@@ -63,15 +68,16 @@ export class level1Game {
     update(deltaTime, GameWidth, GameHeight,ctx) {
         this.gameHeight = GameHeight;
         this.gameWidth = GameWidth;
-
+        this.audio.play();
+        
+        this.map.update(deltaTime, GameWidth, GameHeight,this);
         switch (this.gameState){
             case 0:
                 this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
-                this.map.update(deltaTime, GameWidth, GameHeight,this);
                 this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
                 break;
             case 1:
-                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight,this);
                 break;
             case 2:
                 this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
@@ -79,17 +85,22 @@ export class level1Game {
             case 3:
                 break;
             case 4:
-                this.gameOver.update(deltaTime, GameWidth, GameHeight);
                 this.buttons.update(deltaTime, GameWidth, GameHeight);
                 break;
             case 5:
+                
                 break;
             case 6:
                 break;
         }
+        
     }
 
     draw(ctx,GameWidth,GameHeight) {
+
+
+        
+       
         this.map.draw(ctx,this);
         this.interactiveObjects.draw(ctx, this);
 
@@ -100,6 +111,7 @@ export class level1Game {
             case 1:
                 this.player.draw(ctx);
                 this.buttons.draw(ctx);
+                ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
                 break;
             case 2:
                 this.player.draw(ctx);
@@ -110,16 +122,22 @@ export class level1Game {
                 break;
             case 4:
                 this.player.draw(ctx);
-                this.gameOver.draw(ctx);
                 this.buttons.draw(ctx);
+                ctx.fillText("Game Over", this.gameWidth / 2, this.gameHeight / 4)
+                
+                
                 break;
             case 5:
+                
                 break;
             case 6:
                 this.player.draw(ctx);
+                this.player.endAnimation(GameWidth,GameHeight,ctx);
+
                 break;
             case 7:
-                this.levelAnimation(ctx);
+                this.player.endAnimation(GameWidth,GameHeight,ctx);
+                break;
         }
         
     }
@@ -171,6 +189,7 @@ export class level1Game {
                 break;
         }
     }
+    
     
 
 

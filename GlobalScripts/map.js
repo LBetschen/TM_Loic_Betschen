@@ -50,8 +50,8 @@ export class Map{
         
 
         this.columns=200;
-        this.tileWidth=game.gameHeight/12;
-        this.tileHeight=game.gameHeight/12;
+        this.tileWidth=game.gameHeight/20;
+        this.tileHeight=game.gameHeight/20;
 
         this.map=[];
         this.maxMapWidth=this.columns*this.tileWidth;
@@ -65,8 +65,8 @@ export class Map{
     }
 
     update(deltaTime,GameWidth,GameHeight,game){
-        this.tileWidth=GameHeight/12;
-        this.tileHeight=GameHeight/12;
+        this.tileWidth=GameHeight/20;
+        this.tileHeight=GameHeight/20;
 
         this.back.width=GameWidth;
         this.back.height=this.back.width*this.back.ratio;

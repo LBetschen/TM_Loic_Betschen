@@ -1,8 +1,8 @@
 var i = 1;
 export class InteractiveObjects {
     constructor(game) {
-        this.width=game.gameHeight/12;
-        this.height=game.gameHeight/12;
+        this.width=game.gameHeight/20;
+        this.height=game.gameHeight/20;
 
         this.coinSheet = new Image();
         this.coinSheet.src = document.getElementById("coin").src;
@@ -41,8 +41,8 @@ export class InteractiveObjects {
         this.checkpoint.up="checkpoint1";
         this.checkpoint.down="checkpoint";
         this.checkpoint.src=document.getElementById(this.checkpoint.down).src;
-        this.checkpoint.height=this.checkpoint.naturalHeight;
-        this.checkpoint.width=this.checkpoint.naturalWidth;
+        this.checkpoint.height=this.height;
+        this.checkpoint.width=this.width;
 
         this.trashChest=new Image();
         this.trashChest.open="trashcanOpen";
@@ -107,19 +107,20 @@ export class InteractiveObjects {
             y:game.gameHeight/50
         }
 
-        this.coinCountHeight=game.gameHeight/25;
-        this.coinCountWidth=this.coinCountHeight;
-        this.coinCountPosition={
+        this.powerCountHeight=game.gameHeight/25;
+        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
+        this.powerCountPosition={
             x:this.heartCountPosition.x+game.gameWidth/15,
             y:game.gameHeight/50
         }
 
-        this.powerCountHeight=game.gameHeight/25;
-        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
-        this.powerCountPosition={
-            x:this.coinCountPosition.x+game.gameWidth/15,
+        this.coinCountHeight=game.gameHeight/25;
+        this.coinCountWidth=this.coinCountHeight;
+        this.coinCountPosition={
+            x:this.powerCountPosition.x+game.gameWidth/15,
             y:game.gameHeight/50
         }
+
 
         this.countPositionY=2.5*game.gameHeight/50;
 
@@ -142,13 +143,13 @@ export class InteractiveObjects {
         //this.coinAnimation(ctx);
         this.readFiles();
         //getting all the saved progress
-        this.cScore = game.playerProgress.getCookie(game.level+"score",false);
+        this.cScore = game.playerProgress.getCookie("level"+game.level+"score",false);
         this.score = parseInt(this.cScore[2]);
 
-        var c = game.playerProgress.getCookie(game.level+"coins",false);
+        var c = game.playerProgress.getCookie("level"+game.level+"coins",false);
         this.coins = c[2].split(",");
 
-        var c = game.playerProgress.getCookie(game.level+"Checkpoints",false);
+        var c = game.playerProgress.getCookie("level"+game.level+"Checkpoints",false);
         this.checkpoints = c[2].split(",");
 
         c=game.playerProgress.getCookie("musicVolume",false);
@@ -160,10 +161,10 @@ export class InteractiveObjects {
         this.heartAudio.volume=c[2];
 
 
-        c=game.playerProgress.getCookie(game.level+"Enemies",false);
+        c=game.playerProgress.getCookie("level"+game.level+"Enemies",false);
         this.enemies=c[2].split(",");
 
-        c=game.playerProgress.getCookie(game.level+"Hearts",false);
+        c=game.playerProgress.getCookie("level"+game.level+"Hearts",false);
         this.hearts=c[2].split(",");
 
         this.objects=[this.coins,this.checkpoints];
@@ -177,8 +178,8 @@ export class InteractiveObjects {
         this.powerChestAudio.volume=c[2];
         this.coinChestAudio.volume=c[2];
         this.enemieDeathAudio.volume=c[2];
-        this.width=GameHeight/12;
-        this.height=GameHeight/12;
+        this.width=GameHeight/20;
+        this.height=GameHeight/20;
 
         this.mailBox.height=this.height;
         this.mailBox.width=this.mailBox.height*(this.mailBox.naturalWidth/this.mailBox.naturalHeight);
@@ -196,20 +197,21 @@ export class InteractiveObjects {
             y:game.gameHeight/50
         }
 
-        this.coinCountHeight=game.gameHeight/25;
-        this.coinCountWidth=this.coinCountHeight;
-        this.coinCountPosition={
+        
+        this.powerCountHeight=game.gameHeight/25;
+        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
+        this.powerCountPosition={
             x:this.heartCountPosition.x+game.gameWidth/15,
             y:game.gameHeight/50
         }
 
-        this.powerCountHeight=game.gameHeight/25;
-        this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
-        this.powerCountPosition={
-            x:this.coinCountPosition.x+game.gameWidth/15,
+        
+        this.coinCountHeight=game.gameHeight/25;
+        this.coinCountWidth=this.coinCountHeight;
+        this.coinCountPosition={
+            x:this.powerCountPosition.x+game.gameWidth/15,
             y:game.gameHeight/50
         }
-
         this.countPositionY=2.5*game.gameHeight/50;
 
         this.xCount.height=game.gameHeight/50;
