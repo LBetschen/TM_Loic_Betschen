@@ -143,13 +143,13 @@ export class InteractiveObjects {
         //this.coinAnimation(ctx);
         this.readFiles();
         //getting all the saved progress
-        this.cScore = game.playerProgress.getCookie(game.level+"score",false);
+        this.cScore = game.playerProgress.getCookie("level"+game.level+"score",false);
         this.score = parseInt(this.cScore[2]);
 
-        var c = game.playerProgress.getCookie(game.level+"coins",false);
+        var c = game.playerProgress.getCookie("level"+game.level+"coins",false);
         this.coins = c[2].split(",");
 
-        var c = game.playerProgress.getCookie(game.level+"Checkpoints",false);
+        var c = game.playerProgress.getCookie("level"+game.level+"Checkpoints",false);
         this.checkpoints = c[2].split(",");
 
         c=game.playerProgress.getCookie("musicVolume",false);
@@ -161,10 +161,10 @@ export class InteractiveObjects {
         this.heartAudio.volume=c[2];
 
 
-        c=game.playerProgress.getCookie(game.level+"Enemies",false);
+        c=game.playerProgress.getCookie("level"+game.level+"Enemies",false);
         this.enemies=c[2].split(",");
 
-        c=game.playerProgress.getCookie(game.level+"Hearts",false);
+        c=game.playerProgress.getCookie("level"+game.level+"Hearts",false);
         this.hearts=c[2].split(",");
 
         this.objects=[this.coins,this.checkpoints];

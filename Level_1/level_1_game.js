@@ -20,7 +20,7 @@ const GAMESTATE = {
 }
 
 export class level1Game {
-    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level,nextLevel) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
@@ -30,7 +30,9 @@ export class level1Game {
         this.audio.src=document.getElementById("gameMusic").src;
 
         
+        
         this.level=Level;
+        this.nextLevel=nextLevel;
         
     }
 

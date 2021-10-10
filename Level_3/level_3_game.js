@@ -31,6 +31,7 @@ export class level3Game {
 
         
         this.level=Level;
+        this.nextLevel=nextLevel;
         
     }
 

@@ -20,7 +20,7 @@ const GAMESTATE = {
 }
 
 export class level2Game {
-    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level,nextLevel) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
@@ -31,6 +31,7 @@ export class level2Game {
 
         
         this.level=Level;
+        this.nextLevel=nextLevel;
         
     }
 

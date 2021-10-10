@@ -269,7 +269,7 @@ export class Player{
                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight && value==3 ){
                             if(game.interactiveObjects.enemies[eindex]==1){
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie("level"+game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.bullets.splice(j,1);
                                 game.interactiveObjects.enemieDeathAudio.play();
                             }
@@ -277,7 +277,7 @@ export class Player{
                         this.bullets[j].y+this.bullet.height>y && this.bullets[j].y<y+game.map.tileHeight && value==3 ){
                             if(game.interactiveObjects.enemies[eindex]==1){
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie("level"+game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.bullets.splice(j,1);
                                 game.interactiveObjects.enemieDeathAudio.play();
                             }
@@ -292,22 +292,22 @@ export class Player{
                             if(game.interactiveObjects.coins[index]==1){//changes score if hit==true
                                 game.interactiveObjects.score++;
                                 game.interactiveObjects.coins[index] = 0;
-                                game.playerProgress.changeCookie(game.level+"score", game.interactiveObjects.score);
-                                game.playerProgress.changeCookie(game.level+"coins", game.interactiveObjects.coins);
+                                game.playerProgress.changeCookie("level"+game.level+"score", game.interactiveObjects.score);
+                                game.playerProgress.changeCookie("level"+game.level+"coins", game.interactiveObjects.coins);
                                 game.interactiveObjects.coinAudio.play();
                             }
                             break;
                         case 2:
                             if(game.interactiveObjects.checkpoints[cindex]==1){//marks checkpoint if hit==true
                                 game.interactiveObjects.checkpoints[cindex] = 0;
-                                game.playerProgress.changeCookie(game.level+"Checkpoints", game.interactiveObjects.checkpoints);
+                                game.playerProgress.changeCookie("level"+game.level+"Checkpoints", game.interactiveObjects.checkpoints);
                                 game.interactiveObjects.checkPointAudio.play();
                             }
                             break;
                         case 3:
                             if(game.interactiveObjects.enemies[eindex]==1){//kills enemie if hit==true
                                 game.interactiveObjects.enemies[eindex]=0;
-                                game.playerProgress.changeCookie(game.level+"Enemies", game.interactiveObjects.enemies);
+                                game.playerProgress.changeCookie("level"+game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.hero.lives--;
                                 this.deathAudio.play();
                               
@@ -324,7 +324,7 @@ export class Player{
                         case 6:
                             if(game.interactiveObjects.hearts[hindex]==1){//kills enemie if hit==true
                                 game.interactiveObjects.hearts[hindex]=0;
-                                game.playerProgress.changeCookie(game.level+"Hearts", game.interactiveObjects.hearts);
+                                game.playerProgress.changeCookie("level"+game.level+"Hearts", game.interactiveObjects.hearts);
                                 this.hero.lives++;
                                 game.interactiveObjects.heartAudio.play();
         
@@ -335,7 +335,11 @@ export class Player{
                             this.moving=false;
                             game.interactiveObjects.mailBox.src=document.getElementById(game.interactiveObjects.mailBox.open).src;
                             game.gameState=6;
-                            game.playerProgress.changeCookie(game.level+"finished",1);
+
+                            game.playerProgress.changeCookie("level"+game.level+"finished",1);
+                            
+                            game.playerProgress.changeCookie("level"+game.nextLevel+"locked",1);
+                            
                             this.endLevelAudio.play();
                             var timeout;
                             timeout=setTimeout(function(){window.location="../Map/map.html"},2000);
@@ -469,7 +473,7 @@ export class Player{
         this.gameState=7;
         this.x_speed=0;
         this.y_speed=0;
-        var c= game.playerProgress.getCookie(game.level+"Checkpoints",false);
+        var c= game.playerProgress.getCookie("level"+game.level+"Checkpoints",false);
         var checkpoints=c[2].split(",");
         var k=0;
         var eindex=0;
@@ -631,7 +635,7 @@ export class Player{
                         case 4:
                             if(game.interactiveObjects.trashChests[tindex]==1){
                                 game.interactiveObjects.score+=5;    
-                                game.playerProgress.changeCookie(game.level+"score", game.interactiveObjects.score);
+                                game.playerProgress.changeCookie("level"+game.level+"score", game.interactiveObjects.score);
                                 game.interactiveObjects.trashChests[tindex]=0;
                                 game.interactiveObjects.coinChestAudio.play();
                             }
