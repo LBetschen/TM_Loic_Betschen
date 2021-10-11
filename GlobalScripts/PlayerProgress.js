@@ -6,12 +6,12 @@ export class PlayerProgress {
             1,false,1,false,
             3,
             0,0,0,0,0,0,
-            1,0,1,1,1,1,
+            1,0,0,0,0,0,
             0,0,0,0,0,0,
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],//level1
-            [1,1,1,1,1],
+            [1,1,1],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-            [1,1,1,1,1],
+            [1,1],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],//level2
             [1,1,1,1,1],
             [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -81,7 +81,7 @@ export class PlayerProgress {
             game.savedGame = true;
             for (var i = 0; i < this.newPlayerVariables.length; i++) { 
                     document.cookie = this.newPlayerVariables[i] + "=" +this.newPlayerProgress[i] 
-                                        + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+                                        + " ;expires=Thu, 18 Dec 2050 12:00:00 UTC; path=/";
             }
             this.updatePlayerVariables();
         } else {
@@ -130,7 +130,7 @@ export class PlayerProgress {
     changeCookie(cookieName, value) {
         var name = cookieName;
         var c = this.getCookie(name, false);
-        document.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/";
+        document.cookie = this.playerVariables[c[0]] + "=" + value + " ;expires=Thu, 18 Dec 2050 12:00:00 UTC; path=/";
         this.updatePlayerVariables();
         
     }

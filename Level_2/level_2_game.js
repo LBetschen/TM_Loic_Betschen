@@ -85,7 +85,7 @@ export class level2Game {
             case 3:
                 break;
             case 4:
-                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight,this);
                 break;
             case 5:
                 

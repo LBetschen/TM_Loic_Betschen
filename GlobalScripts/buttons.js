@@ -136,6 +136,7 @@ export class LevelButtons{
                             game.playerProgress.changeCookie("level"+game.level+"Enemies",c[2]);
                             c=game.playerProgress.getCookie("level"+game.level+"Hearts",true),
                             game.playerProgress.changeCookie("level"+game.level+"Hearts",c[2]);
+                           
                             location.reload();
                             break;
                         case 1:

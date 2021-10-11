@@ -97,8 +97,8 @@ export class InteractiveObjects {
         this.powerLeaf.width=this.powerLeaf.height*this.powerLeaf.ratio;
 
         
-        this.powerChests=[1];
-        this.trashChests=[1];
+        this.powerChests=[1,1,1,1];
+        this.trashChests=[1,1,1,1];
 
         this.heartCountHeight=game.gameHeight/25;
         this.heartCountWidth=this.heartCountHeight/this.heart.ratio;
