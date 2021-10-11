@@ -162,8 +162,6 @@ export class Player{
                         this.y_speed=0;
                         this.jumping=false;
                         this.doubleJump=false;
-                        
-                        
                     }
 
                 }
@@ -481,6 +479,9 @@ export class Player{
             if(this.hero.lives<=0){
                 game.gameState=4;
             }
+        }
+        if(this.hero.lives<=0){
+            game.gameState=4;
         }
 
         if(this.position.x+this.width>GameWidth){//limites how far the player can go

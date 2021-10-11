@@ -77,20 +77,25 @@ export class level1Game {
             case 0:
                 this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
                 this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
+                
                 break;
             case 1:
                 this.buttons.update(deltaTime, GameWidth, GameHeight,this);
+                
                 break;
             case 2:
                 this.settings.update(deltaTime, GameWidth, GameHeight, this.gameState,this)
+               
                 break;
             case 3:
                 break;
             case 4:
-                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight,this);
+                
                 break;
             case 5:
                 this.intro.update(deltaTime, GameWidth, GameHeight);
+                
                 break;
             case 6:
                 break;
