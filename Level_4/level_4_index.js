@@ -18,8 +18,9 @@ let GAME_HEIGHT = canvas.height;
 let GAME_WIDTH = canvas.width;
 
 let Level="4";
+let nextLevel="5";
 
-let level4game= new level4Game(GAME_WIDTH,GAME_HEIGHT,frameOffsetX,frameOffsetY,Level);
+let level4game= new level4Game(GAME_WIDTH,GAME_HEIGHT,frameOffsetX,frameOffsetY,Level,nextLevel);
 level4game.start();
 
 

@@ -140,7 +140,7 @@ export class Player{
         
         for(var k=0;k<game.map.map.length;k++){//checks if the player and the bullets are colliding with tiles
             
-            if(game.map.map[k]==0 || game.map.map[k]==30 || game.map.map[k]==31){
+            if(game.map.map[k]==0 || game.map.map[k]==30 || game.map.map[k]==31 || game.map.map[k]==15 || game.map.map[k]==16){
             }else{
                 
                 var x=(k%game.map.columns)*game.map.tileWidth + this.offsetX;

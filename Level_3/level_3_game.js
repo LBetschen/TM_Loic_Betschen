@@ -20,7 +20,7 @@ const GAMESTATE = {
 }
 
 export class level3Game {
-    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level) {
+    constructor(GameWidth, GameHeight,FrameOffsetX,FrameOffsetY,Level,nextLevel) {
         this.gameWidth = GameWidth;
         this.gameHeight = GameHeight;
         this.gameState = GAMESTATE;
@@ -85,7 +85,7 @@ export class level3Game {
             case 3:
                 break;
             case 4:
-                this.buttons.update(deltaTime, GameWidth, GameHeight);
+                this.buttons.update(deltaTime, GameWidth, GameHeight,this);
                 break;
             case 5:
                 
