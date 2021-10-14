@@ -10,7 +10,7 @@ export class GameOver{
     }
 
     draw(ctx){
-        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillStyle = "rgba(0,0,0,1)";
         ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
         ctx.font = "50px Arial";
         ctx.fillStyle = "white";
