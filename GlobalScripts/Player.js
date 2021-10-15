@@ -145,14 +145,14 @@ export class Player{
                 
                 var x=(k%game.map.columns)*game.map.tileWidth + this.offsetX;
                 var y=Math.floor(k/game.map.columns)*game.map.tileWidth+game.map.tileHeight/5 ;  
-                var tileOffset=-(k%game.map.columns)*game.map.tileWidth+GameWidth/2+this.width/2;
+                
                 
 
                 if(y+game.map.tileHeight<this.position.y+this.height/5 && x+game.map.tileWidth>this.position.x && x<this.position.x+this.width){//if tile is above player
                         if(this.position.y+this.y_speed>y && this.position.y+this.y_speed <y+game.map.tileHeight){
                             this.position.y=y+game.map.tileHeight;
                             this.y_speed=0;
-                           console.log("hit up");
+                           
                         }
                 } 
 
@@ -174,10 +174,9 @@ export class Player{
                             
                         }else{
                             if(this.position.x<x+game.map.tileWidth-this.x_speed*deltaTime){
-                                console.log(this.offsetX);
+                                
                                 this.offsetX= -(k%game.map.columns)*game.map.tileWidth+this.gameWidth/2-this.width/2-game.map.tileWidth;
-                                console.log(this.offsetX);
-                                console.log()
+            
                                 if(this.x_speed <0){
                                     this.x_speed=0;
                                 }
@@ -242,6 +241,7 @@ export class Player{
         var tindex=0;
         var pindex=0;
         var hit=false;
+        console.log(cindex);
         for(var k=0;k<game.interactiveObjects.coinMap.length;k++){//checks if player and bullets are colliding with interactive objects(coins,enemies,chests,checkpoints)
             var value = game.interactiveObjects.coinMap[k];
             hit = false;
@@ -330,8 +330,9 @@ export class Player{
                             if(game.interactiveObjects.checkpoints[cindex]==1){//marks checkpoint if hit==true
                                 game.interactiveObjects.checkpoints[cindex] = 0;
                                 game.playerProgress.changeCookie("level"+game.level+"Checkpoints", game.interactiveObjects.checkpoints);
-                                game.interactiveObjects.checkPointAudio.play();
+                                game.interactiveObjects.checkPointAudio.play();       
                             }
+                            
                             break;
                         case 3:
                             if(game.interactiveObjects.enemies[eindex]==1){//kills enemie if hit==true
@@ -376,7 +377,6 @@ export class Player{
                          
                         } 
                 }
-                
                 switch (value){
                     case 1:
                         index++;
@@ -397,6 +397,7 @@ export class Player{
                         hindex++;
                         break;
                 }
+                
             }
         }
 
@@ -509,40 +510,59 @@ export class Player{
         var checkpoints=c[2].split(",");
         var k=0;
         var eindex=0;
+        var checkPosX=[];
+        var checkPosY=[];
         for(var j=0;j<checkpoints.length;j++){
             if(checkpoints[j]==0){
                 k++;
             }
         }
         
-    
-
-        for(var j=0;j<game.interactiveObjects.coinMap.length;j++){//respawns player depending on the last checkpoint
-            var value = game.interactiveObjects.coinMap[j];
-            
-            if(value==2){
-                eindex++;
-            }
-            if(k==0){//if no checkpoints marked
+        if(k==0){//if no checkpoints marked
                 this.offsetX=0;
                 this.position={
                     x:200,
                     y:200
                 }
+        }else{
+            for(var j=0;j<game.interactiveObjects.coinMap.length;j++){//respawns player depending on the last checkpoint
+            var value = game.interactiveObjects.coinMap[j];
+            
+            
+            
+            if(value==2){
+                if(checkpoints[eindex]==0){
+                    var y = Math.floor(j / game.interactiveObjects.columns) * game.interactiveObjects.height-this.height;
+                    var x = (j % game.interactiveObjects.columns) * game.interactiveObjects.width;
+                    checkPosX.push(x);
+                    checkPosY.push(y);
+                    
+                }
+                eindex++
             }
         
-
-            if(value==2 && eindex==k){
-                
-                var y = Math.floor(j / game.interactiveObjects.columns) * game.interactiveObjects.height-this.height;
-                var x = (j % game.interactiveObjects.columns) * game.interactiveObjects.width;
-                this.offsetX=this.gameWidth/2-x;
-                this.position.y=y;
-                
+            
             }
+            console.log(checkPosX);
+            for(var j=0;j<k;j++){
+                var spawnx=0;
+                var spawny=0;
+                if(j==0){
+                    spawnx=checkPosX[j];
+                    spawny=checkPosY[j];
+                }else if(spawnx<checkPosX[j]){
+                    spawnx=checkPosX[j];
+                    spawny=checkPosY[j];
+                }
+            }
+        
+            this.offsetX=this.gameWidth/2-spawnx;
+            this.position.y=spawny;
         }
-        var timeout;
-        timeout=setTimeout(function(){game.gameState=0;},2000);
+
+        
+
+
         
     }
 

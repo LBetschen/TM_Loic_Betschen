@@ -86,7 +86,6 @@ export class InteractiveObjects {
         
         this.heart=new Image();
         this.heart.src=document.getElementById("heart").src;
-        console.log(this.heart.naturalWidth,this.heart.naturalHeight);
         this.heart.ratio=this.heart.naturalWidth/this.heart.naturalHeight;
         this.heart.height=this.height;
         this.heart.width=this.heart.height*this.heart.ratio;
