@@ -74,11 +74,13 @@ export class Map{
             x:0,
             y:GameHeight-this.back.height
         }
-        this.tuto.width=GameWidth/3;
-        this.tuto.height=this.tuto.width/this.tuto.ratio;
-        this.tuto.position={
-            x:GameWidth/20+game.player.offsetX,
-            y:GameHeight/5
+        if(game.level=="1"){
+            this.tuto.width=GameWidth/3;
+            this.tuto.height=this.tuto.width/this.tuto.ratio;
+            this.tuto.position={
+                x:GameWidth/20+game.player.offsetX,
+                y:GameHeight/5
+            }
         }
 
 
@@ -87,7 +89,9 @@ export class Map{
     draw(ctx,game){
             
             ctx.drawImage(this.back,this.back.position.x,this.back.position.y,this.back.width,this.back.height);
-            ctx.drawImage(this.tuto,this.tuto.position.x,this.tuto.position.y,this.tuto.width,this.tuto.height);
+            if(game.level=="1"){
+                ctx.drawImage(this.tuto,this.tuto.position.x,this.tuto.position.y,this.tuto.width,this.tuto.height);
+            }
 
             for(var i = 0;i<this.map.length;i++){
                 var value=this.map[i];

@@ -86,6 +86,7 @@ export class InteractiveObjects {
         
         this.heart=new Image();
         this.heart.src=document.getElementById("heart").src;
+        console.log(this.heart.naturalWidth,this.heart.naturalHeight);
         this.heart.ratio=this.heart.naturalWidth/this.heart.naturalHeight;
         this.heart.height=this.height;
         this.heart.width=this.heart.height*this.heart.ratio;
@@ -106,6 +107,7 @@ export class InteractiveObjects {
             x:game.gameWidth/50,
             y:game.gameHeight/50
         }
+       
 
         this.powerCountHeight=game.gameHeight/25;
         this.powerCountWidth=this.powerCountHeight/this.powerLeaf.ratio;
@@ -335,12 +337,6 @@ export class InteractiveObjects {
         ctx.font = game.gameWidth/50+"px Arial";
         ctx.fillStyle = "black";
 
-        ctx.fillText(this.score, this.coinCountPosition.x+game.gameWidth/25, this.countPositionY);
-        ctx.drawImage(this.xCount,this.coinCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
-        ctx.drawImage(this.coinSheet,this.coinCountPosition.x,this.coinCountPosition.y,this.coinCountWidth,this.coinCountHeight);
-
-        
-
         ctx.fillText(game.player.hero.lives, this.heartCountPosition.x+game.gameWidth/25, this.countPositionY);
         ctx.drawImage(this.xCount,this.heartCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
         ctx.drawImage(this.heart,this.heartCountPosition.x,this.heartCountPosition.y,this.heartCountWidth,this.heartCountHeight);
@@ -349,6 +345,15 @@ export class InteractiveObjects {
         ctx.fillText(game.player.bulletAmmo, this.powerCountPosition.x+game.gameWidth/25,this.countPositionY);
         ctx.drawImage(this.xCount,this.powerCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
         ctx.drawImage(this.powerLeaf,this.powerCountPosition.x,this.powerCountPosition.y,this.powerCountWidth,this.powerCountHeight);
+
+        ctx.fillText(this.score, this.coinCountPosition.x+game.gameWidth/25, this.countPositionY);
+        ctx.drawImage(this.xCount,this.coinCountPosition.x+game.gameWidth/45,this.xCount.position.y,this.xCount.width,this.xCount.height);
+        ctx.drawImage(this.coinSheet,this.coinCountPosition.x,this.coinCountPosition.y,this.coinCountWidth,this.coinCountHeight);
+
+        
+
+        
+
 
 
     }
