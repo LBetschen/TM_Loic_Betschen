@@ -183,6 +183,23 @@ export class Settings{
          
         this.gameState=gameState;
 
+        this.settingsPage.height = GameWidth/2.2 ;
+        this.settingsPage.width = this.settingsPage.height/this.settingsPage.ratio ;
+        this.musicButton.height = GameWidth/20  ;
+        this.musicButton.width = GameWidth/20 ;
+        this.soundButton.height = GameWidth/20 ;
+        this.soundButton.width = GameWidth/20  ;
+        this.saveSettings.height = GameWidth/20  ;
+        this.saveSettings.width = this.saveSettings.height /this.saveSettings.ratio ;
+        this.musicSwitch.height = GameWidth/30  ;
+        this.musicSwitch.width = this.musicSwitch.height / this.musicSwitch.ratio  ;
+        this.soundSwitch.height = GameWidth/30  ;
+        this.soundSwitch.width = this.soundSwitch.height / this.soundSwitch.ratio  ;
+        
+        this.musicScroll.height = GameWidth/30 ;
+        this.musicScroll.width = GameWidth/30 ;
+        this.soundScroll.height = GameWidth/30 ;
+        this.soundScroll.width = GameWidth/30 ;
         
      
         this.settingsPage.position = {
@@ -220,23 +237,6 @@ export class Settings{
         }
         
 
-        this.settingsPage.height = GameWidth/2.2 ;
-        this.settingsPage.width = this.settingsPage.height/this.settingsPage.ratio ;
-        this.musicButton.height = GameWidth/20  ;
-        this.musicButton.width = GameWidth/20 ;
-        this.soundButton.height = GameWidth/20 ;
-        this.soundButton.width = GameWidth/20  ;
-        this.saveSettings.height = GameWidth/20  ;
-        this.saveSettings.width = this.saveSettings.height /this.saveSettings.ratio ;
-        this.musicSwitch.height = GameWidth/30  ;
-        this.musicSwitch.width = this.musicSwitch.height / this.musicSwitch.ratio  ;
-        this.soundSwitch.height = GameWidth/30  ;
-        this.soundSwitch.width = this.soundSwitch.height / this.soundSwitch.ratio  ;
-        
-        this.musicScroll.height = GameWidth/30 ;
-        this.musicScroll.width = GameWidth/30 ;
-        this.soundScroll.height = GameWidth/30 ;
-        this.soundScroll.width = GameWidth/30 ;
         
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.25;

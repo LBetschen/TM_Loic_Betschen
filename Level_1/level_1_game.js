@@ -73,6 +73,7 @@ export class level1Game {
         this.audio.play();
         
         this.map.update(deltaTime, GameWidth, GameHeight,this);
+        
         switch (this.gameState){
             case 0:
                 this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
@@ -118,7 +119,7 @@ export class level1Game {
             case 1:
                 this.player.draw(ctx);
                 this.buttons.draw(ctx);
-                ctx.fillText("PAUSED", this.gameWidth / 2, this.gameHeight / 4)
+                ctx.fillText("PAUSED", GameWidth / 2, GameHeight / 4)
                 break;
             case 2:
                 this.player.draw(ctx);
@@ -184,7 +185,7 @@ export class level1Game {
             case 0:
                 break;
             case 1:
-                this.buttons.toggleButton(mouseX, mouseY);
+                this.buttons.toggleButton(mouseX, mouseY,this);
                 break;
             case 2:
                 this.settings.toggleSettingButtons(this, mouseX, mouseY);                
@@ -192,7 +193,7 @@ export class level1Game {
             case 3:
                 break;
             case 4:
-                this.buttons.toggleButton(mouseX, mouseY);
+                this.buttons.toggleButton(mouseX, mouseY,this);
                 break;
         }
     }

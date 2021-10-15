@@ -54,34 +54,35 @@ export class LevelButtons{
     }
 
     update(deltaTime,GameWidth,GameHeight,game){
-        this.reloadButton.position={
-            x: this.gameWidth / 2-this.reloadButton.width/2,
-            y: this.gameHeight / 2 - this.reloadButton.width/2
-        }
         this.reloadButton.height=GameWidth / 20;
         this.reloadButton.width=GameWidth / 20;
-
-        this.returnButton.position={
-            x:this.reloadButton.position.x- this.returnButton.width*2,
-            y:this.gameHeight/2- this.returnButton.width/2
+        this.reloadButton.position={
+            x: GameWidth / 2-this.reloadButton.width/2,
+            y: GameHeight / 2 - this.reloadButton.width/2
         }
+
         this.returnButton.height=GameWidth / 20;
         this.returnButton.width=GameWidth / 20;
-
-
-        this.settingsButton.position = {
-            x: this.reloadButton.position.x +this.settingsButton.width*2,
-            y: this.gameHeight / 2- this.settingsButton.width/2
+        this.returnButton.position={
+            x:this.reloadButton.position.x- this.returnButton.width*2,
+            y:GameHeight/2- this.returnButton.width/2
         }
+
+
         this.settingsButton.height = GameWidth / 20 ;
         this.settingsButton.width = GameWidth / 20;
+        this.settingsButton.position = {
+            x: this.reloadButton.position.x +this.settingsButton.width*2,
+            y: GameHeight / 2- this.settingsButton.width/2
+        }
 
         var c= game.playerProgress.getCookie("soundVolume",false);
         this.buttonAudio.volume=c[2];
         
     }
 
-    toggleButton(mouseX,mouseY){
+    toggleButton(mouseX,mouseY,game){
+        
 
         this.buttons.forEach((object)=>{
             if(mouseX>=object.position.x && 
