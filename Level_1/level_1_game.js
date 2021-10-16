@@ -76,8 +76,8 @@ export class level1Game {
         
         switch (this.gameState){
             case 0:
-                this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
                 this.interactiveObjects.update(deltaTime, GameWidth, GameHeight, this.player, this,ctx);
+                this.player.update(deltaTime, GameWidth, GameHeight,this,ctx);
                 
                 break;
             case 1:

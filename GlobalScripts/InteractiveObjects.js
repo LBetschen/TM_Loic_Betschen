@@ -21,19 +21,18 @@ export class InteractiveObjects {
         this.coinAudio.src = document.getElementById("coinAudio").src;
 
         this.checkPointAudio = new Audio();
-        this.checkPointAudio.src = document.getElementById("coinAudio").src;
+        this.checkPointAudio.src = document.getElementById("checkAudio").src;
 
         this.powerChestAudio = new Audio();
-        this.powerChestAudio.src = document.getElementById("coinAudio").src;
+        this.powerChestAudio.src = document.getElementById("pchestAudio").src;
 
         this.coinChestAudio = new Audio();
-        this.coinChestAudio.src = document.getElementById("coinAudio").src;
+        this.coinChestAudio.src = document.getElementById("tchestAudio").src;
 
         this.enemieDeathAudio = new Audio();
-        this.enemieDeathAudio.src = document.getElementById("coinAudio").src;
+        this.enemieDeathAudio.src = document.getElementById("enemyDeath").src;
         
-        this.heartAudio = new Audio();
-        this.heartAudio.src = document.getElementById("coinAudio").src;
+        
 
         
 
@@ -159,7 +158,7 @@ export class InteractiveObjects {
         this.powerChestAudio.volume=c[2];
         this.coinChestAudio.volume=c[2];
         this.enemieDeathAudio.volume=c[2];
-        this.heartAudio.volume=c[2];
+       
 
 
         c=game.playerProgress.getCookie("level"+game.level+"Enemies",false);

@@ -22,14 +22,10 @@ export class Player{
         this.doubleJumpAudio=new Audio();
         this.doubleJumpAudio.src=document.getElementById("jumpAudio").src;
 
-        this.gameOverAudio=new Audio();
-        this.gameOverAudio.src=document.getElementById("jumpAudio").src;
-
-        this.deathAudio=new Audio();
-        this.deathAudio.src=document.getElementById("jumpAudio").src;
+        
 
         this.endLevelAudio=new Audio();
-        this.endLevelAudio.src=document.getElementById("jumpAudio").src;
+        this.endLevelAudio.src=document.getElementById("mailboxAudio").src;
         
         this.gameWidth=game.gameWidth;
         this.gameHeight=game.gameHeight;
@@ -73,8 +69,7 @@ export class Player{
         c= game.playerProgress.getCookie("soundVolume",false);
         this.jumpAudio.volume=c[2];
         this.doubleJumpAudio.volume=c[2];
-        this.gameOverAudio.volume=c[2];
-        this.deathAudio.volume=c[2];
+        
         this.endLevelAudio.volume=c[2];
 
        
@@ -109,7 +104,7 @@ export class Player{
     }
     
     update(deltaTime,GameWidth,GameHeight,game,ctx){
-        
+        console.log(this.offsetX);
 
         var c= game.playerProgress.getCookie("soundVolume",false);//gets volume of audio for jumping
         this.jumpAudio.volume=c[2];
@@ -166,7 +161,7 @@ export class Player{
 
                 }
                 if(x+game.map.tileWidth<this.position.x+this.width/2 && y<this.position.y+this.height&& y+game.map.tileHeight>this.position.y){//if the tile is on the left and not under nor above player
-                    if(this.offsetX==0){
+                    if(this.offsetX==0 || this.offsetX<=-game.map.maxMapWidth+GameWidth+this.width/2){
                             if(this.position.x+this.x_speed*deltaTime<x+game.map.tileWidth){
                                 this.position.x=x+game.map.tileWidth;
                                 this.x_speed=0;
@@ -189,7 +184,7 @@ export class Player{
                     
                 }
                 if(x>this.position.x+this.width/2 && y<this.position.y+this.height&& y+game.map.tileHeight>this.position.y){//if the tile is on the right and not under nor above player
-                    if(this.offsetX==0){
+                    if(this.offsetX==0|| this.offsetX<=-game.map.maxMapWidth+GameWidth+this.width/2){
                             if(this.position.x+this.width+this.x_speed*deltaTime>x ){
                                 this.position.x=x-this.width;
                                 this.x_speed=0;
@@ -241,7 +236,6 @@ export class Player{
         var tindex=0;
         var pindex=0;
         var hit=false;
-        console.log(cindex);
         for(var k=0;k<game.interactiveObjects.coinMap.length;k++){//checks if player and bullets are colliding with interactive objects(coins,enemies,chests,checkpoints)
             var value = game.interactiveObjects.coinMap[k];
             hit = false;
@@ -347,7 +341,7 @@ export class Player{
                                 
                                 if(this.hero.lives<=0){
                                     game.gameState=4;
-                                    this.gameOverAudio.play();
+                                    
                                 }
                             }
                             break;
@@ -356,7 +350,7 @@ export class Player{
                                 game.interactiveObjects.hearts[hindex]=0;
                                 game.playerProgress.changeCookie("level"+game.level+"Hearts", game.interactiveObjects.hearts);
                                 this.hero.lives++;
-                                game.interactiveObjects.heartAudio.play();
+                                
         
                             }
                             break;
@@ -402,7 +396,7 @@ export class Player{
         }
 
         
-           
+           console.log(this.offsetX);
         if(this.offsetX>=0 ){//moves map and player depending on the pos of the map and the player
             this.offsetX=0;
             this.position.x+=this.x_speed*deltaTime;
@@ -412,13 +406,17 @@ export class Player{
         }
         if(this.position.x>this.gameWidth/2-this.width/2 && this.offsetX>=0){
             this.offsetX-=this.x_speed*deltaTime;
+            this.position.x=this.gameWidth/2-this.width/2;
         }else if(this.position.x<this.gameWidth/2-this.width/2 && this.offsetX<=-game.map.maxMapWidth+this.gameWidth+this.width/2){
             this.offsetX-=this.x_speed*deltaTime;
+            this.position.x=this.gameWidth/2-this.width/2;
         }
         if(this.offsetX>-game.map.maxMapWidth+this.gameWidth+this.width/2 && this.offsetX<0 ){
             this.offsetX-=this.x_speed*deltaTime;
+            this.position.x=this.gameWidth/2-this.width/2;
         }
-
+        
+        
            
            
         
