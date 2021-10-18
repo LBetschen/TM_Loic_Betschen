@@ -144,7 +144,7 @@ export class Player{
                 
 
                 if(y+game.map.tileHeight<this.position.y+this.height/5 && x+game.map.tileWidth>this.position.x && x<this.position.x+this.width){//if tile is above player
-                        if(this.position.y+this.y_speed>y && this.position.y+this.y_speed <y+game.map.tileHeight){
+                        if(this.position.y+this.y_speed>y && this.position.y+this.y_speed<y+game.map.tileHeight){
                             this.position.y=y+game.map.tileHeight;
                             this.y_speed=0;
                            
@@ -333,7 +333,7 @@ export class Player{
                                 game.interactiveObjects.enemies[eindex]=0;
                                 game.playerProgress.changeCookie("level"+game.level+"Enemies", game.interactiveObjects.enemies);
                                 this.hero.lives--;
-                                this.deathAudio.play();
+                                
                               
                                 this.endAnimation(GameWidth,GameHeight,ctx);
                                 

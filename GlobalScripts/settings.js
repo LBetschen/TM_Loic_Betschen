@@ -29,6 +29,7 @@ export class Settings{
             x: this.settingsPage.position.x + this.musicButton.width ,
             y: this.settingsPage.position.y +this.musicButton.height*2.2
         }
+        
         this.maxScroll=this.settingsPage.position.x+this.settingsPage.width/1.15;
         this.minScroll=this.settingsPage.position.x+this.settingsPage.width/2.25;
         this.scrollLength=this.maxScroll-this.minScroll;
@@ -57,6 +58,7 @@ export class Settings{
             x: this.gameWidth /2-this.saveSettings.width/2,
             y: this.gameHeight /1.4
         }
+        this.saveSettings.audioPlaying=false;
 
 
         
@@ -76,6 +78,7 @@ export class Settings{
             x: this.musicButton.position.x+this.gameWidth/15,
             y: this.musicButton.position.y +this.musicButton.height/2-this.musicSwitch.height/2
         }
+        this.musicSwitch.audioPlaying=false;
 
         
         this.soundSwitch = new Image();
@@ -93,6 +96,7 @@ export class Settings{
             x: this.soundButton.position.x+this.gameWidth/15,
             y: this.soundButton.position.y +this.soundButton.height/2-this.soundSwitch.height/2
         }
+        this.soundSwitch.audioPlaying=false;
        
         
 
@@ -104,6 +108,7 @@ export class Settings{
         this.musicScroll.width = this.gameWidth/30 ;
         this.musicScroll.drag=false;
         this.musicScroll.onScroll=false;
+        this.musicScroll.audioPlaying=false;
         
         var c= game.playerProgress.getCookie("musicVolume",false);
         var pos= c[2]*this.scrollLength+this.minScroll+this.musicScroll.width/2;
@@ -137,6 +142,7 @@ export class Settings{
         this.soundScroll.width = this.gameWidth/30 ;
         this.soundScroll.drag=false;
         this.soundScroll.onScroll=false;
+        this.soundScroll.audioPlaying=false;
 
         c= game.playerProgress.getCookie("soundVolume",false);
         pos= c[2]*this.scrollLength+this.minScroll+this.soundScroll.width/2;
@@ -175,6 +181,10 @@ export class Settings{
             this.musicScroll,
             this.soundScroll
         ]
+        this.buttonAudio=new Audio();
+        this.buttonAudio.src=document.getElementById("buttonAudio").src;
+        var c= game.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
     }
 
     update(deltaTime, GameWidth, GameHeight, gameState, game) {
@@ -252,6 +262,9 @@ export class Settings{
         game.audio.volume=this.musicVolume;
         game.playerProgress.changeCookie("musicMuted",game.musicMuted);
         game.playerProgress.changeCookie("soundMuted",game.soundMuted);
+
+        var c= game.playerProgress.getCookie("soundVolume",false);
+        this.buttonAudio.volume=c[2];
         
     }
 
@@ -280,12 +293,20 @@ export class Settings{
                             break;
                         case 2:
                             this.saveSettings.src=document.getElementById(this.saveSettings.down).src;
+                            if(!this.saveSettings.audioPlaying){
+                                this.buttonAudio.play();
+                                this.saveSettings.audioPlaying=true;
+                            }
                             break;
                         case 3:
                             if(game.musicMuted ==false){
                                 this.musicSwitch.src=document.getElementById(this.musicSwitch.onDown).src;
                             }else{
                                 this.musicSwitch.src=document.getElementById(this.musicSwitch.offDown).src;
+                            }
+                            if(!this.musicSwitch.audioPlaying){
+                                this.buttonAudio.play();
+                                this.musicSwitch.audioPlaying=true;
                             }
                             break;
                         case 4:
@@ -294,12 +315,24 @@ export class Settings{
                             }else{
                                 this.soundSwitch.src=document.getElementById(this.soundSwitch.offDown).src;
                             }
+                            if(!this.soundSwitch.audioPlaying){
+                                this.buttonAudio.play();
+                                this.soundSwitch.audioPlaying=true;
+                            }
                             break;
                         case 5:
                             this.musicScroll.src=document.getElementById(this.musicScroll.down).src;
+                            if(!this.musicScroll.audioPlaying){
+                                this.buttonAudio.play();
+                                this.musicScroll.audioPlaying=true;
+                            }
                             break;
                         case 6:
                             this.soundScroll.src=document.getElementById(this.soundScroll.down).src;
+                            if(!this.soundScroll.audioPlaying){
+                                this.buttonAudio.play();
+                                this.soundScroll.audioPlaying=true;
+                            }
                             break;
                     }               
             } else {
@@ -310,6 +343,7 @@ export class Settings{
                         break;
                     case 2:
                         this.saveSettings.src=document.getElementById(this.saveSettings.up).src;
+                        this.saveSettings.audioPlaying=false;
                         break;
                     case 3:
                         if(game.musicMuted==false){
@@ -317,6 +351,7 @@ export class Settings{
                         }else{
                             this.musicSwitch.src=document.getElementById(this.musicSwitch.offUp).src;                          
                         }
+                        this.musicSwitch.audioPlaying=false;
                         break;
                     case 4:
                         if(game.soundMuted==false){
@@ -324,12 +359,16 @@ export class Settings{
                         }else{
                             this.soundSwitch.src=document.getElementById(this.soundSwitch.offUp).src;
                         }
+                        this.soundSwitch.audioPlaying=false;
+                        
                         break;
                     case 5:
                         this.musicScroll.src=document.getElementById(this.musicScroll.up).src;
+                        this.musicScroll.audioPlaying=false;
                         break;
                     case 6:
-                        this.soundScroll.src=document.getElementById(this.soundScroll.up).src                     
+                        this.soundScroll.src=document.getElementById(this.soundScroll.up).src           
+                        this.soundScroll.audioPlaying=false;          
                         break;
                 }          
             }
@@ -354,7 +393,7 @@ export class Settings{
                             break;
                         case 2:
                             game.gameState = 0;
-                            console.log(game.gameState);
+        
                             break;
                         case 3:
                             if(!game.musicMuted){

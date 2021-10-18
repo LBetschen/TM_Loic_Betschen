@@ -21,7 +21,6 @@ export class MapGame {
         this.soundMuted=false;
         this.frameOffsetX=parseInt(FrameOffsetX);
         this.frameOffsetY=parseInt(FrameOffsetY);
-        console.log(this.frameOffsetX);
 
         this.audio = new Audio();//audio for the menu
         this.audio.src = document.getElementById("backgroundSound2").src;

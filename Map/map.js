@@ -54,6 +54,10 @@ export class Map{
             this.settingsButton,
             this.returnButton
         ]
+
+       
+        
+        
     }
 
     update(deltaTime,GameWidth,GameHeight,game){  
@@ -92,7 +96,9 @@ export class Map{
         var c= game.playerProgress.getCookie("soundVolume",false);
        
         this.buttonAudio.volume=c[2];
-             
+
+       
+       
     }
 
     draw(ctx){
@@ -104,6 +110,7 @@ export class Map{
         ctx.drawImage(this.returnButton,this.returnButton.position.x,this.returnButton.position.y,this.returnButton.width,this.returnButton.height);
         
         
+
     }
 
     toggleClick(mouseX,mouseY,game){
