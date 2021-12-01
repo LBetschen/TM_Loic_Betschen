@@ -129,8 +129,10 @@ export class Game {
                     object.audioPlaying=false;
                 }
             });
+        }else if(this.gameState==2){
+
+            this.settings.toggleSettingButtons(this, mouseX, mouseY);
         }
-        this.settings.toggleSettingButtons(this, mouseX, mouseY);
        
 
     }

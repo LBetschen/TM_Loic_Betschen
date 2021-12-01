@@ -69,7 +69,9 @@ export class MapGame {
             this.levelButtons.toggleButton(mouseX, mouseY);
         }
             this.map.toggleButton(mouseX, mouseY);
-            this.settings.toggleSettingButtons(this, mouseX, mouseY);
+            if(this.gameState==2){
+                this.settings.toggleSettingButtons(this, mouseX, mouseY);
+            }
         
         
 
